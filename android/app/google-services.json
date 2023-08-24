@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "671632150189",
+    "project_id": "appmedi-d2168",
+    "storage_bucket": "appmedi-d2168.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:671632150189:android:419c85b23113b26cd18024",
+        "android_client_info": {
+          "package_name": "com.example.app_medi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "671632150189-krsd0j2bf9v2lpf77b6iqh6aj63dqs21.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzEuH103QfN01MM0AOTvQNjZWlfPPxUkI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "671632150189-krsd0j2bf9v2lpf77b6iqh6aj63dqs21.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
