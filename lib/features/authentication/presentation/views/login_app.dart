@@ -1,3 +1,4 @@
+import 'package:app_medi/routes/router.gr.dart';
 import 'package:app_medi/shared/my_assets.dart';
 import 'package:app_medi/shared/values/values.dart';
 import 'package:auto_route/auto_route.dart';
@@ -91,7 +92,7 @@ class _LoginViewState extends State<LoginView> {
                       Material(
                         child: InkWell(
                           onTap: (){
-                            
+                            context.router.push(const RegisterView());
                           },
                           child: const Text(
                             "Registrate",
