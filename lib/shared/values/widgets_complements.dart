@@ -9,7 +9,6 @@ Row row(
   );
 }
 
-
 Color getColor(Set<MaterialState> states) {
   const Set<MaterialState> interactiveStates = <MaterialState>{
     MaterialState.pressed,
@@ -147,10 +146,6 @@ DropdownButton<dynamic> dropdownButton({
       onChanged: onChanged);
 }
 
-
-
-
-
 Widget textInput(
     String label, TextEditingController controller, bool isDropdown,
     {bool isRequired = true,
@@ -222,6 +217,89 @@ Widget textInput(
           borderSide: BorderSide(
             color: Colors.red,
             width: 1,
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
+Container inputWidgetCard(
+    {required String label,
+    required icon,
+    required TextEditingController controller,
+    required String hintText}) {
+  return Container(
+    width: double.infinity,
+    height: 120,
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: const BorderRadius.all(Radius.circular(20)),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withOpacity(0.2),
+          offset: const Offset(1, 4),
+          blurRadius: 2,
+        ),
+      ],
+    ),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              label,
+              style: const TextStyle(
+                fontSize: 21,
+                fontWeight: FontWeight.w500,
+              ),
+            ).paddingLeft(15),
+            Icon(
+              icon,
+              size: 25,
+            ).paddingRight(20)
+          ],
+        ),
+        TextFormField(
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            hintText: hintText,
+          ),
+        ).paddingOnly(left: 15, right: 15)
+      ],
+    ),
+  );
+}
+
+Material buttonWidgetApp({
+  required String label,
+  double fontSize = 25,
+  Color color = Colors.black,
+  Color labelColor = Colors.white,
+  required VoidCallback onTap
+}) {
+  return Material(
+    child: InkWell(
+      onTap: onTap,
+      child: Container(
+        width: double.infinity,
+        height: 65,
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: const BorderRadius.all(
+            Radius.circular(20),
+          ),
+        ),
+        child: Center(
+          child: Text(
+            label,
+            style: TextStyle(
+              color: labelColor,
+              fontSize: fontSize,
+            ),
           ),
         ),
       ),
