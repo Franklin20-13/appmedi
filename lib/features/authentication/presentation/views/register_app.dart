@@ -112,12 +112,14 @@ class _RegisterViewState extends State<RegisterView> {
                           icon: Icons.key_rounded,
                           controller: _passwordController,
                           hintText: 'Ingrese Contraseña',
+                          obscureText: true
                         ).paddingTop(7),
                         inputWidgetCard(
                           label: 'Confirmar Contraseña',
                           icon: Icons.key_rounded,
                           controller: _comfirmPasswordController,
                           hintText: 'Repita la contraseña',
+                          obscureText: true
                         ).paddingTop(7),
                         buttonWidgetApp(
                           label: 'Ingresar',

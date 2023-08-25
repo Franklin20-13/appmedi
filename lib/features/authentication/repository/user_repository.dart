@@ -17,8 +17,8 @@ class UserRepository implements IUserRepository {
       if(getUser.docs.isEmpty){
         return left(const  ServerFailure('el usuario no existe'));
       }
-      final userDocs = getUser.docs.first.data();
-      final model = UserEntity.fromJson(userDocs as Map<String, dynamic>);
+      final userDocs = getUser.docs.first;
+      final model = UserEntity.fromJson(userDocs.data() as Map<String, dynamic>, id: userDocs.id);
       return right(model);
     } catch (e) {
       return const Left(ServerFailure(""));

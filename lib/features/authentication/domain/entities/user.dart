@@ -20,13 +20,14 @@ class UserEntity {
       role: snapshot.get(UserFields.role),
     );
   }
-  factory UserEntity.fromJson(Map<String, dynamic> json) {
+  factory UserEntity.fromJson(Map<String, dynamic> json, {String? id}) {
     return UserEntity(
-      id: json.containsKey(UserFields.id) ? json[UserFields.id] : '',
-      userName: json.containsKey(UserFields.userName) ? json[UserFields.userName] : '',
-      pass: json.containsKey(UserFields.pass) ? json[UserFields.pass] : '',
-      role: json.containsKey(UserFields.role) ? json[UserFields.role] : 0
-    );
+        id: json.containsKey(UserFields.id) ? json[UserFields.id] : id ?? '',
+        userName: json.containsKey(UserFields.userName)
+            ? json[UserFields.userName]
+            : '',
+        pass: json.containsKey(UserFields.pass) ? json[UserFields.pass] : '',
+        role: json.containsKey(UserFields.role) ? json[UserFields.role] : 0);
   }
 }
 

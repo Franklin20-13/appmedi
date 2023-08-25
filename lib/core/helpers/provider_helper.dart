@@ -14,7 +14,7 @@ class BlocProviderHelper {
       create: (_) => getIt<LoginBloc>(),
     ),
     BlocProvider<SessionBloc>(
-      create: (_) => getIt<SessionBloc>(),
+      create: (_) => getIt<SessionBloc>()..add(CheckedSession()),
     ),
   ];
 }

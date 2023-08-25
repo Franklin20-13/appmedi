@@ -9,56 +9,35 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:app_medi/features/authentication/presentation/views/login_app.dart'
-    as _i2;
+    as _i1;
 import 'package:app_medi/features/authentication/presentation/views/register_app.dart'
-    as _i3;
-import 'package:app_medi/features/home/presentation/views/home.dart' as _i1;
-import 'package:auto_route/auto_route.dart' as _i4;
+    as _i2;
+import 'package:auto_route/auto_route.dart' as _i3;
 
-abstract class $AppRouter extends _i4.RootStackRouter {
+abstract class $AppRouter extends _i3.RootStackRouter {
   $AppRouter({super.navigatorKey});
 
   @override
-  final Map<String, _i4.PageFactory> pagesMap = {
-    HomeView.name: (routeData) {
-      return _i4.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const _i1.HomeView(),
-      );
-    },
+  final Map<String, _i3.PageFactory> pagesMap = {
     LoginView.name: (routeData) {
-      return _i4.AutoRoutePage<dynamic>(
+      return _i3.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i2.LoginView(),
+        child: const _i1.LoginView(),
       );
     },
     RegisterView.name: (routeData) {
-      return _i4.AutoRoutePage<dynamic>(
+      return _i3.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i3.RegisterView(),
+        child: const _i2.RegisterView(),
       );
     },
   };
 }
 
 /// generated route for
-/// [_i1.HomeView]
-class HomeView extends _i4.PageRouteInfo<void> {
-  const HomeView({List<_i4.PageRouteInfo>? children})
-      : super(
-          HomeView.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'HomeView';
-
-  static const _i4.PageInfo<void> page = _i4.PageInfo<void>(name);
-}
-
-/// generated route for
-/// [_i2.LoginView]
-class LoginView extends _i4.PageRouteInfo<void> {
-  const LoginView({List<_i4.PageRouteInfo>? children})
+/// [_i1.LoginView]
+class LoginView extends _i3.PageRouteInfo<void> {
+  const LoginView({List<_i3.PageRouteInfo>? children})
       : super(
           LoginView.name,
           initialChildren: children,
@@ -66,13 +45,13 @@ class LoginView extends _i4.PageRouteInfo<void> {
 
   static const String name = 'LoginView';
 
-  static const _i4.PageInfo<void> page = _i4.PageInfo<void>(name);
+  static const _i3.PageInfo<void> page = _i3.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i3.RegisterView]
-class RegisterView extends _i4.PageRouteInfo<void> {
-  const RegisterView({List<_i4.PageRouteInfo>? children})
+/// [_i2.RegisterView]
+class RegisterView extends _i3.PageRouteInfo<void> {
+  const RegisterView({List<_i3.PageRouteInfo>? children})
       : super(
           RegisterView.name,
           initialChildren: children,
@@ -80,5 +59,5 @@ class RegisterView extends _i4.PageRouteInfo<void> {
 
   static const String name = 'RegisterView';
 
-  static const _i4.PageInfo<void> page = _i4.PageInfo<void>(name);
+  static const _i3.PageInfo<void> page = _i3.PageInfo<void>(name);
 }

@@ -224,11 +224,17 @@ Widget textInput(
   );
 }
 
-Container inputWidgetCard(
-    {required String label,
-    required icon,
-    required TextEditingController controller,
-    required String hintText}) {
+Container inputWidgetCard({
+  required String label,
+  required icon,
+  required TextEditingController controller,
+  required String hintText,
+  bool isRequired = false,
+  bool isMultiEmail = false,
+  bool enabled = true,
+  bool obscureText = false,
+  TextInputType inputType = TextInputType.text,
+}) {
   return Container(
     width: double.infinity,
     height: 120,
@@ -264,23 +270,53 @@ Container inputWidgetCard(
           ],
         ),
         TextFormField(
-          decoration: InputDecoration(
-            border: InputBorder.none,
-            hintText: hintText,
-          ),
-        ).paddingOnly(left: 15, right: 15)
+            controller: controller,
+            enabled: enabled,
+            obscureText: obscureText,
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              hintText: hintText,
+            ),
+            validator: (value) {
+              if (!isRequired) {
+                return null;
+              }
+
+              if (value != null && value.trim().length < 3) {
+                return 'Campo requerido';
+              }
+              if (inputType == TextInputType.emailAddress) {
+                if (isMultiEmail) {
+                  final res = value!.split(";");
+                  bool isError = false;
+                  for (final item in res) {
+                    if (!FuntionsApp().isEmailValid(item)) {
+                      isError = true;
+                      break;
+                    }
+                  }
+                  if (isError) {
+                    return 'Ingrese un email valido';
+                  }
+                  return null;
+                }
+                if (!FuntionsApp().isEmailValid(value!)) {
+                  return 'Ingrese un email valido';
+                }
+              }
+              return null;
+            }).paddingOnly(left: 15, right: 15)
       ],
     ),
   );
 }
 
-Material buttonWidgetApp({
-  required String label,
-  double fontSize = 25,
-  Color color = Colors.black,
-  Color labelColor = Colors.white,
-  required VoidCallback onTap
-}) {
+Material buttonWidgetApp(
+    {required String label,
+    double fontSize = 25,
+    Color color = Colors.black,
+    Color labelColor = Colors.white,
+    required VoidCallback onTap}) {
   return Material(
     child: InkWell(
       onTap: onTap,
