@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../routes/router.gr.dart';
-import '../../../home/presentation/views/home.dart' ;
+import '../../../home/presentation/views/home.dart';
 import '../bloc/login/login_bloc.dart';
 
 @RoutePage()
@@ -50,7 +50,10 @@ class _LoginViewState extends State<LoginView> {
           if (state is Authenticated) {
             return const HomeView();
           }
-          return loginViewWidget(size, context);
+          if (state is Unauthenticated) {
+            return loginViewWidget(size, context);
+          }
+          return const Scaffold();
         },
       ),
     );
