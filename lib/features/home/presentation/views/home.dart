@@ -1,52 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../authentication/domain/entities/user.dart';
+import '../../domain/entities/menu_options.dart';
 import '../bloc/people/people_bloc.dart';
+import '../cubit/home_cubit.dart';
+import '../widgets/buttom_navigator_bar.dart';
 
 class HomeView extends StatefulWidget {
-  const HomeView({super.key});
-
+  const HomeView({super.key, required this.user});
+  final UserEntity user;
   @override
   State<HomeView> createState() => _HomeViewState();
 }
 
 class _HomeViewState extends State<HomeView> {
   late PeopleBloc peopleBloc;
+  late List<OptionHome> options = [];
   @override
   void initState() {
     peopleBloc = context.read<PeopleBloc>();
-    peopleBloc.add(const PeopleEvent.getPeople());
+    //peopleBloc.add(const PeopleEvent.getPeople());
+    if (widget.user.role == 0) {
+      options.addAll(listUser);
+    } else {
+      options.addAll(listDoctor);
+    }
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('holaaa'),
-        ),
-        body: BlocBuilder<PeopleBloc, PeopleState>(builder: (context, state) {
-          return state.map(
-            initial: (_) => const Center(
-              child: Text('Cargando...'),
-            ),
-            loadSuccess: (s) {
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: List.generate(
-                    s.people.length,
-                    (index) {
-                      return Text(s.people[index].name);
-                    },
-                  ),
-                ),
-              );
-            },
-            loadMessage: (m) {
-              return Text(m.message);
-            },
-          );
-        }));
+      body: BlocBuilder<HomeCubit, int>(builder: (context, state) {
+        return options[state].child;
+      }),
+      bottomNavigationBar: ButtonNavigatorBarWidget(options: options),
+    );
   }
 }

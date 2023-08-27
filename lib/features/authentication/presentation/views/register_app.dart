@@ -122,7 +122,7 @@ class _RegisterViewState extends State<RegisterView> {
                           obscureText: true
                         ).paddingTop(7),
                         buttonWidgetApp(
-                          label: 'Ingresar',
+                          label: 'Guardar',
                           onTap: () {},
                         ).paddingOnly(top: 10, bottom: 15),
                         Row(

@@ -48,7 +48,7 @@ class _LoginViewState extends State<LoginView> {
       child: BlocBuilder<SessionBloc, SessionState>(
         builder: (context, state) {
           if (state is Authenticated) {
-            return const HomeView();
+            return  HomeView(user:state.user);
           }
           if (state is Unauthenticated) {
             return loginViewWidget(size, context);
