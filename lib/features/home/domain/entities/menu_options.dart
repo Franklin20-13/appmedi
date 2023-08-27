@@ -1,6 +1,7 @@
 import 'package:app_medi/config/custom_icons.dart';
 import 'package:flutter/material.dart';
 
+import '../../../medicines/presentation/views/medicines_view.dart';
 import '../../presentation/views/profile_user.dart';
 
 class OptionHome {
@@ -19,7 +20,7 @@ List<OptionHome> listUser = [
   OptionHome(
     icon: MediIcons.capsules,
     title: 'Medicamentos',
-    child: Container(),
+    child: const MedicinesView(),
   ),
   OptionHome(
     icon: MediIcons.first_aid,
@@ -28,7 +29,7 @@ List<OptionHome> listUser = [
   ),
   OptionHome(
     icon: MediIcons.file_medical,
-    title: 'Tomas',
+    title: 'Tratamientos',
     child: Container(),
   ),
 ];

@@ -20,7 +20,7 @@ class _ProfileHomeViewState extends State<ProfileHomeView> {
     return Container(
       width: double.infinity,
       height: double.infinity,
-      color: Colors.blueAccent,
+      color: AppColors.primaryColor,
       child: Stack(
         children: [
           Align(
@@ -113,7 +113,7 @@ class _ProfileHomeViewState extends State<ProfileHomeView> {
                           width: size.width * .3,
                           height: double.infinity,
                           decoration: const BoxDecoration(
-                            color: Colors.blueAccent,
+                            color: AppColors.primaryColor,
                             borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(20),
                               bottomLeft: Radius.circular(20),

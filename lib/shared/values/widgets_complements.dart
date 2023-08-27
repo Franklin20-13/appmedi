@@ -226,7 +226,7 @@ Widget textInput(
 
 Container inputWidgetCard({
   required String label,
-  required icon,
+  required IconData icon,
   required TextEditingController controller,
   required String hintText,
   bool isRequired = false,

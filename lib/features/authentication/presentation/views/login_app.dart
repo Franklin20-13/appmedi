@@ -61,7 +61,7 @@ class _LoginViewState extends State<LoginView> {
 
   Scaffold loginViewWidget(Size size, BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueAccent,
+      backgroundColor: AppColors.primaryColor,
       body: Stack(
         children: [
           Positioned(
