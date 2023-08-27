@@ -316,13 +316,15 @@ Material buttonWidgetApp(
     double fontSize = 25,
     Color color = Colors.black,
     Color labelColor = Colors.white,
+    double width= double.infinity,
+    double height=65,
     required VoidCallback onTap}) {
   return Material(
     child: InkWell(
       onTap: onTap,
       child: Container(
-        width: double.infinity,
-        height: 65,
+        width: width,
+        height: height,
         decoration: BoxDecoration(
           color: color,
           borderRadius: const BorderRadius.all(

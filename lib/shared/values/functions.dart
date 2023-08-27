@@ -1,4 +1,5 @@
 // ignore_for_file: unnecessary_type_check
+import 'package:auto_route/auto_route.dart';
 import 'package:intl/intl.dart';
 
 class FuntionsApp {
@@ -14,6 +15,16 @@ class FuntionsApp {
   DateTime parseData(DateTime data) {
     final date = DateFormat('yyyy-MM-dd').format(data);
     return DateTime.parse("$date 00:00:00");
+  }
+
+  bool minorDate(DateTime date1, DateTime date2) {
+    bool state = false;
+    if (date1.day < date2.day &&
+        date1.month < date2.month &&
+        date1.year < date2.year) {
+      state = true;
+    }
+    return state;
   }
 
   String primeraLetraMayuscula(String name) {

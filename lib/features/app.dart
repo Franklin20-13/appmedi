@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import '../routes/router.dart';
 
@@ -16,6 +17,12 @@ class _AppMediState extends State<AppMedi> {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       routerConfig: router.config(),
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: const [Locale('es')],
     );
   }
 }
