@@ -1,5 +1,3 @@
-// ignore_for_file: unnecessary_type_check
-import 'package:auto_route/auto_route.dart';
 import 'package:intl/intl.dart';
 
 class FuntionsApp {
@@ -17,6 +15,11 @@ class FuntionsApp {
     return DateTime.parse("$date 00:00:00");
   }
 
+  DateTime parseTime(DateTime data) {
+    final date = DateFormat('HH:mm:ss').format(data);
+    return DateTime.parse("1998-06-25 $date");
+  }
+
   bool minorDate(DateTime date1, DateTime date2) {
     bool state = false;
     if (date1.day < date2.day &&
@@ -31,22 +34,6 @@ class FuntionsApp {
     String primeraLetra = name.substring(0, 1).toUpperCase();
     String restoDeLaCadena = name.substring(1).toLowerCase();
     return primeraLetra + restoDeLaCadena;
-  }
-
-  String slice(String subject, [int start = 0, int end = 0]) {
-    if (subject is! String) {
-      return '';
-    }
-
-    int realEnd;
-    int realStart = start < 0 ? subject.length + start : start;
-    if (end is! int) {
-      realEnd = subject.length;
-    } else {
-      realEnd = end < 0 ? subject.length + end : end;
-    }
-
-    return subject.substring(realStart, realEnd);
   }
 
   bool isEmailValid(String email) {

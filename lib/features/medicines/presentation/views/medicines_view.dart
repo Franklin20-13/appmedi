@@ -1,3 +1,4 @@
+import 'package:app_medi/features/medicines/domain/models/medicament_model.dart';
 import 'package:app_medi/shared/values/values.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -98,13 +99,15 @@ class _MedicinesViewState extends State<MedicinesView> {
                                 ),
                               ),
                               Column(
-                                children: [
-                                  itemsMedicmantWidget(size).paddingBottom(10),
-                                  itemsMedicmantWidget(size).paddingBottom(10),
-                                  itemsMedicmantWidget(size).paddingBottom(10),
-                                  itemsMedicmantWidget(size).paddingBottom(10),
-                                  itemsMedicmantWidget(size).paddingBottom(10)
-                                ],
+                                children: List.generate(
+                                  listMedicaments.length,
+                                  (index) {
+                                    return itemsMedicmantWidget(
+                                      size,
+                                      listMedicaments[index],
+                                    ).paddingBottom(10);
+                                  },
+                                ),
                               ).paddingTop(17)
                             ],
                           )
@@ -178,10 +181,10 @@ class _MedicinesViewState extends State<MedicinesView> {
     );
   }
 
-  Container itemsMedicmantWidget(Size size) {
+  Container itemsMedicmantWidget(Size size, MedicamentModel item) {
     return Container(
       width: double.infinity,
-      height: 70,
+      height: 5+60,
       decoration: BoxDecoration(
         border: Border.all(
           color: Colors.black,
@@ -223,7 +226,7 @@ class _MedicinesViewState extends State<MedicinesView> {
                       ),
                     ),
                     Expanded(
-                      child: const Text('Panadol forte').paddingLeft(10),
+                      child: Text(item.name).paddingLeft(10),
                     ),
                   ],
                 ),
@@ -236,20 +239,7 @@ class _MedicinesViewState extends State<MedicinesView> {
                       ),
                     ),
                     Expanded(
-                      child: const Text('Pastilla').paddingLeft(10),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    const Text(
-                      'Cantidad:',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Expanded(
-                      child: const Text('20').paddingLeft(10),
+                      child: Text(item.type).paddingLeft(10),
                     ),
                   ],
                 ),
@@ -266,15 +256,10 @@ class _MedicinesViewState extends State<MedicinesView> {
                 bottomRight: Radius.circular(20),
               ),
             ),
-            child: const Center(
-              child: Text(
-                '300 Mg',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontSize: 21,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w500),
-              ),
+            child: const Icon(
+              Icons.edit,
+              size: 35,
+              color: Colors.white,
             ),
           )
         ],

@@ -316,8 +316,8 @@ Material buttonWidgetApp(
     double fontSize = 25,
     Color color = Colors.black,
     Color labelColor = Colors.white,
-    double width= double.infinity,
-    double height=65,
+    double width = double.infinity,
+    double height = 65,
     required VoidCallback onTap}) {
   return Material(
     child: InkWell(
@@ -341,6 +341,69 @@ Material buttonWidgetApp(
           ),
         ),
       ),
+    ),
+  );
+}
+
+Padding dropdownButtonFormSearch<T>(
+    {required List<T> items,
+    required DropdownSearchFilterFn<T>? filterFn,
+    required String Function(T)? itemAsString,
+    required String label,
+    required void Function(T?)? onChanged,
+    required T? selectedItem,
+    bool isRequired = true}) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: const TextStyle(fontSize: 14),
+        ).paddingOnly(left: 10, bottom: 5),
+        DropdownSearch<T>(
+          items: items,
+          itemAsString: itemAsString,
+          selectedItem: selectedItem,
+          onChanged: onChanged,
+          filterFn: filterFn,
+          popupProps: PopupProps.dialog(
+            showSearchBox: true,
+            title: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Center(
+                child: Text(
+                  label,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    color: AppColors.primaryColor,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+            searchFieldProps: TextFieldProps(
+              decoration: InputDecoration(
+                icon: const Icon(Icons.search),
+                hintText: 'Buscar $label',
+              ),
+            ),
+          ),
+          validator: (value) {
+            if (!isRequired) {
+              return null;
+            }
+            if (value == null) {
+              return 'Campo requerido';
+            }
+            return null;
+          },
+        ),
+        const SizedBox(
+          height: 5,
+        ),
+      ],
     ),
   );
 }

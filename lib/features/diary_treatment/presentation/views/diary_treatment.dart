@@ -1,10 +1,12 @@
 import 'package:app_medi/config/custom_icons.dart';
-import 'package:app_medi/features/diary_treatment/presentation/widget/calendarWidget.dart';
+import 'package:app_medi/features/medicines/domain/models/medicament_model.dart';
+import 'package:app_medi/shared/values/functions.dart';
 import 'package:app_medi/shared/values/values.dart';
+import 'package:calendar_date_picker2/calendar_date_picker2.dart';
+import 'package:datetime_picker_formfield_new/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../../../../shared/values/functions.dart';
+import 'package:intl/intl.dart';
 
 class DiaryTreatmentView extends StatefulWidget {
   const DiaryTreatmentView({super.key});
@@ -14,8 +16,24 @@ class DiaryTreatmentView extends StatefulWidget {
 }
 
 class _DiaryTreatmentViewState extends State<DiaryTreatmentView> {
+  late TextEditingController _quantityController;
+  late TextEditingController _measureController;
+  late TextEditingController _timeController;
+  final formatTime = DateFormat("HH:mm");
+  List<DateTime> dates = [];
+  List<DateTime> hours = [];
   int next = 0;
+  DateTime? fecha;
   late DateTime dateSelected;
+  @override
+  void initState() {
+    _quantityController = TextEditingController(text: '');
+    _measureController = TextEditingController(text: '');
+    _timeController = TextEditingController(text: '');
+    super.initState();
+  }
+
+  MedicamentModel? selectedMedicament;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -56,49 +74,170 @@ class _DiaryTreatmentViewState extends State<DiaryTreatmentView> {
                         style: GoogleFonts.montserrat(
                             fontSize: 21, fontWeight: FontWeight.bold)),
                   ),
-                  if (next == 0)
-                    Column(
-                      children: [
-                        CalendarWidget(
-                          onchange: (date) {
-                            dateSelected = date;
-                          },
+                  Card(
+                    child: ExpansionTile(
+                      initiallyExpanded: true,
+                      title: const Text(
+                        'Dosis',
+                        style: TextStyle(
+                          color: AppColors.primaryColor,
                         ),
-                        buttonWidgetApp(
-                          label: 'Continuar',
-                          onTap: () {
-                            if (FuntionsApp()
-                                .minorDate(dateSelected, DateTime.now())) {
-                              int dt = dateSelected.compareTo(DateTime.now());
-                              if (dt == 0) {
-                                setState(() {
-                                  next = 1;
-                                });
-                                return;
-                              }
-                              showInSnackBar(
-                                  context, "No se permite fechas transcurridas",
-                                  color: Colors.red);
+                      ),
+                      children: [
+                        dropdownButtonFormSearch<MedicamentModel>(
+                          filterFn:
+                              (MedicamentModel person, String searchTerm) {
+                            return person.name
+                                .toLowerCase()
+                                .contains(searchTerm.toLowerCase());
+                          },
+                          itemAsString: (MedicamentModel data) => data.name,
+                          items: listMedicaments,
+                          label: 'Medicamentos',
+                          onChanged: (MedicamentModel? selectedData) {
+                            if (selectedData != null) {
+                              selectedMedicament = selectedData;
+                            }
+                          },
+                          selectedItem: selectedMedicament,
+                        ),
+                        textInput('Cantidad', _quantityController, false,
+                            code: '',
+                            clave: 0,
+                            inputType: TextInputType.number),
+                        textInput('Medida', _measureController, false,
+                                code: '',
+                                clave: 0,
+                                inputType: TextInputType.text)
+                            .paddingBottom(5)
+                      ],
+                    ),
+                  ).paddingTop(20),
+                  Card(
+                    child: ExpansionTile(
+                      initiallyExpanded: true,
+                      title: const Text(
+                        'Periodo',
+                        style: TextStyle(
+                          color: AppColors.primaryColor,
+                        ),
+                      ),
+                      children: [
+                        CalendarDatePicker2(
+                          config: CalendarDatePicker2Config(
+                              calendarType: CalendarDatePicker2Type.range,
+                              selectedDayHighlightColor:
+                                  AppColors.primaryColor),
+                          value: dates,
+                          onValueChanged: (dates) => dates = dates,
+                        )
+                      ],
+                    ),
+                  ),
+                  Card(
+                    child: ExpansionTile(
+                      initiallyExpanded: true,
+                      title: const Text(
+                        'Horarios',
+                        style: TextStyle(
+                          color: AppColors.primaryColor,
+                        ),
+                      ),
+                      children: [
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: List.generate(
+                              hours.length,
+                              (index) {
+                                return itemHourWidget(hours[index], index)
+                                    .paddingRight(10);
+                              },
+                            ),
+                          ).paddingBottom(10),
+                        ),
+                        DateTimeField(
+                          format: formatTime,
+                          controller: _timeController,
+                          validator: (value) => validaHora(value!, fecha),
+                          decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.symmetric(
+                              vertical: 3,
+                              horizontal: 10,
+                            ),
+                            labelText: 'Selecione',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                          ),
+                          onChanged: (data) {
+                            setState(() {});
+                            if (data == null) {
                               return;
                             }
-                            setState(() {
-                              next = 1;
-                            });
+                            final res = FuntionsApp().parseTime(data);
+                            final exist = hours
+                                .where((p) => p.compareTo(res) == 0)
+                                .toList();
+                            if (exist.isNotEmpty) {
+                              showInSnackBar(
+                                context,
+                                'Esta hora ya esta en tu horario',
+                                color: Colors.red,
+                              );
+                              return;
+                            }
+                            hours.add(res);
                           },
-                          width: 200,
-                          height: 55,
-                        ).paddingOnly(top: 25, bottom: 15),
+                          onShowPicker: (context, currentValue) async {
+                            final time = await showTimePicker(
+                              context: context,
+                              initialTime: TimeOfDay.fromDateTime(
+                                  currentValue ?? DateTime.now()),
+                            );
+                            return DateTimeField.convert(time);
+                          },
+                        ),
                       ],
-                    ).paddingOnly(left: 45, right: 45, top: 20)
-                  else
-                    const Column(
-                      children: [],
                     ),
+                  ),
+                  buttonWidgetApp(
+                          label: 'Agendar',
+                          onTap: () {},
+                          fontSize: 20,
+                          height: 50)
+                      .paddingOnly(top: 10, bottom: 15),
                 ],
               ).paddingOnly(left: 15, right: 15),
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  InkWell itemHourWidget(DateTime date, int index) {
+    return InkWell(
+      onDoubleTap: () {
+        hours.removeAt(index);
+        setState(() {});
+      },
+      child: Chip(
+        label: Row(
+          children: [
+            Text(
+              DateFormat('HH:mm a').format(FuntionsApp().parseTime(date)),
+              style: const TextStyle(
+                color: Colors.white,
+              ),
+            ),
+            const Icon(
+              Icons.close,
+              color: Colors.white,
+            )
+          ],
+        ),
+        backgroundColor: AppColors.primaryColor,
       ),
     );
   }
