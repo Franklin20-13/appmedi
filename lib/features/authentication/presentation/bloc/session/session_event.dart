@@ -18,5 +18,5 @@ class LoggedIn extends SessionEvent {
   const LoggedIn(this.user);
 
   @override
-  List<Object> get props => [user.id];
+  List<Object> get props => [user.id!];
 }

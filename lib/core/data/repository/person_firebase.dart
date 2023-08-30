@@ -1,15 +1,15 @@
-import 'package:app_medi/core/data/fields/user_fields.dart';
+import 'package:app_medi/core/data/fields/person_fields.dart';
 import 'package:app_medi/core/data/repository/abstract_firestore.dart';
 import 'package:app_medi/core/helpers/firestore_helper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
 
 @lazySingleton
-class UserFirestore extends AbstractFirestore {
-  UserFirestore(FirestoreHelper helper) : super(helper);
+class PersonFirestore extends AbstractFirestore {
+  PersonFirestore(FirestoreHelper helper) : super(helper);
 
   @override
-  CollectionReference get collection => helper.usersCollection;
+  CollectionReference get collection => helper.personCollection;
 
   @override
   DocumentReference getDocument(String id) => collection.doc(id);
@@ -17,37 +17,29 @@ class UserFirestore extends AbstractFirestore {
   @override
   void checkField(String field, value) {
     switch (field) {
-      case UserFields.userName:
+      case PersonFields.name:
         if (value is String) {
           data[field] = value;
         } else {
           throw TypeError();
         }
         break;
-      case UserFields.pass:
+      case PersonFields.lastName:
         if (value is String) {
           data[field] = value;
         } else {
           throw TypeError();
         }
         break;
-      case UserFields.role:
-        if (value is int) {
+      case PersonFields.refUser:
+        if (value is DocumentReference) {
           data[field] = value;
         } else {
           throw TypeError();
         }
         break;
-
       default:
         throw ArgumentError();
     }
   }
-
-  Query loginUser(String userName, String pass) => collection
-      .where(UserFields.userName, isEqualTo: userName)
-      .where(UserFields.pass, isEqualTo: pass);
-
-  Query whereUserExist(String userName) => collection
-      .where(UserFields.userName, isEqualTo: userName);
 }

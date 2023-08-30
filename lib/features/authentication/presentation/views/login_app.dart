@@ -114,6 +114,9 @@ class _LoginViewState extends State<LoginView> {
                         .paddingTop(8),
                     buttonWidgetApp(
                       label: 'Ingresar',
+                      height: 50,
+                      width: 150,
+                      fontSize: 20,
                       onTap: () {
                         if (_formKey.currentState!.validate()) {
                           loginBloc.add(LoginUser(

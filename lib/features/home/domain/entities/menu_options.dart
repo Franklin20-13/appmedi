@@ -2,6 +2,7 @@ import 'package:app_medi/config/custom_icons.dart';
 import 'package:flutter/material.dart';
 
 import '../../../diary_treatment/presentation/views/diary_treatment.dart';
+import '../../../diary_treatment/presentation/views/notfication.dart';
 import '../../../medicines/presentation/views/medicines_view.dart';
 import '../../presentation/views/profile_user.dart';
 
@@ -29,9 +30,9 @@ List<OptionHome> listUser = [
     child: const DiaryTreatmentView(),
   ),
   OptionHome(
-    icon: MediIcons.file_medical,
-    title: 'Tratamientos',
-    child: Container(),
+    icon: Icons.notifications,
+    title: 'Alertas',
+    child: const NotificationView(),
   ),
 ];
 

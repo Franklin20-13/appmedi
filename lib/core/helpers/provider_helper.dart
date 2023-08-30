@@ -1,3 +1,4 @@
+import 'package:app_medi/features/authentication/presentation/bloc/person/person_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../features/authentication/presentation/bloc/login/login_bloc.dart';
@@ -19,6 +20,9 @@ class BlocProviderHelper {
     ),
     BlocProvider<HomeCubit>(
       create: (_) => getIt<HomeCubit>(),
+    ),
+    BlocProvider<PersonBloc>(
+      create: (_) => getIt<PersonBloc>(),
     ),
   ];
 }

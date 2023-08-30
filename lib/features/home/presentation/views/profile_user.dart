@@ -162,6 +162,9 @@ class _ProfileHomeViewState extends State<ProfileHomeView> {
                   ).paddingTop(15),
                   buttonWidgetApp(
                     label: 'Cerrar Sesión',
+                    height: 50,
+                    width: 150,
+                    fontSize: 20,
                     onTap: () {
                       BlocProvider.of<SessionBloc>(context).add(LoggedOut());
                     },

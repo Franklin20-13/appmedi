@@ -3,11 +3,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserEntity {
   UserEntity(
-      {required this.id,
+      {this.id,
       required this.userName,
       required this.pass,
       required this.role});
-  final String id;
+  final String? id;
   final String userName;
   final String pass;
   final int role;
@@ -36,4 +36,9 @@ Map<String, dynamic> mapUser(UserEntity instance) => <String, dynamic>{
       UserFields.pass: instance.pass,
       UserFields.role: instance.role,
       UserFields.id: instance.id,
+    };
+Map<String, dynamic> mapUser2(UserEntity instance) => <String, dynamic>{
+      UserFields.userName: instance.userName,
+      UserFields.pass: instance.pass,
+      UserFields.role: instance.role,
     };

@@ -56,4 +56,18 @@ class SessionRepositoryImpl implements ISession {
       return const Left(ServerFailure('Error al cerrar sesion'));
     }
   }
+
+  @override
+  Future<UserEntity?> getUserSesion() async {
+    try {
+      final userEntity = _preferences.get(firstLoad);
+      if (userEntity == null) {
+        return null;
+      }
+      final userEnitity = parseUser(userEntity as String);
+      return userEnitity;
+    } catch (e) {
+      return null;
+    }
+  }
 }

@@ -20,5 +20,5 @@ class Authenticated extends SessionState {
   const Authenticated(this.user);
 
   @override
-  List<Object> get props => [user.id];
+  List<Object> get props => [user.id!];
 }

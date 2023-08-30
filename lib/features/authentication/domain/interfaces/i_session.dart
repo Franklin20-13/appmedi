@@ -6,4 +6,5 @@ abstract class ISession {
   Future<Either<Failure, UserEntity?>> logginIn(UserEntity user);
   Future<Either<Failure, void>> logOut();
   Future<Either<Failure, UserEntity?>> stateAuth();
+  Future<UserEntity?> getUserSesion();
 }

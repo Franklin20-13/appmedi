@@ -13,7 +13,7 @@ class UserRepository implements IUserRepository {
   @override
   Future<Either<Failure, UserEntity>> login(String user, String pass) async {
     try {
-      final getUser = await userFirestore.whereUserExist(user, pass).get();
+      final getUser = await userFirestore.loginUser(user, pass).get();
       if(getUser.docs.isEmpty){
         return left(const  ServerFailure('el usuario no existe'));
       }

@@ -14,4 +14,8 @@ class FirestoreHelper {
   CollectionReference get usersCollection => _firestore.collection('users');
   DocumentReference getUsers(String id) =>
       peopleCollection.doc(id);
+  
+  CollectionReference get personCollection => _firestore.collection('Person');
+  DocumentReference getPersons(String id) =>
+      peopleCollection.doc(id);
 }
