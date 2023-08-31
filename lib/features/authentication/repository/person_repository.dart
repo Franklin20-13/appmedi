@@ -17,13 +17,13 @@ class PersonRepositoryImpl implements IPerson {
   Future<Either<Failure, String>> register(PersonEntity model) async {
     try {
       final userExist =
-          await userFirestore.whereUserExist(model.user.userName).get();
+          await userFirestore.whereUserExist(model.user!.userName).get();
       if (userExist.docs.isNotEmpty) {
         return const Left(ServerFailure("Este usuario ya esta en uso "));
       }
-      await userFirestore.collection.add(mapUser2(model.user));
+      await userFirestore.collection.add(mapUser2(model.user!));
       final userExist2 =
-          await userFirestore.whereUserExist(model.user.userName).get();
+          await userFirestore.whereUserExist(model.user!.userName).get();
       if (userExist2.docs.length > 1) {
         return const Left(ServerFailure("Se encontro  mas de un usuario"));
       }

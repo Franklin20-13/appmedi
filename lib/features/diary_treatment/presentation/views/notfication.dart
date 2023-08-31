@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../../../../config/custom_icons.dart';
 import '../../../../shared/values/values.dart';
 
 class NotificationView extends StatefulWidget {

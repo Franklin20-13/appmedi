@@ -26,7 +26,7 @@ class LoginFail extends LoginState {
 }
 
 class Successfully extends LoginState {
-  final UserEntity user;
+  final PersonEntity user;
   const Successfully({required this.user});
 
   @override

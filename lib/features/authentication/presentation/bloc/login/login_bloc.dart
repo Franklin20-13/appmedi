@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../domain/entities/user.dart';
+import '../../../domain/entities/person.dart';
 
 part 'login_event.dart';
 part 'login_state.dart';

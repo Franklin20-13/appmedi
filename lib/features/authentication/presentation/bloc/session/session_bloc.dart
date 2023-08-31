@@ -1,4 +1,4 @@
-import 'package:app_medi/features/authentication/domain/entities/user.dart';
+import 'package:app_medi/features/authentication/domain/entities/person.dart';
 import 'package:app_medi/features/authentication/domain/interfaces/i_session.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

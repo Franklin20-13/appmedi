@@ -1,6 +1,8 @@
 import 'package:app_medi/features/medicines/domain/models/medicament_model.dart';
+import 'package:app_medi/features/medicines/presentation/bloc/medicine/medicine_bloc.dart';
 import 'package:app_medi/shared/values/values.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../config/custom_icons.dart';
@@ -13,178 +15,208 @@ class MedicinesView extends StatefulWidget {
 }
 
 class _MedicinesViewState extends State<MedicinesView> {
+  final GlobalKey<FormState> _formKey = GlobalKey();
   late TextEditingController _nameController;
-  late TextEditingController _dosisController;
-  late TextEditingController _quantityController;
+  late MedicamentModel? model;
+  String? typeMedicine;
   bool isList = true;
+  late MedicineBloc medicineBloc;
   @override
   void initState() {
     _nameController = TextEditingController(text: '');
-    _dosisController = TextEditingController(text: '');
-    _quantityController = TextEditingController(text: '');
+    medicineBloc = context.read<MedicineBloc>();
     super.initState();
+  }
+
+  clean() {
+    _nameController = TextEditingController(text: '');
+    typeMedicine = null;
   }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Container(
-      width: double.infinity,
-      height: double.infinity,
-      color: AppColors.primaryColor,
-      child: Stack(
-        children: [
-          SizedBox(
-            width: double.infinity,
-            height: size.height * .3,
-            child: const Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  MediIcons.capsules,
-                  size: 70,
-                  color: Colors.white,
-                ),
-              ],
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              width: size.width,
-              height: size.height * .6,
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(25),
-                  topRight: Radius.circular(25),
-                ),
-              ),
-              child: Column(
+    ProgressDialog progressDialog = ProgressDialog(context);
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<MedicineBloc, MedicineState>(listener: (context, state) {
+          if (state is InitialMedicine) {
+            progressDialog.show();
+          }
+          if (state is LoadMessageMedicine) {
+            progressDialog.dismiss();
+            showInSnackBar(context, state.message, color: Colors.red);
+          }
+          if (state is LoadSuccessMedicine) {
+            progressDialog.dismiss();
+            showInSnackBar(context, state.message);
+            clean();
+          }
+        })
+      ],
+      child: Container(
+        width: double.infinity,
+        height: double.infinity,
+        color: AppColors.primaryColor,
+        child: Stack(
+          children: [
+            SizedBox(
+              width: double.infinity,
+              height: size.height * .3,
+              child: const Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const SizedBox(
-                    width: double.infinity,
-                    height: 10,
-                  ),
-                  Expanded(
-                    child: isList
-                        ? ListView(
-                            children: [
-                              Align(
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'Mis Medicamentos',
-                                      style: GoogleFonts.montserrat(
-                                        fontSize: 23,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    Material(
-                                      child: InkWell(
-                                        onTap: () {
-                                          setState(() {
-                                            isList = false;
-                                          });
-                                        },
-                                        child: const Icon(
-                                          Icons.add_circle,
-                                          size: 35,
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              Column(
-                                children: List.generate(
-                                  listMedicaments.length,
-                                  (index) {
-                                    return itemsMedicmantWidget(
-                                      size,
-                                      listMedicaments[index],
-                                    ).paddingBottom(10);
-                                  },
-                                ),
-                              ).paddingTop(17)
-                            ],
-                          )
-                        : newMedicamentWidget(),
+                  Icon(
+                    MediIcons.capsules,
+                    size: 70,
+                    color: Colors.white,
                   ),
                 ],
-              ).paddingOnly(left: 15, right: 15),
+              ),
             ),
-          )
-        ],
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                width: size.width,
+                height: size.height * .6,
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(25),
+                    topRight: Radius.circular(25),
+                  ),
+                ),
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      width: double.infinity,
+                      height: 10,
+                    ),
+                    Expanded(
+                      child: isList
+                          ? ListView(
+                              children: [
+                                Align(
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        'Mis Medicamentos',
+                                        style: GoogleFonts.montserrat(
+                                          fontSize: 23,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      Material(
+                                        child: InkWell(
+                                          onTap: () {
+                                            setState(() {
+                                              isList = false;
+                                            });
+                                          },
+                                          child: const Icon(
+                                            Icons.add_circle,
+                                            size: 35,
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                Column(
+                                  children: List.generate(
+                                    listMedicaments.length,
+                                    (index) {
+                                      return itemsMedicmantWidget(
+                                        size,
+                                        listMedicaments[index],
+                                      ).paddingBottom(10);
+                                    },
+                                  ),
+                                ).paddingTop(17)
+                              ],
+                            )
+                          : newMedicamentWidget(),
+                    ),
+                  ],
+                ).paddingOnly(left: 15, right: 15),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
 
-  ListView newMedicamentWidget() {
-    return ListView(
-      children: [
-        Align(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Nuevo Medicamento',
-                style: GoogleFonts.montserrat(
-                  fontSize: 23,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Material(
-                child: InkWell(
-                  onTap: () {
-                    setState(() {
-                      isList = true;
-                    });
-                  },
-                  child: const Icon(
-                    Icons.close,
-                    size: 40,
+  Form newMedicamentWidget() {
+    return Form(
+      key: _formKey,
+      child: ListView(
+        children: [
+          Align(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Nuevo Medicamento',
+                  style: GoogleFonts.montserrat(
+                    fontSize: 23,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-              )
-            ],
+                Material(
+                  child: InkWell(
+                    onTap: () {
+                      setState(() {
+                        isList = true;
+                      });
+                    },
+                    child: const Icon(
+                      Icons.close,
+                      size: 40,
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
-        ),
-        inputWidgetCard(
-          label: 'Nombre',
-          icon: MediIcons.capsules,
-          controller: _nameController,
-          hintText: 'Ingrese Nombre',
-        ).paddingTop(7),
-        inputWidgetCard(
-          label: 'Dosis',
-          icon: Icons.keyboard,
-          controller: _dosisController,
-          hintText: 'Ingrese Dosis',
-        ).paddingTop(7),
-        inputWidgetCard(
-          label: 'Cantidad',
-          icon: Icons.keyboard,
-          controller: _quantityController,
-          hintText: 'Ingrese Cantidad',
-        ).paddingTop(7),
-        buttonWidgetApp(
-          label: 'Registar',
-          onTap: () {},
-        ).paddingOnly(
-          top: 15,
-          bottom: 15,
-        ),
-      ],
+          textInput('Nombre Medicamento', _nameController, false,
+                  code: '',
+                  clave: 0,
+                  inputType: TextInputType.text,
+                  isRequired: true)
+              .paddingTop(10),
+          dropdownButtonFormSearch<String>(
+              filterFn: (String text, String searchTerm) {
+                return text.toLowerCase().contains(searchTerm.toLowerCase());
+              },
+              itemAsString: (String data) => data,
+              items: typeMedicaments,
+              label: 'Tipo Medicamento',
+              onChanged: (String? selectedData) {
+                if (selectedData != null) {
+                  typeMedicine = selectedData;
+                }
+              },
+              selectedItem: typeMedicine,
+              isRequired: true),
+          buttonWidgetApp(
+            label: 'Registar',
+            onTap: saveMedicine,
+          ).paddingOnly(
+            top: 15,
+            bottom: 15,
+          ),
+        ],
+      ),
     );
   }
 
   Container itemsMedicmantWidget(Size size, MedicamentModel item) {
     return Container(
       width: double.infinity,
-      height: 5+60,
+      height: 5 + 60,
       decoration: BoxDecoration(
         border: Border.all(
           color: Colors.black,
@@ -265,5 +297,12 @@ class _MedicinesViewState extends State<MedicinesView> {
         ],
       ),
     );
+  }
+
+  saveMedicine() {
+    if (_formKey.currentState!.validate()) {
+      model=  MedicamentModel(name: _nameController.text, type: typeMedicine!);
+      medicineBloc.add(MedicineEvent.saveMedicine(model!));
+    }
   }
 }

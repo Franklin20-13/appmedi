@@ -13,7 +13,7 @@ class LoggedOut extends SessionEvent {}
 
 class CheckedSession extends SessionEvent {}
 class LoggedIn extends SessionEvent {
-  final UserEntity user;
+  final PersonEntity user;
 
   const LoggedIn(this.user);
 

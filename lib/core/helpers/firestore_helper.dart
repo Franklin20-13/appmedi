@@ -12,10 +12,11 @@ class FirestoreHelper {
       peopleCollection.doc(peopleId);
 
   CollectionReference get usersCollection => _firestore.collection('users');
-  DocumentReference getUsers(String id) =>
-      peopleCollection.doc(id);
-  
+  DocumentReference getUsers(String id) => peopleCollection.doc(id);
+
   CollectionReference get personCollection => _firestore.collection('Person');
-  DocumentReference getPersons(String id) =>
-      peopleCollection.doc(id);
+  DocumentReference getPersons(String id) => peopleCollection.doc(id);
+
+  CollectionReference get medicinesCollection => _firestore.collection('medicines');
+  DocumentReference getMedicines(String id) => medicinesCollection.doc(id);
 }
