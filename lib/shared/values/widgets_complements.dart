@@ -170,9 +170,14 @@ Widget textInput(
         if (!isRequired) {
           return null;
         }
-
-        if (value != null && value.trim().length < 3) {
-          return 'Campo requerido';
+        if (inputType == TextInputType.number) {
+          if (value == null || value.isEmpty){
+            return 'Campo requerido';
+          }
+        } else {
+          if (value != null && value.trim().length < 3) {
+            return 'Campo requerido';
+          }
         }
         if (inputType == TextInputType.emailAddress) {
           if (isMultiEmail) {

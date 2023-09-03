@@ -19,4 +19,7 @@ class FirestoreHelper {
 
   CollectionReference get medicinesCollection => _firestore.collection('medicines');
   DocumentReference getMedicines(String id) => medicinesCollection.doc(id);
+
+  CollectionReference get treatmentCollection => _firestore.collection('treatments');
+  DocumentReference getTreatment(String id) => treatmentCollection.doc(id);
 }

@@ -10,35 +10,42 @@ import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 import 'package:shared_preferences/shared_preferences.dart' as _i9;
 
-import '../../features/authentication/domain/interfaces/i_auth.dart' as _i17;
-import '../../features/authentication/domain/interfaces/i_person.dart' as _i13;
-import '../../features/authentication/domain/interfaces/i_session.dart' as _i15;
+import '../../features/authentication/domain/interfaces/i_auth.dart' as _i20;
+import '../../features/authentication/domain/interfaces/i_person.dart' as _i14;
+import '../../features/authentication/domain/interfaces/i_session.dart' as _i16;
 import '../../features/authentication/presentation/bloc/login/login_bloc.dart'
-    as _i19;
-import '../../features/authentication/presentation/bloc/person/person_bloc.dart'
-    as _i21;
-import '../../features/authentication/presentation/bloc/session/session_bloc.dart'
     as _i22;
-import '../../features/authentication/repository/person_repository.dart'
-    as _i14;
-import '../../features/authentication/repository/user_repository.dart' as _i18;
-import '../../features/authentication/repository/user_session.dart' as _i16;
-import '../../features/home/domain/interfaces/i_people.dart' as _i11;
-import '../../features/home/presentation/bloc/people/people_bloc.dart' as _i20;
-import '../../features/home/presentation/cubit/home_cubit.dart' as _i5;
-import '../../features/home/repository/people_repository.dart' as _i12;
-import '../../features/medicines/domain/interfaces/i_medicines.dart' as _i23;
-import '../../features/medicines/presentation/bloc/get_medicines/get_medicines_bloc.dart'
-    as _i26;
-import '../../features/medicines/presentation/bloc/medicine/medicine_bloc.dart'
+import '../../features/authentication/presentation/bloc/person/person_bloc.dart'
+    as _i24;
+import '../../features/authentication/presentation/bloc/session/session_bloc.dart'
     as _i25;
-import '../../features/medicines/repository/mecicines_repository.dart' as _i24;
+import '../../features/authentication/repository/person_repository.dart'
+    as _i15;
+import '../../features/authentication/repository/user_repository.dart' as _i21;
+import '../../features/authentication/repository/user_session.dart' as _i17;
+import '../../features/diary_treatment/domain/interfaces/i_treatment.dart'
+    as _i18;
+import '../../features/diary_treatment/presentation/bloc/treatament/treatament_bloc.dart'
+    as _i26;
+import '../../features/diary_treatment/repository/treatment_repository.dart'
+    as _i19;
+import '../../features/home/domain/interfaces/i_people.dart' as _i12;
+import '../../features/home/presentation/bloc/people/people_bloc.dart' as _i23;
+import '../../features/home/presentation/cubit/home_cubit.dart' as _i5;
+import '../../features/home/repository/people_repository.dart' as _i13;
+import '../../features/medicines/domain/interfaces/i_medicines.dart' as _i27;
+import '../../features/medicines/presentation/bloc/get_medicines/get_medicines_bloc.dart'
+    as _i30;
+import '../../features/medicines/presentation/bloc/medicine/medicine_bloc.dart'
+    as _i29;
+import '../../features/medicines/repository/mecicines_repository.dart' as _i28;
 import '../data/repository/medicines_firestore.dart' as _i6;
 import '../data/repository/people_firebase.dart' as _i7;
 import '../data/repository/person_firebase.dart' as _i8;
-import '../data/repository/user_firebase.dart' as _i10;
+import '../data/repository/treatment_firestore.dart' as _i10;
+import '../data/repository/user_firebase.dart' as _i11;
 import '../helpers/firestore_helper.dart' as _i4;
-import 'external_module.dart' as _i27; // ignore_for_file: unnecessary_lambdas
+import 'external_module.dart' as _i31; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
@@ -67,34 +74,44 @@ Future<_i1.GetIt> $initGetIt(
     () => externalModule.prefs,
     preResolve: true,
   );
-  gh.lazySingleton<_i10.UserFirestore>(
-      () => _i10.UserFirestore(get<_i4.FirestoreHelper>()));
-  gh.lazySingleton<_i11.IPeopleRepository>(
-      () => _i12.PeopleRepository(get<_i7.PeopleFirestore>()));
-  gh.lazySingleton<_i13.IPerson>(() => _i14.PersonRepositoryImpl(
-        get<_i10.UserFirestore>(),
+  gh.lazySingleton<_i10.TreatmentFirestore>(
+      () => _i10.TreatmentFirestore(get<_i4.FirestoreHelper>()));
+  gh.lazySingleton<_i11.UserFirestore>(
+      () => _i11.UserFirestore(get<_i4.FirestoreHelper>()));
+  gh.lazySingleton<_i12.IPeopleRepository>(
+      () => _i13.PeopleRepository(get<_i7.PeopleFirestore>()));
+  gh.lazySingleton<_i14.IPerson>(() => _i15.PersonRepositoryImpl(
+        get<_i11.UserFirestore>(),
         get<_i8.PersonFirestore>(),
       ));
-  gh.lazySingleton<_i15.ISession>(
-      () => _i16.SessionRepositoryImpl(get<_i9.SharedPreferences>()));
-  gh.lazySingleton<_i17.IUserRepository>(() => _i18.UserRepository(
-        get<_i10.UserFirestore>(),
-        get<_i8.PersonFirestore>(),
-      ));
-  gh.factory<_i19.LoginBloc>(() => _i19.LoginBloc(get<_i17.IUserRepository>()));
-  gh.factory<_i20.PeopleBloc>(
-      () => _i20.PeopleBloc(get<_i11.IPeopleRepository>()));
-  gh.factory<_i21.PersonBloc>(() => _i21.PersonBloc(get<_i13.IPerson>()));
-  gh.factory<_i22.SessionBloc>(() => _i22.SessionBloc(get<_i15.ISession>()));
-  gh.lazySingleton<_i23.IMedicine>(() => _i24.UserRepository(
+  gh.lazySingleton<_i16.ISession>(
+      () => _i17.SessionRepositoryImpl(get<_i9.SharedPreferences>()));
+  gh.lazySingleton<_i18.ITreatment>(() => _i19.UserRepository(
+        get<_i10.TreatmentFirestore>(),
+        get<_i16.ISession>(),
         get<_i6.MedicineFirestore>(),
-        get<_i15.ISession>(),
-        get<_i10.UserFirestore>(),
+        get<_i11.UserFirestore>(),
       ));
-  gh.factory<_i25.MedicineBloc>(() => _i25.MedicineBloc(get<_i23.IMedicine>()));
-  gh.factory<_i26.GetMedicinesBloc>(
-      () => _i26.GetMedicinesBloc(get<_i23.IMedicine>()));
+  gh.lazySingleton<_i20.IUserRepository>(() => _i21.UserRepository(
+        get<_i11.UserFirestore>(),
+        get<_i8.PersonFirestore>(),
+      ));
+  gh.factory<_i22.LoginBloc>(() => _i22.LoginBloc(get<_i20.IUserRepository>()));
+  gh.factory<_i23.PeopleBloc>(
+      () => _i23.PeopleBloc(get<_i12.IPeopleRepository>()));
+  gh.factory<_i24.PersonBloc>(() => _i24.PersonBloc(get<_i14.IPerson>()));
+  gh.factory<_i25.SessionBloc>(() => _i25.SessionBloc(get<_i16.ISession>()));
+  gh.factory<_i26.TreatamentBloc>(
+      () => _i26.TreatamentBloc(get<_i18.ITreatment>()));
+  gh.lazySingleton<_i27.IMedicine>(() => _i28.UserRepository(
+        get<_i6.MedicineFirestore>(),
+        get<_i16.ISession>(),
+        get<_i11.UserFirestore>(),
+      ));
+  gh.factory<_i29.MedicineBloc>(() => _i29.MedicineBloc(get<_i27.IMedicine>()));
+  gh.factory<_i30.GetMedicinesBloc>(
+      () => _i30.GetMedicinesBloc(get<_i27.IMedicine>()));
   return get;
 }
 
-class _$ExternalModule extends _i27.ExternalModule {}
+class _$ExternalModule extends _i31.ExternalModule {}

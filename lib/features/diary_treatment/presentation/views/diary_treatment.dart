@@ -11,6 +11,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 import '../../../medicines/presentation/bloc/get_medicines/get_medicines_bloc.dart';
+import '../../domain/models/treatament_models.dart';
+import '../bloc/treatament/treatament_bloc.dart';
 
 class DiaryTreatmentView extends StatefulWidget {
   const DiaryTreatmentView({super.key});
@@ -20,17 +22,21 @@ class DiaryTreatmentView extends StatefulWidget {
 }
 
 class _DiaryTreatmentViewState extends State<DiaryTreatmentView> {
+  final GlobalKey<FormState> _formKey = GlobalKey();
   late TextEditingController _quantityController;
   late TextEditingController _measureController;
   late TextEditingController _timeController;
   final formatTime = DateFormat("HH:mm");
-  List<DateTime> dates = [];
+  List<DateTime?> dates = [];
   List<DateTime> hours = [];
   int next = 0;
   DateTime? fecha;
   late DateTime dateSelected;
+  late TreatamentBloc treatamentBloc;
+  TreatamentModels? model;
   @override
   void initState() {
+    treatamentBloc = context.read<TreatamentBloc>();
     _quantityController = TextEditingController(text: '');
     _measureController = TextEditingController(text: '');
     _timeController = TextEditingController(text: '');
@@ -38,207 +44,250 @@ class _DiaryTreatmentViewState extends State<DiaryTreatmentView> {
   }
 
   MedicamentModel? selectedMedicament;
+  clearForm() {
+    _quantityController = TextEditingController(text: '');
+    _measureController = TextEditingController(text: '');
+    _timeController = TextEditingController(text: '');
+    selectedMedicament = null;
+    dates = [];
+    hours = [];
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Container(
-      width: double.infinity,
-      height: double.infinity,
-      color: AppColors.primaryColor,
-      child: Stack(
-        children: [
-          SizedBox(
-            width: double.infinity,
-            height: size.height * .3,
-            child: const Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  MediIcons.first_aid,
-                  size: 70,
-                  color: Colors.white,
-                ),
-              ],
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              width: size.width,
-              height: size.height * .6,
-              decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20))),
-              child: ListView(
+    ProgressDialog progressDialog = ProgressDialog(context);
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<TreatamentBloc, TreatamentState>(
+            listener: (context, state) {
+          if (state is InitialTreatment) {
+            progressDialog.show();
+          }
+          if (state is LoadMessageTreatment) {
+            progressDialog.dismiss();
+            showInSnackBar(context, state.message, color: Colors.red);
+          }
+          if (state is LoadSuccessTreatment) {
+            progressDialog.dismiss();
+            showInSnackBar(context, state.message);
+            clearForm();
+          }
+        })
+      ],
+      child: Container(
+        width: double.infinity,
+        height: double.infinity,
+        color: AppColors.primaryColor,
+        child: Stack(
+          children: [
+            SizedBox(
+              width: double.infinity,
+              height: size.height * .3,
+              child: const Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Align(
-                    child: Text('Agendar Receta Médica',
-                        style: GoogleFonts.montserrat(
-                            fontSize: 21, fontWeight: FontWeight.bold)),
+                  Icon(
+                    MediIcons.first_aid,
+                    size: 70,
+                    color: Colors.white,
                   ),
-                  Card(
-                    child: ExpansionTile(
-                      initiallyExpanded: true,
-                      title: const Text(
-                        'Dosis',
-                        style: TextStyle(
-                          color: AppColors.primaryColor,
-                        ),
+                ],
+              ),
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                width: size.width,
+                height: size.height * .6,
+                decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20))),
+                child: Form(
+                  key: _formKey,
+                  child: ListView(
+                    children: [
+                      Align(
+                        child: Text('Agendar Receta Médica',
+                            style: GoogleFonts.montserrat(
+                                fontSize: 21, fontWeight: FontWeight.bold)),
                       ),
-                      children: [
-                        BlocBuilder<GetMedicinesBloc, GetMedicinesState>(
-                            builder: (context, state) {
-                          return state.map(
-                            initial: (_) => SpinKitThreeBounce(
-                              size: 30,
-                              itemBuilder: (BuildContext context, int index) {
-                                return DecoratedBox(
-                                  decoration: BoxDecoration(
-                                    color: index.isEven
-                                        ? AppColors.primaryColor
-                                        : AppColors.mainColor,
-                                  ),
-                                );
-                              },
+                      Card(
+                        child: ExpansionTile(
+                          initiallyExpanded: true,
+                          title: const Text(
+                            'Dosis',
+                            style: TextStyle(
+                              color: AppColors.primaryColor,
                             ),
-                            loadSuccess: (e) {
-                              return dropdownButtonFormSearch<MedicamentModel>(
-                                filterFn: (MedicamentModel person,
-                                    String searchTerm) {
-                                  return person.name
-                                      .toLowerCase()
-                                      .contains(searchTerm.toLowerCase());
+                          ),
+                          children: [
+                            BlocBuilder<GetMedicinesBloc, GetMedicinesState>(
+                                builder: (context, state) {
+                              return state.map(
+                                initial: (_) => SpinKitThreeBounce(
+                                  size: 30,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return DecoratedBox(
+                                      decoration: BoxDecoration(
+                                        color: index.isEven
+                                            ? AppColors.primaryColor
+                                            : AppColors.mainColor,
+                                      ),
+                                    );
+                                  },
+                                ),
+                                loadSuccess: (e) {
+                                  return dropdownButtonFormSearch<
+                                          MedicamentModel>(
+                                      filterFn: (MedicamentModel person,
+                                          String searchTerm) {
+                                        return person.name
+                                            .toLowerCase()
+                                            .contains(searchTerm.toLowerCase());
+                                      },
+                                      itemAsString: (MedicamentModel data) =>
+                                          data.name,
+                                      items: e.medicines,
+                                      label: 'Medicamentos',
+                                      onChanged:
+                                          (MedicamentModel? selectedData) {
+                                        if (selectedData != null) {
+                                          selectedMedicament = selectedData;
+                                        }
+                                      },
+                                      selectedItem: selectedMedicament,
+                                      isRequired: true);
                                 },
-                                itemAsString: (MedicamentModel data) =>
-                                    data.name,
-                                items: e.medicines,
-                                label: 'Medicamentos',
-                                onChanged: (MedicamentModel? selectedData) {
-                                  if (selectedData != null) {
-                                    selectedMedicament = selectedData;
-                                  }
-                                },
-                                selectedItem: selectedMedicament,
+                                loadMessage: (_) => Container(),
                               );
-                            },
-                            loadMessage: (_) => Container(),
-                          );
-                        }),
-                        textInput('Cantidad', _quantityController, false,
-                            code: '',
-                            clave: 0,
-                            inputType: TextInputType.number),
-                        textInput('Medida', _measureController, false,
+                            }),
+                            textInput('Cantidad', _quantityController, false,
                                 code: '',
                                 clave: 0,
-                                inputType: TextInputType.text)
-                            .paddingBottom(5)
-                      ],
-                    ),
-                  ).paddingTop(20),
-                  Card(
-                    child: ExpansionTile(
-                      initiallyExpanded: true,
-                      title: const Text(
-                        'Periodo',
-                        style: TextStyle(
-                          color: AppColors.primaryColor,
+                                inputType: TextInputType.number),
+                            textInput('Medida', _measureController, false,
+                                    code: '',
+                                    clave: 0,
+                                    inputType: TextInputType.text)
+                                .paddingBottom(5)
+                          ],
+                        ),
+                      ).paddingTop(20),
+                      Card(
+                        child: ExpansionTile(
+                          initiallyExpanded: true,
+                          title: const Text(
+                            'Periodo',
+                            style: TextStyle(
+                              color: AppColors.primaryColor,
+                            ),
+                          ),
+                          children: [
+                            CalendarDatePicker2(
+                              config: CalendarDatePicker2Config(
+                                  calendarType: CalendarDatePicker2Type.range,
+                                  selectedDayHighlightColor:
+                                      AppColors.primaryColor),
+                              value: dates,
+                              onValueChanged: (items) {
+                                dates.clear();
+                                for (final item in items) {
+                                  dates.add(item);
+                                }
+                              },
+                            )
+                          ],
                         ),
                       ),
-                      children: [
-                        CalendarDatePicker2(
-                          config: CalendarDatePicker2Config(
-                              calendarType: CalendarDatePicker2Type.range,
-                              selectedDayHighlightColor:
-                                  AppColors.primaryColor),
-                          value: dates,
-                          onValueChanged: (dates) => dates = dates,
-                        )
-                      ],
-                    ),
-                  ),
-                  Card(
-                    child: ExpansionTile(
-                      initiallyExpanded: true,
-                      title: const Text(
-                        'Horarios',
-                        style: TextStyle(
-                          color: AppColors.primaryColor,
-                        ),
-                      ),
-                      children: [
-                        SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: List.generate(
-                              hours.length,
-                              (index) {
-                                return itemHourWidget(hours[index], index)
-                                    .paddingRight(10);
+                      Card(
+                        child: ExpansionTile(
+                          initiallyExpanded: true,
+                          title: const Text(
+                            'Horarios',
+                            style: TextStyle(
+                              color: AppColors.primaryColor,
+                            ),
+                          ),
+                          children: [
+                            SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                children: List.generate(
+                                  hours.length,
+                                  (index) {
+                                    return itemHourWidget(hours[index], index)
+                                        .paddingRight(10);
+                                  },
+                                ),
+                              ).paddingBottom(10),
+                            ),
+                            DateTimeField(
+                              format: formatTime,
+                              controller: _timeController,
+                              validator: (value) {
+                                return null;
+                              },
+                              cursorColor: AppColors.primaryColor,
+                              decoration: InputDecoration(
+                                contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 3,
+                                  horizontal: 10,
+                                ),
+                                labelText: 'Selecione',
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                fillColor: AppColors.primaryColor,
+                              ),
+                              onChanged: (data) {
+                                setState(() {});
+                                if (data == null) {
+                                  return;
+                                }
+                                final res = FuntionsApp().parseTime(data);
+                                final exist = hours
+                                    .where((p) => p.compareTo(res) == 0)
+                                    .toList();
+                                if (exist.isNotEmpty) {
+                                  showInSnackBar(
+                                    context,
+                                    'Esta hora ya esta en tu horario',
+                                    color: Colors.red,
+                                  );
+                                  return;
+                                }
+                                hours.add(res);
+                              },
+                              onShowPicker: (context, currentValue) async {
+                                final time = await showTimePicker(
+                                  context: context,
+                                  initialTime: TimeOfDay.fromDateTime(
+                                      currentValue ?? DateTime.now()),
+                                );
+                                return DateTimeField.convert(time);
                               },
                             ),
-                          ).paddingBottom(10),
+                          ],
                         ),
-                        DateTimeField(
-                          format: formatTime,
-                          controller: _timeController,
-                          validator: (value) => validaHora(value!, fecha),
-                          cursorColor: AppColors.primaryColor,
-                          decoration: InputDecoration(
-                            contentPadding: const EdgeInsets.symmetric(
-                              vertical: 3,
-                              horizontal: 10,
-                            ),
-                            labelText: 'Selecione',
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            fillColor: AppColors.primaryColor,
-                          ),
-                          onChanged: (data) {
-                            setState(() {});
-                            if (data == null) {
-                              return;
-                            }
-                            final res = FuntionsApp().parseTime(data);
-                            final exist = hours
-                                .where((p) => p.compareTo(res) == 0)
-                                .toList();
-                            if (exist.isNotEmpty) {
-                              showInSnackBar(
-                                context,
-                                'Esta hora ya esta en tu horario',
-                                color: Colors.red,
-                              );
-                              return;
-                            }
-                            hours.add(res);
-                          },
-                          onShowPicker: (context, currentValue) async {
-                            final time = await showTimePicker(
-                              context: context,
-                              initialTime: TimeOfDay.fromDateTime(
-                                  currentValue ?? DateTime.now()),
-                            );
-                            return DateTimeField.convert(time);
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  buttonWidgetApp(
-                          label: 'Agendar',
-                          onTap: () {},
-                          fontSize: 20,
-                          height: 50)
-                      .paddingOnly(top: 10, bottom: 15),
-                ],
-              ).paddingOnly(left: 15, right: 15),
+                      ),
+                      buttonWidgetApp(
+                              label: 'Agendar',
+                              onTap: saveFrom,
+                              fontSize: 20,
+                              height: 50)
+                          .paddingOnly(top: 10, bottom: 15),
+                    ],
+                  ).paddingOnly(left: 15, right: 15),
+                ),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -267,5 +316,29 @@ class _DiaryTreatmentViewState extends State<DiaryTreatmentView> {
         backgroundColor: AppColors.primaryColor,
       ),
     );
+  }
+
+  saveFrom() {
+    if (_formKey.currentState!.validate()) {
+      model = TreatamentModels(
+        medicRef: null,
+        medicamentId: selectedMedicament!.id!,
+        quantity: int.parse(_quantityController.text),
+        measure: _measureController.text,
+        fromDate: dates[0]!,
+        toDate: dates[1]!,
+        userRef: null,
+        hour: getHourString(),
+      );
+      treatamentBloc.add(TreatamentEvent.saveTreatment(model!));
+    }
+  }
+
+  getHourString() {
+    String hour = "";
+    for (final item in hours) {
+      hour = "$hour${FuntionsApp().parseTime(item)};";
+    }
+    return hour;
   }
 }
