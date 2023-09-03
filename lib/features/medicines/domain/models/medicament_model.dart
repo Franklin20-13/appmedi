@@ -3,11 +3,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class MedicamentModel {
   MedicamentModel(
-      {this.id, required this.name, required this.type, this.userRef});
+      {this.id,
+      required this.name,
+      required this.type,
+      this.userRef,
+      this.createDate});
   String? id;
   String name;
   String type;
   DocumentReference? userRef;
+  DateTime? createDate;
   factory MedicamentModel.fromJson(Map<String, dynamic> json,
       {String? id, DocumentReference? refUser}) {
     return MedicamentModel(
@@ -20,6 +25,12 @@ class MedicamentModel {
       type: json.containsKey(MedicinesFields.typeMedicine)
           ? json[MedicinesFields.typeMedicine]
           : '',
+      createDate: json.containsKey(MedicinesFields.createDate)
+          ? json[MedicinesFields.createDate]==null?DateTime.now():DateTime.fromMillisecondsSinceEpoch(
+              (json[MedicinesFields.createDate] as Timestamp)
+                  .millisecondsSinceEpoch,
+            )
+          : DateTime.now(),
       userRef: refUser,
     );
   }

@@ -41,6 +41,21 @@ class MedicineBloc extends Bloc<MedicineEvent, MedicineState> {
       },
       pushMessage:  (value) async* {
         yield MedicineState.loadSuccess(message: value.message);
+      }, deleteItem: (e) async* {
+        yield const MedicineState.initial();
+        final response = await iMedicine.removeById(e.id);
+        response.fold(
+          (l) {
+            if (l is ServerFailure) {
+              add(
+                MedicineEvent.pushMessage(message: l.message),
+              );
+            }
+          },
+          (message) => add(
+            MedicineEvent.pushMedicine(message: message),
+          ),
+        );
       },
     );
   }

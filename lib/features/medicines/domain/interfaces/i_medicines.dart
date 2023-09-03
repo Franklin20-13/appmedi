@@ -4,4 +4,6 @@ import 'package:dartz/dartz.dart';
 
 abstract class IMedicine {
   Future<Either<Failure, String>> register(MedicamentModel model);
+  Stream<Either<Failure, List<MedicamentModel>>> getMedicines();
+  Future<Either<Failure, String>> removeById(String id);
 }

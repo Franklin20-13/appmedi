@@ -28,6 +28,8 @@ import '../../features/home/presentation/bloc/people/people_bloc.dart' as _i20;
 import '../../features/home/presentation/cubit/home_cubit.dart' as _i5;
 import '../../features/home/repository/people_repository.dart' as _i12;
 import '../../features/medicines/domain/interfaces/i_medicines.dart' as _i23;
+import '../../features/medicines/presentation/bloc/get_medicines/get_medicines_bloc.dart'
+    as _i26;
 import '../../features/medicines/presentation/bloc/medicine/medicine_bloc.dart'
     as _i25;
 import '../../features/medicines/repository/mecicines_repository.dart' as _i24;
@@ -36,7 +38,7 @@ import '../data/repository/people_firebase.dart' as _i7;
 import '../data/repository/person_firebase.dart' as _i8;
 import '../data/repository/user_firebase.dart' as _i10;
 import '../helpers/firestore_helper.dart' as _i4;
-import 'external_module.dart' as _i26; // ignore_for_file: unnecessary_lambdas
+import 'external_module.dart' as _i27; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
@@ -90,7 +92,9 @@ Future<_i1.GetIt> $initGetIt(
         get<_i10.UserFirestore>(),
       ));
   gh.factory<_i25.MedicineBloc>(() => _i25.MedicineBloc(get<_i23.IMedicine>()));
+  gh.factory<_i26.GetMedicinesBloc>(
+      () => _i26.GetMedicinesBloc(get<_i23.IMedicine>()));
   return get;
 }
 
-class _$ExternalModule extends _i26.ExternalModule {}
+class _$ExternalModule extends _i27.ExternalModule {}

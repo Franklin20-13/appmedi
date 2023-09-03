@@ -3,9 +3,12 @@ import 'package:app_medi/features/medicines/presentation/bloc/medicine/medicine_
 import 'package:app_medi/shared/values/values.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../config/custom_icons.dart';
+import '../../../../shared/values/functions.dart';
+import '../bloc/get_medicines/get_medicines_bloc.dart';
 
 class MedicinesView extends StatefulWidget {
   const MedicinesView({super.key});
@@ -21,16 +24,15 @@ class _MedicinesViewState extends State<MedicinesView> {
   String? typeMedicine;
   bool isList = true;
   late MedicineBloc medicineBloc;
+  late GetMedicinesBloc getMedicinesBloc;
+  bool isDelete = false;
   @override
   void initState() {
     _nameController = TextEditingController(text: '');
     medicineBloc = context.read<MedicineBloc>();
+    getMedicinesBloc = context.read<GetMedicinesBloc>();
+    getMedicinesBloc.add(const GetMedicinesEvent.getMedicines());
     super.initState();
-  }
-
-  clean() {
-    _nameController = TextEditingController(text: '');
-    typeMedicine = null;
   }
 
   @override
@@ -50,7 +52,7 @@ class _MedicinesViewState extends State<MedicinesView> {
           if (state is LoadSuccessMedicine) {
             progressDialog.dismiss();
             showInSnackBar(context, state.message);
-            clean();
+            clearForm();
           }
         })
       ],
@@ -111,6 +113,7 @@ class _MedicinesViewState extends State<MedicinesView> {
                                       Material(
                                         child: InkWell(
                                           onTap: () {
+                                            clearForm();
                                             setState(() {
                                               isList = false;
                                             });
@@ -124,17 +127,34 @@ class _MedicinesViewState extends State<MedicinesView> {
                                     ],
                                   ),
                                 ),
-                                Column(
-                                  children: List.generate(
-                                    listMedicaments.length,
-                                    (index) {
-                                      return itemsMedicmantWidget(
-                                        size,
-                                        listMedicaments[index],
-                                      ).paddingBottom(10);
-                                    },
-                                  ),
-                                ).paddingTop(17)
+                                BlocBuilder<GetMedicinesBloc,
+                                        GetMedicinesState>(
+                                    builder: (context, state) {
+                                  return state.map(
+                                      initial: (_) => SpinKitThreeBounce(
+                                            size: 30,
+                                            itemBuilder: (BuildContext context,
+                                                int index) {
+                                              return DecoratedBox(
+                                                decoration: BoxDecoration(
+                                                  color: index.isEven
+                                                      ? AppColors.primaryColor
+                                                      : AppColors.mainColor,
+                                                ),
+                                              );
+                                            },
+                                          ).paddingTop(size.height * .2 + 55),
+                                      loadSuccess: (e) => Column(
+                                            children: List.generate(
+                                              e.medicines.length,
+                                              (index) => itemsMedicamentWidget(
+                                                size,
+                                                e.medicines[index],
+                                              ).paddingBottom(15),
+                                            ),
+                                          ).paddingTop(17),
+                                      loadMessage: (_) => Container());
+                                }),
                               ],
                             )
                           : newMedicamentWidget(),
@@ -168,6 +188,7 @@ class _MedicinesViewState extends State<MedicinesView> {
                 Material(
                   child: InkWell(
                     onTap: () {
+                      clearForm();
                       setState(() {
                         isList = true;
                       });
@@ -202,9 +223,11 @@ class _MedicinesViewState extends State<MedicinesView> {
               selectedItem: typeMedicine,
               isRequired: true),
           buttonWidgetApp(
-            label: 'Registar',
-            onTap: saveMedicine,
-          ).paddingOnly(
+                  label: 'Guardar',
+                  onTap: saveMedicine,
+                  height: 50,
+                  fontSize: 20)
+              .paddingOnly(
             top: 15,
             bottom: 15,
           ),
@@ -213,7 +236,7 @@ class _MedicinesViewState extends State<MedicinesView> {
     );
   }
 
-  Container itemsMedicmantWidget(Size size, MedicamentModel item) {
+  Container itemsMedicamentWidget(Size size, MedicamentModel item) {
     return Container(
       width: double.infinity,
       height: 5 + 60,
@@ -258,10 +281,12 @@ class _MedicinesViewState extends State<MedicinesView> {
                       ),
                     ),
                     Expanded(
-                      child: Text(item.name).paddingLeft(10),
+                      child:
+                          Text(FuntionsApp().primeraLetraMayuscula(item.name))
+                              .paddingLeft(10),
                     ),
                   ],
-                ),
+                ).paddingBottom(5),
                 Row(
                   children: [
                     const Text(
@@ -271,37 +296,103 @@ class _MedicinesViewState extends State<MedicinesView> {
                       ),
                     ),
                     Expanded(
-                      child: Text(item.type).paddingLeft(10),
+                      child:
+                          Text(FuntionsApp().primeraLetraMayuscula(item.type))
+                              .paddingLeft(10),
                     ),
                   ],
                 ),
               ],
             ).paddingLeft(10),
           ),
-          Container(
-            width: 70,
-            height: double.infinity,
-            decoration: const BoxDecoration(
-              color: Colors.black,
-              borderRadius: BorderRadius.only(
-                topRight: Radius.circular(20),
-                bottomRight: Radius.circular(20),
+          if (!isDelete)
+            InkWell(
+              onDoubleTap: () {
+                setState(() {
+                  isDelete = !isDelete;
+                });
+              },
+              onTap: () {
+                model = item;
+                _nameController.text = item.name;
+                typeMedicine = item.type;
+                setState(() {
+                  isList = false;
+                });
+              },
+              child: Container(
+                width: 70,
+                height: double.infinity,
+                decoration: const BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(20),
+                    bottomRight: Radius.circular(20),
+                  ),
+                ),
+                child: const Icon(
+                  Icons.edit,
+                  size: 35,
+                  color: Colors.white,
+                ),
               ),
-            ),
-            child: const Icon(
-              Icons.edit,
-              size: 35,
-              color: Colors.white,
-            ),
-          )
+            )
+          else
+            InkWell(
+              onDoubleTap: () {
+                setState(() {
+                  isDelete = !isDelete;
+                });
+              },
+              onTap: () {
+                alert(context,
+                    text: "¿Esta seguro de eliminar este medicamento?",
+                    cancel: () {
+                  Navigator.pop(context);
+                }, confirm: () {
+                  medicineBloc.add(MedicineEvent.deleteItem(item.id!));
+                  Navigator.pop(context);
+                });
+              },
+              child: Container(
+                width: 70,
+                height: double.infinity,
+                decoration: const BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(20),
+                    bottomRight: Radius.circular(20),
+                  ),
+                ),
+                child: const Icon(
+                  Icons.delete,
+                  size: 35,
+                  color: Colors.white,
+                ),
+              ),
+            )
         ],
       ),
     );
   }
 
+  clearForm() {
+    model = null;
+    _nameController = TextEditingController(text: '');
+    typeMedicine = null;
+  }
+
   saveMedicine() {
+    setState(() {});
+    if (typeMedicine == null) {
+      return;
+    }
     if (_formKey.currentState!.validate()) {
-      model=  MedicamentModel(name: _nameController.text, type: typeMedicine!);
+      model = MedicamentModel(
+        name: _nameController.text,
+        type: typeMedicine!,
+        id: model == null ? '' : model!.id,
+      );
       medicineBloc.add(MedicineEvent.saveMedicine(model!));
     }
   }

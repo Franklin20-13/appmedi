@@ -474,6 +474,7 @@ abstract class LoadMessageMedicine implements MedicineState {
 mixin _$MedicineEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(String id) deleteItem,
     required TResult Function(MedicamentModel model) saveMedicine,
     required TResult Function(String message) pushMedicine,
     required TResult Function(String message) pushMessage,
@@ -481,6 +482,7 @@ mixin _$MedicineEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String id)? deleteItem,
     TResult? Function(MedicamentModel model)? saveMedicine,
     TResult? Function(String message)? pushMedicine,
     TResult? Function(String message)? pushMessage,
@@ -488,6 +490,7 @@ mixin _$MedicineEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String id)? deleteItem,
     TResult Function(MedicamentModel model)? saveMedicine,
     TResult Function(String message)? pushMedicine,
     TResult Function(String message)? pushMessage,
@@ -496,6 +499,7 @@ mixin _$MedicineEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_MedicineDeleteEvent value) deleteItem,
     required TResult Function(_MedicineEvent value) saveMedicine,
     required TResult Function(_PushMedicine value) pushMedicine,
     required TResult Function(_PushMedicineMessage value) pushMessage,
@@ -503,6 +507,7 @@ mixin _$MedicineEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_MedicineDeleteEvent value)? deleteItem,
     TResult? Function(_MedicineEvent value)? saveMedicine,
     TResult? Function(_PushMedicine value)? pushMedicine,
     TResult? Function(_PushMedicineMessage value)? pushMessage,
@@ -510,6 +515,7 @@ mixin _$MedicineEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_MedicineDeleteEvent value)? deleteItem,
     TResult Function(_MedicineEvent value)? saveMedicine,
     TResult Function(_PushMedicine value)? pushMedicine,
     TResult Function(_PushMedicineMessage value)? pushMessage,
@@ -534,6 +540,152 @@ class _$MedicineEventCopyWithImpl<$Res, $Val extends MedicineEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+}
+
+/// @nodoc
+abstract class _$$_MedicineDeleteEventCopyWith<$Res> {
+  factory _$$_MedicineDeleteEventCopyWith(_$_MedicineDeleteEvent value,
+          $Res Function(_$_MedicineDeleteEvent) then) =
+      __$$_MedicineDeleteEventCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String id});
+}
+
+/// @nodoc
+class __$$_MedicineDeleteEventCopyWithImpl<$Res>
+    extends _$MedicineEventCopyWithImpl<$Res, _$_MedicineDeleteEvent>
+    implements _$$_MedicineDeleteEventCopyWith<$Res> {
+  __$$_MedicineDeleteEventCopyWithImpl(_$_MedicineDeleteEvent _value,
+      $Res Function(_$_MedicineDeleteEvent) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+  }) {
+    return _then(_$_MedicineDeleteEvent(
+      null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_MedicineDeleteEvent implements _MedicineDeleteEvent {
+  const _$_MedicineDeleteEvent(this.id);
+
+  @override
+  final String id;
+
+  @override
+  String toString() {
+    return 'MedicineEvent.deleteItem(id: $id)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_MedicineDeleteEvent &&
+            (identical(other.id, id) || other.id == id));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, id);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_MedicineDeleteEventCopyWith<_$_MedicineDeleteEvent> get copyWith =>
+      __$$_MedicineDeleteEventCopyWithImpl<_$_MedicineDeleteEvent>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String id) deleteItem,
+    required TResult Function(MedicamentModel model) saveMedicine,
+    required TResult Function(String message) pushMedicine,
+    required TResult Function(String message) pushMessage,
+  }) {
+    return deleteItem(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String id)? deleteItem,
+    TResult? Function(MedicamentModel model)? saveMedicine,
+    TResult? Function(String message)? pushMedicine,
+    TResult? Function(String message)? pushMessage,
+  }) {
+    return deleteItem?.call(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String id)? deleteItem,
+    TResult Function(MedicamentModel model)? saveMedicine,
+    TResult Function(String message)? pushMedicine,
+    TResult Function(String message)? pushMessage,
+    required TResult orElse(),
+  }) {
+    if (deleteItem != null) {
+      return deleteItem(id);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_MedicineDeleteEvent value) deleteItem,
+    required TResult Function(_MedicineEvent value) saveMedicine,
+    required TResult Function(_PushMedicine value) pushMedicine,
+    required TResult Function(_PushMedicineMessage value) pushMessage,
+  }) {
+    return deleteItem(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_MedicineDeleteEvent value)? deleteItem,
+    TResult? Function(_MedicineEvent value)? saveMedicine,
+    TResult? Function(_PushMedicine value)? pushMedicine,
+    TResult? Function(_PushMedicineMessage value)? pushMessage,
+  }) {
+    return deleteItem?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_MedicineDeleteEvent value)? deleteItem,
+    TResult Function(_MedicineEvent value)? saveMedicine,
+    TResult Function(_PushMedicine value)? pushMedicine,
+    TResult Function(_PushMedicineMessage value)? pushMessage,
+    required TResult orElse(),
+  }) {
+    if (deleteItem != null) {
+      return deleteItem(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _MedicineDeleteEvent implements MedicineEvent {
+  const factory _MedicineDeleteEvent(final String id) = _$_MedicineDeleteEvent;
+
+  String get id;
+  @JsonKey(ignore: true)
+  _$$_MedicineDeleteEventCopyWith<_$_MedicineDeleteEvent> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -600,6 +752,7 @@ class _$_MedicineEvent implements _MedicineEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(String id) deleteItem,
     required TResult Function(MedicamentModel model) saveMedicine,
     required TResult Function(String message) pushMedicine,
     required TResult Function(String message) pushMessage,
@@ -610,6 +763,7 @@ class _$_MedicineEvent implements _MedicineEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String id)? deleteItem,
     TResult? Function(MedicamentModel model)? saveMedicine,
     TResult? Function(String message)? pushMedicine,
     TResult? Function(String message)? pushMessage,
@@ -620,6 +774,7 @@ class _$_MedicineEvent implements _MedicineEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String id)? deleteItem,
     TResult Function(MedicamentModel model)? saveMedicine,
     TResult Function(String message)? pushMedicine,
     TResult Function(String message)? pushMessage,
@@ -634,6 +789,7 @@ class _$_MedicineEvent implements _MedicineEvent {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_MedicineDeleteEvent value) deleteItem,
     required TResult Function(_MedicineEvent value) saveMedicine,
     required TResult Function(_PushMedicine value) pushMedicine,
     required TResult Function(_PushMedicineMessage value) pushMessage,
@@ -644,6 +800,7 @@ class _$_MedicineEvent implements _MedicineEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_MedicineDeleteEvent value)? deleteItem,
     TResult? Function(_MedicineEvent value)? saveMedicine,
     TResult? Function(_PushMedicine value)? pushMedicine,
     TResult? Function(_PushMedicineMessage value)? pushMessage,
@@ -654,6 +811,7 @@ class _$_MedicineEvent implements _MedicineEvent {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_MedicineDeleteEvent value)? deleteItem,
     TResult Function(_MedicineEvent value)? saveMedicine,
     TResult Function(_PushMedicine value)? pushMedicine,
     TResult Function(_PushMedicineMessage value)? pushMessage,
@@ -739,6 +897,7 @@ class _$_PushMedicine implements _PushMedicine {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(String id) deleteItem,
     required TResult Function(MedicamentModel model) saveMedicine,
     required TResult Function(String message) pushMedicine,
     required TResult Function(String message) pushMessage,
@@ -749,6 +908,7 @@ class _$_PushMedicine implements _PushMedicine {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String id)? deleteItem,
     TResult? Function(MedicamentModel model)? saveMedicine,
     TResult? Function(String message)? pushMedicine,
     TResult? Function(String message)? pushMessage,
@@ -759,6 +919,7 @@ class _$_PushMedicine implements _PushMedicine {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String id)? deleteItem,
     TResult Function(MedicamentModel model)? saveMedicine,
     TResult Function(String message)? pushMedicine,
     TResult Function(String message)? pushMessage,
@@ -773,6 +934,7 @@ class _$_PushMedicine implements _PushMedicine {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_MedicineDeleteEvent value) deleteItem,
     required TResult Function(_MedicineEvent value) saveMedicine,
     required TResult Function(_PushMedicine value) pushMedicine,
     required TResult Function(_PushMedicineMessage value) pushMessage,
@@ -783,6 +945,7 @@ class _$_PushMedicine implements _PushMedicine {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_MedicineDeleteEvent value)? deleteItem,
     TResult? Function(_MedicineEvent value)? saveMedicine,
     TResult? Function(_PushMedicine value)? pushMedicine,
     TResult? Function(_PushMedicineMessage value)? pushMessage,
@@ -793,6 +956,7 @@ class _$_PushMedicine implements _PushMedicine {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_MedicineDeleteEvent value)? deleteItem,
     TResult Function(_MedicineEvent value)? saveMedicine,
     TResult Function(_PushMedicine value)? pushMedicine,
     TResult Function(_PushMedicineMessage value)? pushMessage,
@@ -880,6 +1044,7 @@ class _$_PushMedicineMessage implements _PushMedicineMessage {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(String id) deleteItem,
     required TResult Function(MedicamentModel model) saveMedicine,
     required TResult Function(String message) pushMedicine,
     required TResult Function(String message) pushMessage,
@@ -890,6 +1055,7 @@ class _$_PushMedicineMessage implements _PushMedicineMessage {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String id)? deleteItem,
     TResult? Function(MedicamentModel model)? saveMedicine,
     TResult? Function(String message)? pushMedicine,
     TResult? Function(String message)? pushMessage,
@@ -900,6 +1066,7 @@ class _$_PushMedicineMessage implements _PushMedicineMessage {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String id)? deleteItem,
     TResult Function(MedicamentModel model)? saveMedicine,
     TResult Function(String message)? pushMedicine,
     TResult Function(String message)? pushMessage,
@@ -914,6 +1081,7 @@ class _$_PushMedicineMessage implements _PushMedicineMessage {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_MedicineDeleteEvent value) deleteItem,
     required TResult Function(_MedicineEvent value) saveMedicine,
     required TResult Function(_PushMedicine value) pushMedicine,
     required TResult Function(_PushMedicineMessage value) pushMessage,
@@ -924,6 +1092,7 @@ class _$_PushMedicineMessage implements _PushMedicineMessage {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_MedicineDeleteEvent value)? deleteItem,
     TResult? Function(_MedicineEvent value)? saveMedicine,
     TResult? Function(_PushMedicine value)? pushMedicine,
     TResult? Function(_PushMedicineMessage value)? pushMessage,
@@ -934,6 +1103,7 @@ class _$_PushMedicineMessage implements _PushMedicineMessage {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_MedicineDeleteEvent value)? deleteItem,
     TResult Function(_MedicineEvent value)? saveMedicine,
     TResult Function(_PushMedicine value)? pushMedicine,
     TResult Function(_PushMedicineMessage value)? pushMessage,

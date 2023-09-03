@@ -5,8 +5,12 @@ import 'package:app_medi/shared/values/values.dart';
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:datetime_picker_formfield_new/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+
+import '../../../medicines/presentation/bloc/get_medicines/get_medicines_bloc.dart';
 
 class DiaryTreatmentView extends StatefulWidget {
   const DiaryTreatmentView({super.key});
@@ -84,23 +88,44 @@ class _DiaryTreatmentViewState extends State<DiaryTreatmentView> {
                         ),
                       ),
                       children: [
-                        dropdownButtonFormSearch<MedicamentModel>(
-                          filterFn:
-                              (MedicamentModel person, String searchTerm) {
-                            return person.name
-                                .toLowerCase()
-                                .contains(searchTerm.toLowerCase());
-                          },
-                          itemAsString: (MedicamentModel data) => data.name,
-                          items: listMedicaments,
-                          label: 'Medicamentos',
-                          onChanged: (MedicamentModel? selectedData) {
-                            if (selectedData != null) {
-                              selectedMedicament = selectedData;
-                            }
-                          },
-                          selectedItem: selectedMedicament,
-                        ),
+                        BlocBuilder<GetMedicinesBloc, GetMedicinesState>(
+                            builder: (context, state) {
+                          return state.map(
+                            initial: (_) => SpinKitThreeBounce(
+                              size: 30,
+                              itemBuilder: (BuildContext context, int index) {
+                                return DecoratedBox(
+                                  decoration: BoxDecoration(
+                                    color: index.isEven
+                                        ? AppColors.primaryColor
+                                        : AppColors.mainColor,
+                                  ),
+                                );
+                              },
+                            ),
+                            loadSuccess: (e) {
+                              return dropdownButtonFormSearch<MedicamentModel>(
+                                filterFn: (MedicamentModel person,
+                                    String searchTerm) {
+                                  return person.name
+                                      .toLowerCase()
+                                      .contains(searchTerm.toLowerCase());
+                                },
+                                itemAsString: (MedicamentModel data) =>
+                                    data.name,
+                                items: e.medicines,
+                                label: 'Medicamentos',
+                                onChanged: (MedicamentModel? selectedData) {
+                                  if (selectedData != null) {
+                                    selectedMedicament = selectedData;
+                                  }
+                                },
+                                selectedItem: selectedMedicament,
+                              );
+                            },
+                            loadMessage: (_) => Container(),
+                          );
+                        }),
                         textInput('Cantidad', _quantityController, false,
                             code: '',
                             clave: 0,
@@ -160,6 +185,7 @@ class _DiaryTreatmentViewState extends State<DiaryTreatmentView> {
                           format: formatTime,
                           controller: _timeController,
                           validator: (value) => validaHora(value!, fecha),
+                          cursorColor: AppColors.primaryColor,
                           decoration: InputDecoration(
                             contentPadding: const EdgeInsets.symmetric(
                               vertical: 3,
@@ -169,6 +195,7 @@ class _DiaryTreatmentViewState extends State<DiaryTreatmentView> {
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(15),
                             ),
+                            fillColor: AppColors.primaryColor,
                           ),
                           onChanged: (data) {
                             setState(() {});
