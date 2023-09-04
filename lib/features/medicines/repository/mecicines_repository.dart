@@ -31,7 +31,7 @@ class UserRepository implements IMedicine {
           userFirestore.getDocument(gerUserSesion!.user!.id!);
       model.userRef = gerDocumentRef;
       final existMedicament =
-          await medicineFirestore.whereExistMedicament(model.name).get();
+          await medicineFirestore.whereExistMedicament(model.name,gerDocumentRef).get();
       if (existMedicament.docs.isNotEmpty) {
         return const Left(ServerFailure("El medicamento  ya existe"));
       }

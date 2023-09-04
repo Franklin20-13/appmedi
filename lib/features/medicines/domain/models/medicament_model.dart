@@ -26,12 +26,16 @@ class MedicamentModel {
           ? json[MedicinesFields.typeMedicine]
           : '',
       createDate: json.containsKey(MedicinesFields.createDate)
-          ? json[MedicinesFields.createDate]==null?DateTime.now():DateTime.fromMillisecondsSinceEpoch(
-              (json[MedicinesFields.createDate] as Timestamp)
-                  .millisecondsSinceEpoch,
-            )
+          ? json[MedicinesFields.createDate] == null
+              ? DateTime.now()
+              : DateTime.fromMillisecondsSinceEpoch(
+                  (json[MedicinesFields.createDate] as Timestamp)
+                      .millisecondsSinceEpoch,
+                )
           : DateTime.now(),
-      userRef: refUser,
+      userRef: json.containsKey(MedicinesFields.userRef)
+          ? json[MedicinesFields.userRef]
+          : null,
     );
   }
 }

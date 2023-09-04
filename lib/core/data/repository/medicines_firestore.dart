@@ -36,8 +36,10 @@ class MedicineFirestore extends AbstractFirestore {
     }
   }
 
-  Query whereExistMedicament(String name) =>
-      collection.where(MedicinesFields.name, isEqualTo: name);
+  Query whereExistMedicament(String name, DocumentReference userRef) =>
+      collection
+          .where(MedicinesFields.name, isEqualTo: name)
+          .where(MedicinesFields.userRef, isEqualTo: userRef);
   Query whereMedicamentsForUser(DocumentReference documentReference) =>
       collection.where(MedicinesFields.userRef, isEqualTo: documentReference);
 }

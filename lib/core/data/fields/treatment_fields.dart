@@ -7,4 +7,5 @@ class TreatmentFields {
   static const toDate = 'toDate';
   static const hour = 'hour';
   static const userRef = 'userRef';
+  static const recipeRef = 'recipeRef';
 }

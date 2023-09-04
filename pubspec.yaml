@@ -47,6 +47,7 @@ dependencies:
   # execute==> flutter pub run flutter_native_splash:create --path=flutter_native_splash.yaml <==from terminal to generate splash screen
   flutter_native_splash: ^2.3.0
   flutter_launcher_icons: ^0.13.1
+  text_area: ^0.0.3
 
 dev_dependencies:
   flutter_test:

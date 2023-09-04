@@ -64,6 +64,14 @@ class TreatmentFirestore extends AbstractFirestore {
     }
   }
 
-  Query whereExistMedicine(DocumentReference refMedicament) =>
-      collection.where(TreatmentFields.refMedicament, isEqualTo: refMedicament);
+  Query whereExistMedicine(
+          DocumentReference refMedicament, DocumentReference recipeRef) =>
+      collection
+          .where(TreatmentFields.refMedicament, isEqualTo: refMedicament)
+          .where(TreatmentFields.recipeRef, isEqualTo: recipeRef);
+  Query whereRecipeItems(
+          DocumentReference refUser, DocumentReference refRecipe) =>
+      collection
+          .where(TreatmentFields.recipeRef, isEqualTo: refRecipe)
+          .where(TreatmentFields.userRef, isEqualTo: refUser);
 }

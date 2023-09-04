@@ -474,21 +474,24 @@ abstract class LoadMessageTreatment implements TreatamentState {
 mixin _$TreatamentEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(TreatamentModels model) saveTreatment,
+    required TResult Function(RecipeDetailModels model) saveRecipeDetail,
+    required TResult Function(RecipeModel model) saveRecipe,
     required TResult Function(String message) pushTreatment,
     required TResult Function(String message) pushMessage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(TreatamentModels model)? saveTreatment,
+    TResult? Function(RecipeDetailModels model)? saveRecipeDetail,
+    TResult? Function(RecipeModel model)? saveRecipe,
     TResult? Function(String message)? pushTreatment,
     TResult? Function(String message)? pushMessage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(TreatamentModels model)? saveTreatment,
+    TResult Function(RecipeDetailModels model)? saveRecipeDetail,
+    TResult Function(RecipeModel model)? saveRecipe,
     TResult Function(String message)? pushTreatment,
     TResult Function(String message)? pushMessage,
     required TResult orElse(),
@@ -496,21 +499,24 @@ mixin _$TreatamentEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_TreatamentEvent value) saveTreatment,
+    required TResult Function(_RecipeDetailEvent value) saveRecipeDetail,
+    required TResult Function(_RecipeEvent value) saveRecipe,
     required TResult Function(_PushMedicine value) pushTreatment,
     required TResult Function(_PushMedicineMessage value) pushMessage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_TreatamentEvent value)? saveTreatment,
+    TResult? Function(_RecipeDetailEvent value)? saveRecipeDetail,
+    TResult? Function(_RecipeEvent value)? saveRecipe,
     TResult? Function(_PushMedicine value)? pushTreatment,
     TResult? Function(_PushMedicineMessage value)? pushMessage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_TreatamentEvent value)? saveTreatment,
+    TResult Function(_RecipeDetailEvent value)? saveRecipeDetail,
+    TResult Function(_RecipeEvent value)? saveRecipe,
     TResult Function(_PushMedicine value)? pushTreatment,
     TResult Function(_PushMedicineMessage value)? pushMessage,
     required TResult orElse(),
@@ -537,20 +543,20 @@ class _$TreatamentEventCopyWithImpl<$Res, $Val extends TreatamentEvent>
 }
 
 /// @nodoc
-abstract class _$$_TreatamentEventCopyWith<$Res> {
-  factory _$$_TreatamentEventCopyWith(
-          _$_TreatamentEvent value, $Res Function(_$_TreatamentEvent) then) =
-      __$$_TreatamentEventCopyWithImpl<$Res>;
+abstract class _$$_RecipeDetailEventCopyWith<$Res> {
+  factory _$$_RecipeDetailEventCopyWith(_$_RecipeDetailEvent value,
+          $Res Function(_$_RecipeDetailEvent) then) =
+      __$$_RecipeDetailEventCopyWithImpl<$Res>;
   @useResult
-  $Res call({TreatamentModels model});
+  $Res call({RecipeDetailModels model});
 }
 
 /// @nodoc
-class __$$_TreatamentEventCopyWithImpl<$Res>
-    extends _$TreatamentEventCopyWithImpl<$Res, _$_TreatamentEvent>
-    implements _$$_TreatamentEventCopyWith<$Res> {
-  __$$_TreatamentEventCopyWithImpl(
-      _$_TreatamentEvent _value, $Res Function(_$_TreatamentEvent) _then)
+class __$$_RecipeDetailEventCopyWithImpl<$Res>
+    extends _$TreatamentEventCopyWithImpl<$Res, _$_RecipeDetailEvent>
+    implements _$$_RecipeDetailEventCopyWith<$Res> {
+  __$$_RecipeDetailEventCopyWithImpl(
+      _$_RecipeDetailEvent _value, $Res Function(_$_RecipeDetailEvent) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -558,33 +564,33 @@ class __$$_TreatamentEventCopyWithImpl<$Res>
   $Res call({
     Object? model = null,
   }) {
-    return _then(_$_TreatamentEvent(
+    return _then(_$_RecipeDetailEvent(
       null == model
           ? _value.model
           : model // ignore: cast_nullable_to_non_nullable
-              as TreatamentModels,
+              as RecipeDetailModels,
     ));
   }
 }
 
 /// @nodoc
 
-class _$_TreatamentEvent implements _TreatamentEvent {
-  const _$_TreatamentEvent(this.model);
+class _$_RecipeDetailEvent implements _RecipeDetailEvent {
+  const _$_RecipeDetailEvent(this.model);
 
   @override
-  final TreatamentModels model;
+  final RecipeDetailModels model;
 
   @override
   String toString() {
-    return 'TreatamentEvent.saveTreatment(model: $model)';
+    return 'TreatamentEvent.saveRecipeDetail(model: $model)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_TreatamentEvent &&
+            other is _$_RecipeDetailEvent &&
             (identical(other.model, model) || other.model == model));
   }
 
@@ -594,39 +600,43 @@ class _$_TreatamentEvent implements _TreatamentEvent {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_TreatamentEventCopyWith<_$_TreatamentEvent> get copyWith =>
-      __$$_TreatamentEventCopyWithImpl<_$_TreatamentEvent>(this, _$identity);
+  _$$_RecipeDetailEventCopyWith<_$_RecipeDetailEvent> get copyWith =>
+      __$$_RecipeDetailEventCopyWithImpl<_$_RecipeDetailEvent>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(TreatamentModels model) saveTreatment,
+    required TResult Function(RecipeDetailModels model) saveRecipeDetail,
+    required TResult Function(RecipeModel model) saveRecipe,
     required TResult Function(String message) pushTreatment,
     required TResult Function(String message) pushMessage,
   }) {
-    return saveTreatment(model);
+    return saveRecipeDetail(model);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(TreatamentModels model)? saveTreatment,
+    TResult? Function(RecipeDetailModels model)? saveRecipeDetail,
+    TResult? Function(RecipeModel model)? saveRecipe,
     TResult? Function(String message)? pushTreatment,
     TResult? Function(String message)? pushMessage,
   }) {
-    return saveTreatment?.call(model);
+    return saveRecipeDetail?.call(model);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(TreatamentModels model)? saveTreatment,
+    TResult Function(RecipeDetailModels model)? saveRecipeDetail,
+    TResult Function(RecipeModel model)? saveRecipe,
     TResult Function(String message)? pushTreatment,
     TResult Function(String message)? pushMessage,
     required TResult orElse(),
   }) {
-    if (saveTreatment != null) {
-      return saveTreatment(model);
+    if (saveRecipeDetail != null) {
+      return saveRecipeDetail(model);
     }
     return orElse();
   }
@@ -634,45 +644,193 @@ class _$_TreatamentEvent implements _TreatamentEvent {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_TreatamentEvent value) saveTreatment,
+    required TResult Function(_RecipeDetailEvent value) saveRecipeDetail,
+    required TResult Function(_RecipeEvent value) saveRecipe,
     required TResult Function(_PushMedicine value) pushTreatment,
     required TResult Function(_PushMedicineMessage value) pushMessage,
   }) {
-    return saveTreatment(this);
+    return saveRecipeDetail(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_TreatamentEvent value)? saveTreatment,
+    TResult? Function(_RecipeDetailEvent value)? saveRecipeDetail,
+    TResult? Function(_RecipeEvent value)? saveRecipe,
     TResult? Function(_PushMedicine value)? pushTreatment,
     TResult? Function(_PushMedicineMessage value)? pushMessage,
   }) {
-    return saveTreatment?.call(this);
+    return saveRecipeDetail?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_TreatamentEvent value)? saveTreatment,
+    TResult Function(_RecipeDetailEvent value)? saveRecipeDetail,
+    TResult Function(_RecipeEvent value)? saveRecipe,
     TResult Function(_PushMedicine value)? pushTreatment,
     TResult Function(_PushMedicineMessage value)? pushMessage,
     required TResult orElse(),
   }) {
-    if (saveTreatment != null) {
-      return saveTreatment(this);
+    if (saveRecipeDetail != null) {
+      return saveRecipeDetail(this);
     }
     return orElse();
   }
 }
 
-abstract class _TreatamentEvent implements TreatamentEvent {
-  const factory _TreatamentEvent(final TreatamentModels model) =
-      _$_TreatamentEvent;
+abstract class _RecipeDetailEvent implements TreatamentEvent {
+  const factory _RecipeDetailEvent(final RecipeDetailModels model) =
+      _$_RecipeDetailEvent;
 
-  TreatamentModels get model;
+  RecipeDetailModels get model;
   @JsonKey(ignore: true)
-  _$$_TreatamentEventCopyWith<_$_TreatamentEvent> get copyWith =>
+  _$$_RecipeDetailEventCopyWith<_$_RecipeDetailEvent> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_RecipeEventCopyWith<$Res> {
+  factory _$$_RecipeEventCopyWith(
+          _$_RecipeEvent value, $Res Function(_$_RecipeEvent) then) =
+      __$$_RecipeEventCopyWithImpl<$Res>;
+  @useResult
+  $Res call({RecipeModel model});
+}
+
+/// @nodoc
+class __$$_RecipeEventCopyWithImpl<$Res>
+    extends _$TreatamentEventCopyWithImpl<$Res, _$_RecipeEvent>
+    implements _$$_RecipeEventCopyWith<$Res> {
+  __$$_RecipeEventCopyWithImpl(
+      _$_RecipeEvent _value, $Res Function(_$_RecipeEvent) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? model = null,
+  }) {
+    return _then(_$_RecipeEvent(
+      null == model
+          ? _value.model
+          : model // ignore: cast_nullable_to_non_nullable
+              as RecipeModel,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_RecipeEvent implements _RecipeEvent {
+  const _$_RecipeEvent(this.model);
+
+  @override
+  final RecipeModel model;
+
+  @override
+  String toString() {
+    return 'TreatamentEvent.saveRecipe(model: $model)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_RecipeEvent &&
+            (identical(other.model, model) || other.model == model));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, model);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_RecipeEventCopyWith<_$_RecipeEvent> get copyWith =>
+      __$$_RecipeEventCopyWithImpl<_$_RecipeEvent>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(RecipeDetailModels model) saveRecipeDetail,
+    required TResult Function(RecipeModel model) saveRecipe,
+    required TResult Function(String message) pushTreatment,
+    required TResult Function(String message) pushMessage,
+  }) {
+    return saveRecipe(model);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(RecipeDetailModels model)? saveRecipeDetail,
+    TResult? Function(RecipeModel model)? saveRecipe,
+    TResult? Function(String message)? pushTreatment,
+    TResult? Function(String message)? pushMessage,
+  }) {
+    return saveRecipe?.call(model);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(RecipeDetailModels model)? saveRecipeDetail,
+    TResult Function(RecipeModel model)? saveRecipe,
+    TResult Function(String message)? pushTreatment,
+    TResult Function(String message)? pushMessage,
+    required TResult orElse(),
+  }) {
+    if (saveRecipe != null) {
+      return saveRecipe(model);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_RecipeDetailEvent value) saveRecipeDetail,
+    required TResult Function(_RecipeEvent value) saveRecipe,
+    required TResult Function(_PushMedicine value) pushTreatment,
+    required TResult Function(_PushMedicineMessage value) pushMessage,
+  }) {
+    return saveRecipe(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_RecipeDetailEvent value)? saveRecipeDetail,
+    TResult? Function(_RecipeEvent value)? saveRecipe,
+    TResult? Function(_PushMedicine value)? pushTreatment,
+    TResult? Function(_PushMedicineMessage value)? pushMessage,
+  }) {
+    return saveRecipe?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_RecipeDetailEvent value)? saveRecipeDetail,
+    TResult Function(_RecipeEvent value)? saveRecipe,
+    TResult Function(_PushMedicine value)? pushTreatment,
+    TResult Function(_PushMedicineMessage value)? pushMessage,
+    required TResult orElse(),
+  }) {
+    if (saveRecipe != null) {
+      return saveRecipe(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _RecipeEvent implements TreatamentEvent {
+  const factory _RecipeEvent(final RecipeModel model) = _$_RecipeEvent;
+
+  RecipeModel get model;
+  @JsonKey(ignore: true)
+  _$$_RecipeEventCopyWith<_$_RecipeEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -740,7 +898,8 @@ class _$_PushMedicine implements _PushMedicine {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(TreatamentModels model) saveTreatment,
+    required TResult Function(RecipeDetailModels model) saveRecipeDetail,
+    required TResult Function(RecipeModel model) saveRecipe,
     required TResult Function(String message) pushTreatment,
     required TResult Function(String message) pushMessage,
   }) {
@@ -750,7 +909,8 @@ class _$_PushMedicine implements _PushMedicine {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(TreatamentModels model)? saveTreatment,
+    TResult? Function(RecipeDetailModels model)? saveRecipeDetail,
+    TResult? Function(RecipeModel model)? saveRecipe,
     TResult? Function(String message)? pushTreatment,
     TResult? Function(String message)? pushMessage,
   }) {
@@ -760,7 +920,8 @@ class _$_PushMedicine implements _PushMedicine {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(TreatamentModels model)? saveTreatment,
+    TResult Function(RecipeDetailModels model)? saveRecipeDetail,
+    TResult Function(RecipeModel model)? saveRecipe,
     TResult Function(String message)? pushTreatment,
     TResult Function(String message)? pushMessage,
     required TResult orElse(),
@@ -774,7 +935,8 @@ class _$_PushMedicine implements _PushMedicine {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_TreatamentEvent value) saveTreatment,
+    required TResult Function(_RecipeDetailEvent value) saveRecipeDetail,
+    required TResult Function(_RecipeEvent value) saveRecipe,
     required TResult Function(_PushMedicine value) pushTreatment,
     required TResult Function(_PushMedicineMessage value) pushMessage,
   }) {
@@ -784,7 +946,8 @@ class _$_PushMedicine implements _PushMedicine {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_TreatamentEvent value)? saveTreatment,
+    TResult? Function(_RecipeDetailEvent value)? saveRecipeDetail,
+    TResult? Function(_RecipeEvent value)? saveRecipe,
     TResult? Function(_PushMedicine value)? pushTreatment,
     TResult? Function(_PushMedicineMessage value)? pushMessage,
   }) {
@@ -794,7 +957,8 @@ class _$_PushMedicine implements _PushMedicine {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_TreatamentEvent value)? saveTreatment,
+    TResult Function(_RecipeDetailEvent value)? saveRecipeDetail,
+    TResult Function(_RecipeEvent value)? saveRecipe,
     TResult Function(_PushMedicine value)? pushTreatment,
     TResult Function(_PushMedicineMessage value)? pushMessage,
     required TResult orElse(),
@@ -881,7 +1045,8 @@ class _$_PushMedicineMessage implements _PushMedicineMessage {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(TreatamentModels model) saveTreatment,
+    required TResult Function(RecipeDetailModels model) saveRecipeDetail,
+    required TResult Function(RecipeModel model) saveRecipe,
     required TResult Function(String message) pushTreatment,
     required TResult Function(String message) pushMessage,
   }) {
@@ -891,7 +1056,8 @@ class _$_PushMedicineMessage implements _PushMedicineMessage {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(TreatamentModels model)? saveTreatment,
+    TResult? Function(RecipeDetailModels model)? saveRecipeDetail,
+    TResult? Function(RecipeModel model)? saveRecipe,
     TResult? Function(String message)? pushTreatment,
     TResult? Function(String message)? pushMessage,
   }) {
@@ -901,7 +1067,8 @@ class _$_PushMedicineMessage implements _PushMedicineMessage {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(TreatamentModels model)? saveTreatment,
+    TResult Function(RecipeDetailModels model)? saveRecipeDetail,
+    TResult Function(RecipeModel model)? saveRecipe,
     TResult Function(String message)? pushTreatment,
     TResult Function(String message)? pushMessage,
     required TResult orElse(),
@@ -915,7 +1082,8 @@ class _$_PushMedicineMessage implements _PushMedicineMessage {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_TreatamentEvent value) saveTreatment,
+    required TResult Function(_RecipeDetailEvent value) saveRecipeDetail,
+    required TResult Function(_RecipeEvent value) saveRecipe,
     required TResult Function(_PushMedicine value) pushTreatment,
     required TResult Function(_PushMedicineMessage value) pushMessage,
   }) {
@@ -925,7 +1093,8 @@ class _$_PushMedicineMessage implements _PushMedicineMessage {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_TreatamentEvent value)? saveTreatment,
+    TResult? Function(_RecipeDetailEvent value)? saveRecipeDetail,
+    TResult? Function(_RecipeEvent value)? saveRecipe,
     TResult? Function(_PushMedicine value)? pushTreatment,
     TResult? Function(_PushMedicineMessage value)? pushMessage,
   }) {
@@ -935,7 +1104,8 @@ class _$_PushMedicineMessage implements _PushMedicineMessage {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_TreatamentEvent value)? saveTreatment,
+    TResult Function(_RecipeDetailEvent value)? saveRecipeDetail,
+    TResult Function(_RecipeEvent value)? saveRecipe,
     TResult Function(_PushMedicine value)? pushTreatment,
     TResult Function(_PushMedicineMessage value)? pushMessage,
     required TResult orElse(),

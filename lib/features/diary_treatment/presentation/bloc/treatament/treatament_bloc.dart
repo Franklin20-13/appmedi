@@ -4,7 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../domain/models/treatament_models.dart';
+import '../../../domain/models/recipe_detail_models.dart';
+import '../../../domain/models/recipe_model.dart';
 
 part 'treatament_state.dart';
 part 'treatament_event.dart';
@@ -20,7 +21,7 @@ class TreatamentBloc extends Bloc<TreatamentEvent, TreatamentState> {
     TreatamentEvent event,
   ) async* {
     yield* event.map(
-      saveTreatment: (e) async* {
+      saveRecipeDetail: (e) async* {
         yield const TreatamentState.initial();
         final response = await iTreatment.register(e.model);
         response.fold(
@@ -41,6 +42,22 @@ class TreatamentBloc extends Bloc<TreatamentEvent, TreatamentState> {
       },
       pushMessage: (value) async* {
         yield TreatamentState.loadMessage(message: value.message);
+      },
+      saveRecipe: (e) async* {
+        yield const TreatamentState.initial();
+        final response = await iTreatment.registerRecipe(e.model);
+        response.fold(
+          (l) {
+            if (l is ServerFailure) {
+              add(
+                TreatamentEvent.pushMessage(message: l.message),
+              );
+            }
+          },
+          (message) => add(
+            TreatamentEvent.pushTreatment(message: message),
+          ),
+        );
       },
     );
   }
