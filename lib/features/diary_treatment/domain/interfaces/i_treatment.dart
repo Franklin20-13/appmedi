@@ -9,4 +9,6 @@ abstract class ITreatment {
   Future<Either<Failure, String>> registerRecipe(RecipeModel model);
   Stream<Either<Failure, List<RecipeModel>>> getRecipes();
   Future<Either<Failure, List<RecipeDetailModels>>> getRecipeItems(String recipeId);
+  Future<Either<Failure, String>> deleteRecipe(String id);
+  Future<Either<Failure, String>> deleteMedicamentByRecipe(String id);
 }

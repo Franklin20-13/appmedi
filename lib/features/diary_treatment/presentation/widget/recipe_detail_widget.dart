@@ -40,6 +40,7 @@ class _RecipeDetailWidgetState extends State<RecipeDetailWidget> {
   RecipeDetailModels? model;
   late GetMedicinesBloc getMedicinesBloc;
   late MedicamentDetailBloc medicamentDetailBloc;
+  late RecipeDetailModels? selectMedicines;
   bool isList = true;
   String title = "Mis Médicamentos";
   bool isDeleteMedicament = false;
@@ -76,7 +77,11 @@ class _RecipeDetailWidgetState extends State<RecipeDetailWidget> {
         BlocListener<TreatamentBloc, TreatamentState>(
             listener: (context, state) {
           if (state is LoadSuccessTreatment) {
-            clearForm();
+            if (selectMedicines == null) {
+              clearForm();
+            } else {
+              selectMedicines = null;
+            }
             medicamentDetailBloc.add(
                 MedicamentDetailEvent.getMedimanetItems(widget.recipe.id!));
           }
@@ -469,7 +474,13 @@ class _RecipeDetailWidgetState extends State<RecipeDetailWidget> {
                   isDeleteMedicament = true;
                 });
               },
-              onTap: () {},
+              onTap: () {
+                selectMedicines = item;
+                setState(() {
+                  isList = false;
+                });
+                onEdit();
+              },
               child: Container(
                 width: 70,
                 height: double.infinity,
@@ -500,7 +511,8 @@ class _RecipeDetailWidgetState extends State<RecipeDetailWidget> {
                     cancel: () {
                   Navigator.pop(context);
                 }, confirm: () {
-                  //medicineBloc.add(MedicineEvent.deleteItem(item.id!));
+                  treatamentBloc
+                      .add(TreatamentEvent.deleteMedicamentById(model!.id!));
                   Navigator.pop(context);
                 });
               },
@@ -526,9 +538,29 @@ class _RecipeDetailWidgetState extends State<RecipeDetailWidget> {
     );
   }
 
+  onEdit() {
+    selectedMedicament = selectMedicines!.medicamentModel;
+    _measureController = TextEditingController(text: selectMedicines!.measure);
+    _quantityController =
+        TextEditingController(text: selectMedicines!.quantity.toString());
+    dates.clear();
+    dates.add(selectMedicines!.fromDate);
+    dates.add(selectMedicines!.toDate);
+    final hour = selectMedicines!.hour.split(';');
+
+    hours.clear();
+    int index = 0;
+    while (index < (hour.length - 1)) {
+      hours.add(DateTime.parse(hour[index]));
+      index++;
+    }
+    setState(() {});
+  }
+
   saveFrom() {
     if (_formKey.currentState!.validate()) {
       model = RecipeDetailModels(
+        id: selectMedicines == null ? null : selectMedicines!.id,
         medicRef: null,
         medicamentId: selectedMedicament!.id!,
         quantity: int.parse(_quantityController.text),

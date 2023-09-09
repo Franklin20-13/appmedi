@@ -2,6 +2,7 @@ import 'package:app_medi/config/custom_icons.dart';
 import 'package:app_medi/shared/values/values.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../domain/models/recipe_model.dart';
 import '../bloc/treatament/treatament_bloc.dart';
 import '../widget/recipe_widget.dart';
 import '../widget/recipes_widget.dart';
@@ -15,6 +16,7 @@ class DiaryTreatmentView extends StatefulWidget {
 
 class _DiaryTreatmentViewState extends State<DiaryTreatmentView> {
   bool isList = true;
+  late RecipeModel? selectRecipe;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -76,16 +78,26 @@ class _DiaryTreatmentViewState extends State<DiaryTreatmentView> {
                     child: isList
                         ? RecipesWidget(
                             onTap: () {
+                              selectRecipe = null;
+                              setState(() {
+                                isList = !isList;
+                              });
+                            },
+                            onChange: (RecipeModel value) {
+                              selectRecipe = value;
                               setState(() {
                                 isList = !isList;
                               });
                             },
                           )
-                        : RecipeWidget(onTap: () {
-                            setState(() {
-                              isList = !isList;
-                            });
-                          }),
+                        : RecipeWidget(
+                            onTap: () {
+                              setState(() {
+                                isList = !isList;
+                              });
+                            },
+                            selectRecipe: selectRecipe,
+                          ),
                   )
                 ]).paddingOnly(left: 20, right: 20),
               ),

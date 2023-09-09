@@ -1,4 +1,5 @@
 import 'package:app_medi/features/diary_treatment/domain/models/recipe_model.dart';
+import 'package:app_medi/features/diary_treatment/presentation/bloc/treatament/treatament_bloc.dart';
 import 'package:app_medi/shared/values/functions.dart';
 import 'package:app_medi/shared/values/values.dart';
 import 'package:flutter/material.dart';
@@ -9,8 +10,9 @@ import '../bloc/get_recipes/get_recipes_bloc.dart';
 import 'recipe_detail_widget.dart';
 
 class RecipesWidget extends StatefulWidget {
-  const RecipesWidget({super.key, required this.onTap});
+  const RecipesWidget({super.key, required this.onTap, required this.onChange});
   final VoidCallback onTap;
+  final ValueChanged<RecipeModel> onChange;
   @override
   State<RecipesWidget> createState() => _RecipesWidgetState();
 }
@@ -20,10 +22,12 @@ class _RecipesWidgetState extends State<RecipesWidget> {
   bool isDelete = false;
   bool isRecipeDetail = false;
   RecipeModel? recipeSelected;
+  late TreatamentBloc treatamentBloc;
   @override
   void initState() {
     getRecipesBloc = context.read<GetRecipesBloc>();
     getRecipesBloc.add(const GetRecipesEvent.getRecipes());
+    treatamentBloc = context.read<TreatamentBloc>();
     super.initState();
   }
 
@@ -66,31 +70,32 @@ class _RecipesWidgetState extends State<RecipesWidget> {
                 ),
               ),
               BlocBuilder<GetRecipesBloc, GetRecipesState>(
-                  builder: (context, state) {
-                return state.map(
-                    initial: (_) => SpinKitThreeBounce(
-                          size: 30,
-                          itemBuilder: (BuildContext context, int index) {
-                            return DecoratedBox(
-                              decoration: BoxDecoration(
-                                color: index.isEven
-                                    ? AppColors.primaryColor
-                                    : AppColors.mainColor,
-                              ),
-                            );
-                          },
-                        ).paddingTop(size.height * .2 + 55),
-                    loadSuccess: (e) => Column(
-                          children: List.generate(
-                            e.recipes.length,
-                            (index) => itemsRecipesWidget(
-                              size,
-                              e.recipes[index],
-                            ).paddingBottom(15),
-                          ),
-                        ).paddingTop(17),
-                    loadMessage: (_) => Container());
-              }),
+                builder: (context, state) {
+                  return state.map(
+                      initial: (_) => SpinKitThreeBounce(
+                            size: 30,
+                            itemBuilder: (BuildContext context, int index) {
+                              return DecoratedBox(
+                                decoration: BoxDecoration(
+                                  color: index.isEven
+                                      ? AppColors.primaryColor
+                                      : AppColors.mainColor,
+                                ),
+                              );
+                            },
+                          ).paddingTop(size.height * .2 + 55),
+                      loadSuccess: (e) => Column(
+                            children: List.generate(
+                              e.recipes.length,
+                              (index) => itemsRecipesWidget(
+                                size,
+                                e.recipes[index],
+                              ).paddingBottom(15),
+                            ),
+                          ).paddingTop(17),
+                      loadMessage: (_) => Container());
+                },
+              ),
             ],
           );
   }
@@ -117,7 +122,10 @@ class _RecipesWidgetState extends State<RecipesWidget> {
                   isDelete = !isDelete;
                 });
               },
-              onTap: () {},
+              onTap: () {
+                recipeSelected = item;
+                widget.onChange(recipeSelected!);
+              },
               child: Container(
                 width: size.width * .2,
                 height: double.infinity,
@@ -148,7 +156,7 @@ class _RecipesWidgetState extends State<RecipesWidget> {
                     cancel: () {
                   Navigator.pop(context);
                 }, confirm: () {
-                  //medicineBloc.add(MedicineEvent.deleteItem(item.id!));
+                  treatamentBloc.add(TreatamentEvent.deleteById(item.id!));
                   Navigator.pop(context);
                 });
               },

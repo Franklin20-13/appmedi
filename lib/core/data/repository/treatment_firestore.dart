@@ -53,7 +53,7 @@ class TreatmentFirestore extends AbstractFirestore {
         }
         break;
       case TreatmentFields.hour:
-        if (value is DateTime) {
+        if (value is String) {
           data[field] = value;
         } else {
           throw TypeError();
@@ -74,4 +74,6 @@ class TreatmentFirestore extends AbstractFirestore {
       collection
           .where(TreatmentFields.recipeRef, isEqualTo: refRecipe)
           .where(TreatmentFields.userRef, isEqualTo: refUser);
+  Query whereRecipeRef(DocumentReference refRecipe) =>
+      collection.where(TreatmentFields.recipeRef, isEqualTo: refRecipe);
 }

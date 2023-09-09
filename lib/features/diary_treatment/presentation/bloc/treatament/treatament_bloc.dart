@@ -20,45 +20,70 @@ class TreatamentBloc extends Bloc<TreatamentEvent, TreatamentState> {
   Stream<TreatamentState> mapEventToState(
     TreatamentEvent event,
   ) async* {
-    yield* event.map(
-      saveRecipeDetail: (e) async* {
-        yield const TreatamentState.initial();
-        final response = await iTreatment.register(e.model);
-        response.fold(
-          (l) {
-            if (l is ServerFailure) {
-              add(
-                TreatamentEvent.pushMessage(message: l.message),
-              );
-            }
-          },
-          (message) => add(
-            TreatamentEvent.pushTreatment(message: message),
-          ),
-        );
-      },
-      pushTreatment: (value) async* {
-        yield TreatamentState.loadSuccess(message: value.message);
-      },
-      pushMessage: (value) async* {
-        yield TreatamentState.loadMessage(message: value.message);
-      },
-      saveRecipe: (e) async* {
-        yield const TreatamentState.initial();
-        final response = await iTreatment.registerRecipe(e.model);
-        response.fold(
-          (l) {
-            if (l is ServerFailure) {
-              add(
-                TreatamentEvent.pushMessage(message: l.message),
-              );
-            }
-          },
-          (message) => add(
-            TreatamentEvent.pushTreatment(message: message),
-          ),
-        );
-      },
-    );
+    yield* event.map(saveRecipeDetail: (e) async* {
+      yield const TreatamentState.initial();
+      final response = await iTreatment.register(e.model);
+      response.fold(
+        (l) {
+          if (l is ServerFailure) {
+            add(
+              TreatamentEvent.pushMessage(message: l.message),
+            );
+          }
+        },
+        (message) => add(
+          TreatamentEvent.pushTreatment(message: message),
+        ),
+      );
+    }, pushTreatment: (value) async* {
+      yield TreatamentState.loadSuccess(message: value.message);
+    }, pushMessage: (value) async* {
+      yield TreatamentState.loadMessage(message: value.message);
+    }, saveRecipe: (e) async* {
+      yield const TreatamentState.initial();
+      final response = await iTreatment.registerRecipe(e.model);
+      response.fold(
+        (l) {
+          if (l is ServerFailure) {
+            add(
+              TreatamentEvent.pushMessage(message: l.message),
+            );
+          }
+        },
+        (message) => add(
+          TreatamentEvent.pushTreatment(message: message),
+        ),
+      );
+    }, deleteById: (e) async* {
+      yield const TreatamentState.initial();
+      final response = await iTreatment.deleteRecipe(e.id);
+      response.fold(
+        (l) {
+          if (l is ServerFailure) {
+            add(
+              TreatamentEvent.pushMessage(message: l.message),
+            );
+          }
+        },
+        (message) => add(
+          TreatamentEvent.pushTreatment(message: message),
+        ),
+      );
+    }, deleteMedicamentById: (e) async* {
+      yield const TreatamentState.initial();
+      final response = await iTreatment.deleteMedicamentByRecipe(e.id);
+      response.fold(
+        (l) {
+          if (l is ServerFailure) {
+            add(
+              TreatamentEvent.pushMessage(message: l.message),
+            );
+          }
+        },
+        (message) => add(
+          TreatamentEvent.pushTreatment(message: message),
+        ),
+      );
+    });
   }
 }

@@ -476,6 +476,8 @@ mixin _$TreatamentEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(RecipeDetailModels model) saveRecipeDetail,
     required TResult Function(RecipeModel model) saveRecipe,
+    required TResult Function(String id) deleteById,
+    required TResult Function(String id) deleteMedicamentById,
     required TResult Function(String message) pushTreatment,
     required TResult Function(String message) pushMessage,
   }) =>
@@ -484,6 +486,8 @@ mixin _$TreatamentEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(RecipeDetailModels model)? saveRecipeDetail,
     TResult? Function(RecipeModel model)? saveRecipe,
+    TResult? Function(String id)? deleteById,
+    TResult? Function(String id)? deleteMedicamentById,
     TResult? Function(String message)? pushTreatment,
     TResult? Function(String message)? pushMessage,
   }) =>
@@ -492,6 +496,8 @@ mixin _$TreatamentEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(RecipeDetailModels model)? saveRecipeDetail,
     TResult Function(RecipeModel model)? saveRecipe,
+    TResult Function(String id)? deleteById,
+    TResult Function(String id)? deleteMedicamentById,
     TResult Function(String message)? pushTreatment,
     TResult Function(String message)? pushMessage,
     required TResult orElse(),
@@ -501,6 +507,9 @@ mixin _$TreatamentEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_RecipeDetailEvent value) saveRecipeDetail,
     required TResult Function(_RecipeEvent value) saveRecipe,
+    required TResult Function(_DeleteByIdEvent value) deleteById,
+    required TResult Function(_DeleteMecicamentByIdEvent value)
+        deleteMedicamentById,
     required TResult Function(_PushMedicine value) pushTreatment,
     required TResult Function(_PushMedicineMessage value) pushMessage,
   }) =>
@@ -509,6 +518,8 @@ mixin _$TreatamentEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_RecipeDetailEvent value)? saveRecipeDetail,
     TResult? Function(_RecipeEvent value)? saveRecipe,
+    TResult? Function(_DeleteByIdEvent value)? deleteById,
+    TResult? Function(_DeleteMecicamentByIdEvent value)? deleteMedicamentById,
     TResult? Function(_PushMedicine value)? pushTreatment,
     TResult? Function(_PushMedicineMessage value)? pushMessage,
   }) =>
@@ -517,6 +528,8 @@ mixin _$TreatamentEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_RecipeDetailEvent value)? saveRecipeDetail,
     TResult Function(_RecipeEvent value)? saveRecipe,
+    TResult Function(_DeleteByIdEvent value)? deleteById,
+    TResult Function(_DeleteMecicamentByIdEvent value)? deleteMedicamentById,
     TResult Function(_PushMedicine value)? pushTreatment,
     TResult Function(_PushMedicineMessage value)? pushMessage,
     required TResult orElse(),
@@ -609,6 +622,8 @@ class _$_RecipeDetailEvent implements _RecipeDetailEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(RecipeDetailModels model) saveRecipeDetail,
     required TResult Function(RecipeModel model) saveRecipe,
+    required TResult Function(String id) deleteById,
+    required TResult Function(String id) deleteMedicamentById,
     required TResult Function(String message) pushTreatment,
     required TResult Function(String message) pushMessage,
   }) {
@@ -620,6 +635,8 @@ class _$_RecipeDetailEvent implements _RecipeDetailEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(RecipeDetailModels model)? saveRecipeDetail,
     TResult? Function(RecipeModel model)? saveRecipe,
+    TResult? Function(String id)? deleteById,
+    TResult? Function(String id)? deleteMedicamentById,
     TResult? Function(String message)? pushTreatment,
     TResult? Function(String message)? pushMessage,
   }) {
@@ -631,6 +648,8 @@ class _$_RecipeDetailEvent implements _RecipeDetailEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(RecipeDetailModels model)? saveRecipeDetail,
     TResult Function(RecipeModel model)? saveRecipe,
+    TResult Function(String id)? deleteById,
+    TResult Function(String id)? deleteMedicamentById,
     TResult Function(String message)? pushTreatment,
     TResult Function(String message)? pushMessage,
     required TResult orElse(),
@@ -646,6 +665,9 @@ class _$_RecipeDetailEvent implements _RecipeDetailEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_RecipeDetailEvent value) saveRecipeDetail,
     required TResult Function(_RecipeEvent value) saveRecipe,
+    required TResult Function(_DeleteByIdEvent value) deleteById,
+    required TResult Function(_DeleteMecicamentByIdEvent value)
+        deleteMedicamentById,
     required TResult Function(_PushMedicine value) pushTreatment,
     required TResult Function(_PushMedicineMessage value) pushMessage,
   }) {
@@ -657,6 +679,8 @@ class _$_RecipeDetailEvent implements _RecipeDetailEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_RecipeDetailEvent value)? saveRecipeDetail,
     TResult? Function(_RecipeEvent value)? saveRecipe,
+    TResult? Function(_DeleteByIdEvent value)? deleteById,
+    TResult? Function(_DeleteMecicamentByIdEvent value)? deleteMedicamentById,
     TResult? Function(_PushMedicine value)? pushTreatment,
     TResult? Function(_PushMedicineMessage value)? pushMessage,
   }) {
@@ -668,6 +692,8 @@ class _$_RecipeDetailEvent implements _RecipeDetailEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_RecipeDetailEvent value)? saveRecipeDetail,
     TResult Function(_RecipeEvent value)? saveRecipe,
+    TResult Function(_DeleteByIdEvent value)? deleteById,
+    TResult Function(_DeleteMecicamentByIdEvent value)? deleteMedicamentById,
     TResult Function(_PushMedicine value)? pushTreatment,
     TResult Function(_PushMedicineMessage value)? pushMessage,
     required TResult orElse(),
@@ -755,6 +781,8 @@ class _$_RecipeEvent implements _RecipeEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(RecipeDetailModels model) saveRecipeDetail,
     required TResult Function(RecipeModel model) saveRecipe,
+    required TResult Function(String id) deleteById,
+    required TResult Function(String id) deleteMedicamentById,
     required TResult Function(String message) pushTreatment,
     required TResult Function(String message) pushMessage,
   }) {
@@ -766,6 +794,8 @@ class _$_RecipeEvent implements _RecipeEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(RecipeDetailModels model)? saveRecipeDetail,
     TResult? Function(RecipeModel model)? saveRecipe,
+    TResult? Function(String id)? deleteById,
+    TResult? Function(String id)? deleteMedicamentById,
     TResult? Function(String message)? pushTreatment,
     TResult? Function(String message)? pushMessage,
   }) {
@@ -777,6 +807,8 @@ class _$_RecipeEvent implements _RecipeEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(RecipeDetailModels model)? saveRecipeDetail,
     TResult Function(RecipeModel model)? saveRecipe,
+    TResult Function(String id)? deleteById,
+    TResult Function(String id)? deleteMedicamentById,
     TResult Function(String message)? pushTreatment,
     TResult Function(String message)? pushMessage,
     required TResult orElse(),
@@ -792,6 +824,9 @@ class _$_RecipeEvent implements _RecipeEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_RecipeDetailEvent value) saveRecipeDetail,
     required TResult Function(_RecipeEvent value) saveRecipe,
+    required TResult Function(_DeleteByIdEvent value) deleteById,
+    required TResult Function(_DeleteMecicamentByIdEvent value)
+        deleteMedicamentById,
     required TResult Function(_PushMedicine value) pushTreatment,
     required TResult Function(_PushMedicineMessage value) pushMessage,
   }) {
@@ -803,6 +838,8 @@ class _$_RecipeEvent implements _RecipeEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_RecipeDetailEvent value)? saveRecipeDetail,
     TResult? Function(_RecipeEvent value)? saveRecipe,
+    TResult? Function(_DeleteByIdEvent value)? deleteById,
+    TResult? Function(_DeleteMecicamentByIdEvent value)? deleteMedicamentById,
     TResult? Function(_PushMedicine value)? pushTreatment,
     TResult? Function(_PushMedicineMessage value)? pushMessage,
   }) {
@@ -814,6 +851,8 @@ class _$_RecipeEvent implements _RecipeEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_RecipeDetailEvent value)? saveRecipeDetail,
     TResult Function(_RecipeEvent value)? saveRecipe,
+    TResult Function(_DeleteByIdEvent value)? deleteById,
+    TResult Function(_DeleteMecicamentByIdEvent value)? deleteMedicamentById,
     TResult Function(_PushMedicine value)? pushTreatment,
     TResult Function(_PushMedicineMessage value)? pushMessage,
     required TResult orElse(),
@@ -832,6 +871,326 @@ abstract class _RecipeEvent implements TreatamentEvent {
   @JsonKey(ignore: true)
   _$$_RecipeEventCopyWith<_$_RecipeEvent> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_DeleteByIdEventCopyWith<$Res> {
+  factory _$$_DeleteByIdEventCopyWith(
+          _$_DeleteByIdEvent value, $Res Function(_$_DeleteByIdEvent) then) =
+      __$$_DeleteByIdEventCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String id});
+}
+
+/// @nodoc
+class __$$_DeleteByIdEventCopyWithImpl<$Res>
+    extends _$TreatamentEventCopyWithImpl<$Res, _$_DeleteByIdEvent>
+    implements _$$_DeleteByIdEventCopyWith<$Res> {
+  __$$_DeleteByIdEventCopyWithImpl(
+      _$_DeleteByIdEvent _value, $Res Function(_$_DeleteByIdEvent) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+  }) {
+    return _then(_$_DeleteByIdEvent(
+      null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_DeleteByIdEvent implements _DeleteByIdEvent {
+  const _$_DeleteByIdEvent(this.id);
+
+  @override
+  final String id;
+
+  @override
+  String toString() {
+    return 'TreatamentEvent.deleteById(id: $id)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_DeleteByIdEvent &&
+            (identical(other.id, id) || other.id == id));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, id);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_DeleteByIdEventCopyWith<_$_DeleteByIdEvent> get copyWith =>
+      __$$_DeleteByIdEventCopyWithImpl<_$_DeleteByIdEvent>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(RecipeDetailModels model) saveRecipeDetail,
+    required TResult Function(RecipeModel model) saveRecipe,
+    required TResult Function(String id) deleteById,
+    required TResult Function(String id) deleteMedicamentById,
+    required TResult Function(String message) pushTreatment,
+    required TResult Function(String message) pushMessage,
+  }) {
+    return deleteById(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(RecipeDetailModels model)? saveRecipeDetail,
+    TResult? Function(RecipeModel model)? saveRecipe,
+    TResult? Function(String id)? deleteById,
+    TResult? Function(String id)? deleteMedicamentById,
+    TResult? Function(String message)? pushTreatment,
+    TResult? Function(String message)? pushMessage,
+  }) {
+    return deleteById?.call(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(RecipeDetailModels model)? saveRecipeDetail,
+    TResult Function(RecipeModel model)? saveRecipe,
+    TResult Function(String id)? deleteById,
+    TResult Function(String id)? deleteMedicamentById,
+    TResult Function(String message)? pushTreatment,
+    TResult Function(String message)? pushMessage,
+    required TResult orElse(),
+  }) {
+    if (deleteById != null) {
+      return deleteById(id);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_RecipeDetailEvent value) saveRecipeDetail,
+    required TResult Function(_RecipeEvent value) saveRecipe,
+    required TResult Function(_DeleteByIdEvent value) deleteById,
+    required TResult Function(_DeleteMecicamentByIdEvent value)
+        deleteMedicamentById,
+    required TResult Function(_PushMedicine value) pushTreatment,
+    required TResult Function(_PushMedicineMessage value) pushMessage,
+  }) {
+    return deleteById(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_RecipeDetailEvent value)? saveRecipeDetail,
+    TResult? Function(_RecipeEvent value)? saveRecipe,
+    TResult? Function(_DeleteByIdEvent value)? deleteById,
+    TResult? Function(_DeleteMecicamentByIdEvent value)? deleteMedicamentById,
+    TResult? Function(_PushMedicine value)? pushTreatment,
+    TResult? Function(_PushMedicineMessage value)? pushMessage,
+  }) {
+    return deleteById?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_RecipeDetailEvent value)? saveRecipeDetail,
+    TResult Function(_RecipeEvent value)? saveRecipe,
+    TResult Function(_DeleteByIdEvent value)? deleteById,
+    TResult Function(_DeleteMecicamentByIdEvent value)? deleteMedicamentById,
+    TResult Function(_PushMedicine value)? pushTreatment,
+    TResult Function(_PushMedicineMessage value)? pushMessage,
+    required TResult orElse(),
+  }) {
+    if (deleteById != null) {
+      return deleteById(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _DeleteByIdEvent implements TreatamentEvent {
+  const factory _DeleteByIdEvent(final String id) = _$_DeleteByIdEvent;
+
+  String get id;
+  @JsonKey(ignore: true)
+  _$$_DeleteByIdEventCopyWith<_$_DeleteByIdEvent> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_DeleteMecicamentByIdEventCopyWith<$Res> {
+  factory _$$_DeleteMecicamentByIdEventCopyWith(
+          _$_DeleteMecicamentByIdEvent value,
+          $Res Function(_$_DeleteMecicamentByIdEvent) then) =
+      __$$_DeleteMecicamentByIdEventCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String id});
+}
+
+/// @nodoc
+class __$$_DeleteMecicamentByIdEventCopyWithImpl<$Res>
+    extends _$TreatamentEventCopyWithImpl<$Res, _$_DeleteMecicamentByIdEvent>
+    implements _$$_DeleteMecicamentByIdEventCopyWith<$Res> {
+  __$$_DeleteMecicamentByIdEventCopyWithImpl(
+      _$_DeleteMecicamentByIdEvent _value,
+      $Res Function(_$_DeleteMecicamentByIdEvent) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+  }) {
+    return _then(_$_DeleteMecicamentByIdEvent(
+      null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_DeleteMecicamentByIdEvent implements _DeleteMecicamentByIdEvent {
+  const _$_DeleteMecicamentByIdEvent(this.id);
+
+  @override
+  final String id;
+
+  @override
+  String toString() {
+    return 'TreatamentEvent.deleteMedicamentById(id: $id)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_DeleteMecicamentByIdEvent &&
+            (identical(other.id, id) || other.id == id));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, id);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_DeleteMecicamentByIdEventCopyWith<_$_DeleteMecicamentByIdEvent>
+      get copyWith => __$$_DeleteMecicamentByIdEventCopyWithImpl<
+          _$_DeleteMecicamentByIdEvent>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(RecipeDetailModels model) saveRecipeDetail,
+    required TResult Function(RecipeModel model) saveRecipe,
+    required TResult Function(String id) deleteById,
+    required TResult Function(String id) deleteMedicamentById,
+    required TResult Function(String message) pushTreatment,
+    required TResult Function(String message) pushMessage,
+  }) {
+    return deleteMedicamentById(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(RecipeDetailModels model)? saveRecipeDetail,
+    TResult? Function(RecipeModel model)? saveRecipe,
+    TResult? Function(String id)? deleteById,
+    TResult? Function(String id)? deleteMedicamentById,
+    TResult? Function(String message)? pushTreatment,
+    TResult? Function(String message)? pushMessage,
+  }) {
+    return deleteMedicamentById?.call(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(RecipeDetailModels model)? saveRecipeDetail,
+    TResult Function(RecipeModel model)? saveRecipe,
+    TResult Function(String id)? deleteById,
+    TResult Function(String id)? deleteMedicamentById,
+    TResult Function(String message)? pushTreatment,
+    TResult Function(String message)? pushMessage,
+    required TResult orElse(),
+  }) {
+    if (deleteMedicamentById != null) {
+      return deleteMedicamentById(id);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_RecipeDetailEvent value) saveRecipeDetail,
+    required TResult Function(_RecipeEvent value) saveRecipe,
+    required TResult Function(_DeleteByIdEvent value) deleteById,
+    required TResult Function(_DeleteMecicamentByIdEvent value)
+        deleteMedicamentById,
+    required TResult Function(_PushMedicine value) pushTreatment,
+    required TResult Function(_PushMedicineMessage value) pushMessage,
+  }) {
+    return deleteMedicamentById(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_RecipeDetailEvent value)? saveRecipeDetail,
+    TResult? Function(_RecipeEvent value)? saveRecipe,
+    TResult? Function(_DeleteByIdEvent value)? deleteById,
+    TResult? Function(_DeleteMecicamentByIdEvent value)? deleteMedicamentById,
+    TResult? Function(_PushMedicine value)? pushTreatment,
+    TResult? Function(_PushMedicineMessage value)? pushMessage,
+  }) {
+    return deleteMedicamentById?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_RecipeDetailEvent value)? saveRecipeDetail,
+    TResult Function(_RecipeEvent value)? saveRecipe,
+    TResult Function(_DeleteByIdEvent value)? deleteById,
+    TResult Function(_DeleteMecicamentByIdEvent value)? deleteMedicamentById,
+    TResult Function(_PushMedicine value)? pushTreatment,
+    TResult Function(_PushMedicineMessage value)? pushMessage,
+    required TResult orElse(),
+  }) {
+    if (deleteMedicamentById != null) {
+      return deleteMedicamentById(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _DeleteMecicamentByIdEvent implements TreatamentEvent {
+  const factory _DeleteMecicamentByIdEvent(final String id) =
+      _$_DeleteMecicamentByIdEvent;
+
+  String get id;
+  @JsonKey(ignore: true)
+  _$$_DeleteMecicamentByIdEventCopyWith<_$_DeleteMecicamentByIdEvent>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -900,6 +1259,8 @@ class _$_PushMedicine implements _PushMedicine {
   TResult when<TResult extends Object?>({
     required TResult Function(RecipeDetailModels model) saveRecipeDetail,
     required TResult Function(RecipeModel model) saveRecipe,
+    required TResult Function(String id) deleteById,
+    required TResult Function(String id) deleteMedicamentById,
     required TResult Function(String message) pushTreatment,
     required TResult Function(String message) pushMessage,
   }) {
@@ -911,6 +1272,8 @@ class _$_PushMedicine implements _PushMedicine {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(RecipeDetailModels model)? saveRecipeDetail,
     TResult? Function(RecipeModel model)? saveRecipe,
+    TResult? Function(String id)? deleteById,
+    TResult? Function(String id)? deleteMedicamentById,
     TResult? Function(String message)? pushTreatment,
     TResult? Function(String message)? pushMessage,
   }) {
@@ -922,6 +1285,8 @@ class _$_PushMedicine implements _PushMedicine {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(RecipeDetailModels model)? saveRecipeDetail,
     TResult Function(RecipeModel model)? saveRecipe,
+    TResult Function(String id)? deleteById,
+    TResult Function(String id)? deleteMedicamentById,
     TResult Function(String message)? pushTreatment,
     TResult Function(String message)? pushMessage,
     required TResult orElse(),
@@ -937,6 +1302,9 @@ class _$_PushMedicine implements _PushMedicine {
   TResult map<TResult extends Object?>({
     required TResult Function(_RecipeDetailEvent value) saveRecipeDetail,
     required TResult Function(_RecipeEvent value) saveRecipe,
+    required TResult Function(_DeleteByIdEvent value) deleteById,
+    required TResult Function(_DeleteMecicamentByIdEvent value)
+        deleteMedicamentById,
     required TResult Function(_PushMedicine value) pushTreatment,
     required TResult Function(_PushMedicineMessage value) pushMessage,
   }) {
@@ -948,6 +1316,8 @@ class _$_PushMedicine implements _PushMedicine {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_RecipeDetailEvent value)? saveRecipeDetail,
     TResult? Function(_RecipeEvent value)? saveRecipe,
+    TResult? Function(_DeleteByIdEvent value)? deleteById,
+    TResult? Function(_DeleteMecicamentByIdEvent value)? deleteMedicamentById,
     TResult? Function(_PushMedicine value)? pushTreatment,
     TResult? Function(_PushMedicineMessage value)? pushMessage,
   }) {
@@ -959,6 +1329,8 @@ class _$_PushMedicine implements _PushMedicine {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_RecipeDetailEvent value)? saveRecipeDetail,
     TResult Function(_RecipeEvent value)? saveRecipe,
+    TResult Function(_DeleteByIdEvent value)? deleteById,
+    TResult Function(_DeleteMecicamentByIdEvent value)? deleteMedicamentById,
     TResult Function(_PushMedicine value)? pushTreatment,
     TResult Function(_PushMedicineMessage value)? pushMessage,
     required TResult orElse(),
@@ -1047,6 +1419,8 @@ class _$_PushMedicineMessage implements _PushMedicineMessage {
   TResult when<TResult extends Object?>({
     required TResult Function(RecipeDetailModels model) saveRecipeDetail,
     required TResult Function(RecipeModel model) saveRecipe,
+    required TResult Function(String id) deleteById,
+    required TResult Function(String id) deleteMedicamentById,
     required TResult Function(String message) pushTreatment,
     required TResult Function(String message) pushMessage,
   }) {
@@ -1058,6 +1432,8 @@ class _$_PushMedicineMessage implements _PushMedicineMessage {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(RecipeDetailModels model)? saveRecipeDetail,
     TResult? Function(RecipeModel model)? saveRecipe,
+    TResult? Function(String id)? deleteById,
+    TResult? Function(String id)? deleteMedicamentById,
     TResult? Function(String message)? pushTreatment,
     TResult? Function(String message)? pushMessage,
   }) {
@@ -1069,6 +1445,8 @@ class _$_PushMedicineMessage implements _PushMedicineMessage {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(RecipeDetailModels model)? saveRecipeDetail,
     TResult Function(RecipeModel model)? saveRecipe,
+    TResult Function(String id)? deleteById,
+    TResult Function(String id)? deleteMedicamentById,
     TResult Function(String message)? pushTreatment,
     TResult Function(String message)? pushMessage,
     required TResult orElse(),
@@ -1084,6 +1462,9 @@ class _$_PushMedicineMessage implements _PushMedicineMessage {
   TResult map<TResult extends Object?>({
     required TResult Function(_RecipeDetailEvent value) saveRecipeDetail,
     required TResult Function(_RecipeEvent value) saveRecipe,
+    required TResult Function(_DeleteByIdEvent value) deleteById,
+    required TResult Function(_DeleteMecicamentByIdEvent value)
+        deleteMedicamentById,
     required TResult Function(_PushMedicine value) pushTreatment,
     required TResult Function(_PushMedicineMessage value) pushMessage,
   }) {
@@ -1095,6 +1476,8 @@ class _$_PushMedicineMessage implements _PushMedicineMessage {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_RecipeDetailEvent value)? saveRecipeDetail,
     TResult? Function(_RecipeEvent value)? saveRecipe,
+    TResult? Function(_DeleteByIdEvent value)? deleteById,
+    TResult? Function(_DeleteMecicamentByIdEvent value)? deleteMedicamentById,
     TResult? Function(_PushMedicine value)? pushTreatment,
     TResult? Function(_PushMedicineMessage value)? pushMessage,
   }) {
@@ -1106,6 +1489,8 @@ class _$_PushMedicineMessage implements _PushMedicineMessage {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_RecipeDetailEvent value)? saveRecipeDetail,
     TResult Function(_RecipeEvent value)? saveRecipe,
+    TResult Function(_DeleteByIdEvent value)? deleteById,
+    TResult Function(_DeleteMecicamentByIdEvent value)? deleteMedicamentById,
     TResult Function(_PushMedicine value)? pushTreatment,
     TResult Function(_PushMedicineMessage value)? pushMessage,
     required TResult orElse(),

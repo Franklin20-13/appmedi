@@ -10,8 +10,10 @@ import '../../../../shared/values/values.dart';
 import '../bloc/treatament/treatament_bloc.dart';
 
 class RecipeWidget extends StatefulWidget {
-  const RecipeWidget({super.key, required this.onTap});
+  const RecipeWidget(
+      {super.key, required this.onTap, required this.selectRecipe});
   final VoidCallback onTap;
+  final RecipeModel? selectRecipe;
   @override
   State<RecipeWidget> createState() => _RecipeWidgetState();
 }
@@ -26,11 +28,23 @@ class _RecipeWidgetState extends State<RecipeWidget> {
   var reasonValidation = true;
   late TreatamentBloc treatamentBloc;
   RecipeModel? model;
+
   @override
   void initState() {
-    _nameController = TextEditingController(text: '');
-    _descriptionController = TextEditingController(text: '');
-    _timeController = TextEditingController(text: '');
+    if (widget.selectRecipe != null) {
+      model = widget.selectRecipe;
+      _nameController = TextEditingController(text: model!.name);
+      _descriptionController = TextEditingController(text: model!.description);
+      _timeController =
+          TextEditingController(text: formatDate.format(model!.date));
+      dateSelected = model!.date;
+      setState(() {});
+    } else {
+      dateSelected = null;
+      _nameController = TextEditingController(text: '');
+      _descriptionController = TextEditingController(text: '');
+      _timeController = TextEditingController(text: '');
+    }
     treatamentBloc = context.read<TreatamentBloc>();
     super.initState();
   }
@@ -50,7 +64,9 @@ class _RecipeWidgetState extends State<RecipeWidget> {
         BlocListener<TreatamentBloc, TreatamentState>(
             listener: (context, state) {
           if (state is LoadSuccessTreatment) {
-            clearForm();
+            if (widget.selectRecipe == null) {
+              clearForm();
+            }
           }
         })
       ],
@@ -90,8 +106,10 @@ class _RecipeWidgetState extends State<RecipeWidget> {
             DateTimeField(
               format: formatDate,
               controller: _timeController,
+              initialValue: dateSelected,
               validator: (value) => validateDate(value),
               cursorColor: AppColors.primaryColor,
+              enabled: isEnabled(),
               decoration: InputDecoration(
                 contentPadding: const EdgeInsets.symmetric(
                   vertical: 3,
@@ -149,9 +167,20 @@ class _RecipeWidgetState extends State<RecipeWidget> {
     );
   }
 
+  isEnabled() {
+    if (widget.selectRecipe == null) {
+      return true;
+    }
+    if (widget.selectRecipe!.date.isBefore(DateTime.now())) {
+      return false;
+    }
+    return true;
+  }
+
   saveFrom() {
     if (_formKey.currentState!.validate()) {
       model = RecipeModel(
+        id: widget.selectRecipe == null ? null : widget.selectRecipe!.id,
         name: _nameController.text,
         description: _descriptionController.text,
         date: dateSelected!,

@@ -1,3 +1,4 @@
+import 'package:app_medi/core/data/fields/recipe_fields.dart';
 import 'package:app_medi/core/data/repository/medicines_firestore.dart';
 import 'package:app_medi/core/data/repository/recipe_firebase.dart';
 import 'package:app_medi/core/data/repository/treatment_firestore.dart';
@@ -38,6 +39,17 @@ class UserRepository implements ITreatment {
             ServerFailure("No se encontro el medicamento en el servidor"));
       }
       model.medicRef = refMedicine;
+      if (model.id != null) {
+        await treatmentFirestore
+            .addField(TreatmentFields.refMedicament, model.medicRef)
+            .addField(TreatmentFields.quantity, model.quantity)
+            .addField(TreatmentFields.measure, model.measure)
+            .addField(TreatmentFields.fromDate, model.fromDate)
+            .addField(TreatmentFields.toDate, model.toDate)
+            .addField(TreatmentFields.hour, model.hour)
+            .update(model.id);
+        return const Right("Medicamento actualizado en la receta médica");
+      }
       final refRecipe = recipeFirestore.getDocument(model.recipeId!);
       if (refRecipe.id.isEmpty) {
         return const Left(
@@ -62,6 +74,14 @@ class UserRepository implements ITreatment {
   @override
   Future<Either<Failure, String>> registerRecipe(RecipeModel model) async {
     try {
+      if (model.id != null) {
+        await recipeFirestore
+            .addField(RecipeFields.name, model.name)
+            .addField(RecipeFields.description, model.description)
+            .addField(RecipeFields.date, model.date)
+            .update(model.id);
+        return const Right("Receta Actualizada");
+      }
       final user = await iSession.getUserSesion();
       final refUser = userFirestore.getDocument(user!.user!.id!);
       model.userRef = refUser;
@@ -129,6 +149,40 @@ class UserRepository implements ITreatment {
         recipeDetails.add(model);
       }
       return right(recipeDetails);
+    } catch (e) {
+      return const Left(ServerFailure('Error al comunicarse con el servidor'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> deleteRecipe(String id) async {
+    try {
+      final getDocumentRecipe = await recipeFirestore.getDocument(id).get();
+      if (!getDocumentRecipe.exists) {
+        return const Left(
+            ServerFailure("No se encontro informacion de la receta"));
+      }
+      final getRecipeRef = recipeFirestore.getDocument(id);
+      final existTreatament =
+          await treatmentFirestore.whereRecipeRef(getRecipeRef).get();
+      if (existTreatament.docs.isNotEmpty) {
+        return const Left(
+          ServerFailure(
+              "Esta receta ya tiene medicamentos, para borrar elimine los medicamentos  y luego la receta."),
+        );
+      }
+      await recipeFirestore.delete(id);
+      return const Right("Receta eliminada correctamente");
+    } catch (e) {
+      return const Left(ServerFailure('Error al comunicarse con el servidor'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> deleteMedicamentByRecipe(String id) async {
+    try {
+      await treatmentFirestore.delete(id);
+      return const Right("medicamento eliminado correctamente");
     } catch (e) {
       return const Left(ServerFailure('Error al comunicarse con el servidor'));
     }
