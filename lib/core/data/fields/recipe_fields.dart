@@ -5,4 +5,5 @@ class RecipeFields {
   static const date = 'date';
   static const name = 'name';
   static const description = 'description';
+  static const status='status';
 }

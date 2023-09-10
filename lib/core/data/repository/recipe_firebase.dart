@@ -52,6 +52,13 @@ class RecipeFirestore extends AbstractFirestore {
           throw TypeError();
         }
         break;
+      case RecipeFields.status:
+        if (value is int) {
+          data[field] = value;
+        } else {
+          throw TypeError();
+        }
+        break;
       default:
         throw ArgumentError();
     }

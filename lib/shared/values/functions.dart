@@ -20,6 +20,12 @@ class FuntionsApp {
     return DateTime.parse("1998-06-25 $date");
   }
 
+  DateTime parseTimeAlarm(DateTime date1, DateTime time1) {
+    final date = DateFormat('yyyy-MM-dd').format(date1);
+    final time = DateFormat('HH:mm:ss').format(time1);
+    return DateTime.parse("$date $time");
+  }
+
   bool minorDate(DateTime date1, DateTime date2) {
     bool state = false;
     if (date1.day < date2.day &&

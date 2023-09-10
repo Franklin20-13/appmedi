@@ -8,6 +8,7 @@ class RecipeModel {
       required this.description,
       required this.date,
       this.doctorRef,
+      required this.status,
       this.userRef});
   String? id;
   String name;
@@ -15,28 +16,36 @@ class RecipeModel {
   DateTime date;
   DocumentReference? userRef;
   DocumentReference? doctorRef;
+  int status;
   factory RecipeModel.fromJson(Map<String, dynamic> json,
       {String? id, DocumentReference? refUser}) {
     return RecipeModel(
-      id: json.containsKey(RecipeFields.id) ? json[RecipeFields.id] : id ?? '',
-      name:
-          json.containsKey(RecipeFields.name) ? json[RecipeFields.name] : null,
-      description: json.containsKey(RecipeFields.description)
-          ? json[RecipeFields.description]
-          : '',
-      doctorRef: json.containsKey(RecipeFields.refDoctor)
-          ? json[RecipeFields.refDoctor]
-          : null,
-      date: json.containsKey(RecipeFields.date)
-          ? json[RecipeFields.date]==null?DateTime.now():DateTime.fromMillisecondsSinceEpoch(
-              (json[RecipeFields.date] as Timestamp)
-                  .millisecondsSinceEpoch,
-            )
-          : DateTime.now(),
-      userRef: json.containsKey(RecipeFields.refUser)
-          ? json[RecipeFields.refUser]
-          : null,
-    );
+        id: json.containsKey(RecipeFields.id)
+            ? json[RecipeFields.id]
+            : id ?? '',
+        name: json.containsKey(RecipeFields.name)
+            ? json[RecipeFields.name]
+            : null,
+        description: json.containsKey(RecipeFields.description)
+            ? json[RecipeFields.description]
+            : '',
+        doctorRef: json.containsKey(RecipeFields.refDoctor)
+            ? json[RecipeFields.refDoctor]
+            : null,
+        date: json.containsKey(RecipeFields.date)
+            ? json[RecipeFields.date] == null
+                ? DateTime.now()
+                : DateTime.fromMillisecondsSinceEpoch(
+                    (json[RecipeFields.date] as Timestamp)
+                        .millisecondsSinceEpoch,
+                  )
+            : DateTime.now(),
+        userRef: json.containsKey(RecipeFields.refUser)
+            ? json[RecipeFields.refUser]
+            : null,
+        status: json.containsKey(RecipeFields.status)
+            ? json[RecipeFields.status]
+            : 0);
   }
 }
 
@@ -46,4 +55,5 @@ Map<String, dynamic> mapRecipe(RecipeModel instance) => <String, dynamic>{
       RecipeFields.date: instance.date,
       //RecipeFields.refDoctor: instance.doctorRef,
       RecipeFields.refUser: instance.userRef,
+      RecipeFields.status: instance.status,
     };

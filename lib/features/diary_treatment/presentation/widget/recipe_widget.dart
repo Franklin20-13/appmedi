@@ -180,6 +180,7 @@ class _RecipeWidgetState extends State<RecipeWidget> {
   saveFrom() {
     if (_formKey.currentState!.validate()) {
       model = RecipeModel(
+        status: 0,
         id: widget.selectRecipe == null ? null : widget.selectRecipe!.id,
         name: _nameController.text,
         description: _descriptionController.text,

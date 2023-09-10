@@ -12,7 +12,7 @@ class FirestoreHelper {
       peopleCollection.doc(peopleId);
 
   CollectionReference get usersCollection => _firestore.collection('users');
-  DocumentReference getUsers(String id) => peopleCollection.doc(id);
+  DocumentReference getUsers(String id) => usersCollection.doc(id);
 
   CollectionReference get personCollection => _firestore.collection('Person');
   DocumentReference getPersons(String id) => peopleCollection.doc(id);

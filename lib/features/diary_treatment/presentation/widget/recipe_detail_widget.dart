@@ -27,29 +27,32 @@ class RecipeDetailWidget extends StatefulWidget {
 
 class _RecipeDetailWidgetState extends State<RecipeDetailWidget> {
   final GlobalKey<FormState> _formKey = GlobalKey();
-  late TextEditingController _quantityController;
+  //late TextEditingController _quantityController;
   late TextEditingController _measureController;
   late TextEditingController _timeController;
+  late TextEditingController _dateController;
   final formatTime = DateFormat("HH:mm");
+  final formatDate = DateFormat("yyyy-MM-dd");
   List<DateTime?> dates = [];
   List<DateTime> hours = [];
   int next = 0;
   DateTime? fecha;
-  late DateTime dateSelected;
+  DateTime? dateSelected;
   late TreatamentBloc treatamentBloc;
   RecipeDetailModels? model;
   late GetMedicinesBloc getMedicinesBloc;
   late MedicamentDetailBloc medicamentDetailBloc;
-  late RecipeDetailModels? selectMedicines;
+  RecipeDetailModels? selectMedicines;
   bool isList = true;
   String title = "Mis Médicamentos";
   bool isDeleteMedicament = false;
   @override
   void initState() {
     treatamentBloc = context.read<TreatamentBloc>();
-    _quantityController = TextEditingController(text: '');
+    //_quantityController = TextEditingController(text: '');
     _measureController = TextEditingController(text: '');
     _timeController = TextEditingController(text: '');
+    _dateController = TextEditingController(text: '');
     getMedicinesBloc = context.read<GetMedicinesBloc>();
     getMedicinesBloc.add(const GetMedicinesEvent.getMedicines());
     medicamentDetailBloc = context.read<MedicamentDetailBloc>();
@@ -60,7 +63,8 @@ class _RecipeDetailWidgetState extends State<RecipeDetailWidget> {
 
   MedicamentModel? selectedMedicament;
   clearForm() {
-    _quantityController = TextEditingController(text: '');
+    selectMedicines = null;
+    //_quantityController = TextEditingController(text: '');
     _measureController = TextEditingController(text: '');
     _timeController = TextEditingController(text: '');
     selectedMedicament = null;
@@ -132,6 +136,7 @@ class _RecipeDetailWidgetState extends State<RecipeDetailWidget> {
                       ),
                       trailing: InkWell(
                         onTap: () {
+                          clearForm();
                           setState(() {
                             title = !isList
                                 ? "Mis Médicamentos"
@@ -249,8 +254,8 @@ class _RecipeDetailWidgetState extends State<RecipeDetailWidget> {
                   loadMessage: (_) => Container(),
                 );
               }),
-              textInput('Cantidad', _quantityController, false,
-                  code: '', clave: 0, inputType: TextInputType.number),
+              // textInput('Cantidad', _quantityController, false,
+              //   code: '', clave: 0, inputType: TextInputType.number),
               textInput('Medida', _measureController, false,
                       code: '', clave: 0, inputType: TextInputType.text)
                   .paddingBottom(5)
@@ -305,6 +310,41 @@ class _RecipeDetailWidgetState extends State<RecipeDetailWidget> {
                 ).paddingBottom(10),
               ),
               DateTimeField(
+                format: formatDate,
+                controller: _dateController,
+                initialValue: dateSelected,
+                cursorColor: AppColors.primaryColor,
+                validator: (value) {
+                  return null;
+                },
+                decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.symmetric(
+                    vertical: 3,
+                    horizontal: 10,
+                  ),
+                  labelText: 'Selecione Fecha',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  fillColor: AppColors.primaryColor,
+                ),
+                onChanged: (data) {
+                  setState(() {});
+                  if (data == null) {
+                    return;
+                  }
+                  dateSelected = data;
+                },
+                onShowPicker: (context, currentValue) async {
+                  return showDatePicker(
+                    context: context,
+                    firstDate: DateTime.now(),
+                    initialDate: currentValue ?? DateTime.now(),
+                    lastDate: DateTime(2100),
+                  );
+                },
+              ).paddingBottom(5),
+              DateTimeField(
                 format: formatTime,
                 controller: _timeController,
                 validator: (value) {
@@ -316,7 +356,7 @@ class _RecipeDetailWidgetState extends State<RecipeDetailWidget> {
                     vertical: 3,
                     horizontal: 10,
                   ),
-                  labelText: 'Selecione',
+                  labelText: 'Selecione hora',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15),
                   ),
@@ -327,7 +367,12 @@ class _RecipeDetailWidgetState extends State<RecipeDetailWidget> {
                   if (data == null) {
                     return;
                   }
-                  final res = FuntionsApp().parseTime(data);
+                  if (dateSelected == null) {
+                    showInSnackBar(context, "Seleccione fecha de notificacion",
+                        color: Colors.red);
+                    return;
+                  }
+                  final res = FuntionsApp().parseTimeAlarm(dateSelected!, data);
                   final exist =
                       hours.where((p) => p.compareTo(res) == 0).toList();
                   if (exist.isNotEmpty) {
@@ -338,7 +383,34 @@ class _RecipeDetailWidgetState extends State<RecipeDetailWidget> {
                     );
                     return;
                   }
-                  hours.add(res);
+                  if (dates.isEmpty) {
+                    showInSnackBar(
+                      context,
+                      'Seleccione periodo',
+                      color: Colors.red,
+                    );
+                    return;
+                  }
+
+                  if (dates.length == 2) {
+                    if (res.isAfter(dates[0]!) && res.isBefore(dates[1]!)) {
+                      hours.add(res);
+                    } else {
+                      showInSnackBar(
+                        context,
+                        'la fecha esta fuera del periodo trasado',
+                        color: Colors.red,
+                      );
+                      return;
+                    }
+                  } else {
+                    showInSnackBar(
+                      context,
+                      'Seleccione dos fechas',
+                      color: Colors.red,
+                    );
+                    return;
+                  }
                 },
                 onShowPicker: (context, currentValue) async {
                   final time = await showTimePicker(
@@ -388,7 +460,7 @@ class _RecipeDetailWidgetState extends State<RecipeDetailWidget> {
   Container itemsMedicamentWidget(Size size, RecipeDetailModels item) {
     return Container(
       width: double.infinity,
-      height: 80,
+      height: 95,
       decoration: BoxDecoration(
         border: Border.all(
           color: Colors.black,
@@ -451,19 +523,29 @@ class _RecipeDetailWidgetState extends State<RecipeDetailWidget> {
                     ),
                   ],
                 ),
-                Row(
-                  children: [
-                    const Text(
-                      'Cantidad:',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Expanded(
-                      child: Text(item.quantity.toString()).paddingLeft(10),
-                    ),
-                  ],
-                ).paddingTop(5),
+                SizedBox(
+                  height: 50,
+                  width: double.infinity,
+                  child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      children:
+                          List.generate(hoursList(item.hour).length, (index) {
+                        final dat = hoursList(item.hour);
+                        return SizedBox(
+                          width: 100,
+                          child: Chip(
+                            label: Text(
+                              DateFormat('HH:mm a')
+                                  .format(FuntionsApp().parseTime(dat[index])),
+                              style: const TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                            backgroundColor: AppColors.primaryColor,
+                          ),
+                        );
+                      })),
+                )
               ],
             ).paddingLeft(10),
           ),
@@ -512,7 +594,7 @@ class _RecipeDetailWidgetState extends State<RecipeDetailWidget> {
                   Navigator.pop(context);
                 }, confirm: () {
                   treatamentBloc
-                      .add(TreatamentEvent.deleteMedicamentById(model!.id!));
+                      .add(TreatamentEvent.deleteMedicamentById(item.id!));
                   Navigator.pop(context);
                 });
               },
@@ -538,11 +620,22 @@ class _RecipeDetailWidgetState extends State<RecipeDetailWidget> {
     );
   }
 
+  List<DateTime> hoursList(String item) {
+    List<DateTime> dates = [];
+    int index = 0;
+    final listData = item.split(";");
+    while (index < (listData.length - 1)) {
+      dates.add(DateTime.parse(listData[index]));
+      index++;
+    }
+    return dates;
+  }
+
   onEdit() {
     selectedMedicament = selectMedicines!.medicamentModel;
     _measureController = TextEditingController(text: selectMedicines!.measure);
-    _quantityController =
-        TextEditingController(text: selectMedicines!.quantity.toString());
+    //_quantityController =
+    //  TextEditingController(text: selectMedicines!.quantity.toString());
     dates.clear();
     dates.add(selectMedicines!.fromDate);
     dates.add(selectMedicines!.toDate);
@@ -559,11 +652,15 @@ class _RecipeDetailWidgetState extends State<RecipeDetailWidget> {
 
   saveFrom() {
     if (_formKey.currentState!.validate()) {
+      if (dates.isEmpty) {
+        showInSnackBar(context, "Seleccione periodo", color: Colors.red);
+        return;
+      }
       model = RecipeDetailModels(
         id: selectMedicines == null ? null : selectMedicines!.id,
         medicRef: null,
         medicamentId: selectedMedicament!.id!,
-        quantity: int.parse(_quantityController.text),
+        quantity: 0,
         measure: _measureController.text,
         fromDate: dates[0]!,
         toDate: dates[1]!,
@@ -578,7 +675,7 @@ class _RecipeDetailWidgetState extends State<RecipeDetailWidget> {
   getHourString() {
     String hour = "";
     for (final item in hours) {
-      hour = "$hour${FuntionsApp().parseTime(item)};";
+      hour = "$hour${item.toString()};";
     }
     return hour;
   }

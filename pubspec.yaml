@@ -48,6 +48,12 @@ dependencies:
   flutter_native_splash: ^2.3.0
   flutter_launcher_icons: ^0.13.1
   text_area: ^0.0.3
+  flutter_local_notifications: ^14.1.1
+  flutter_background_service: ^3.0.1
+  isar: ^3.1.0+1
+  isar_flutter_libs: ^3.1.0+1
+  path_provider: ^2.0.11
+  permission_handler: ^10.4.5
 
 dev_dependencies:
   flutter_test:
@@ -66,6 +72,7 @@ dev_dependencies:
   # execute==> flutter pub run build_runner build --delete-conflicting-outputs <==from terminal to generate routes
   auto_route_generator: ^7.2.0
   injectable_generator: ^1.5.4
+  isar_generator: ^3.1.0+1
 
   #execute=> flutter pub run flutter_launcher_icons:main <== to generate ic_launcher
 flutter_icons:

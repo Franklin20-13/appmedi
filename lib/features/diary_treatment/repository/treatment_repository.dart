@@ -4,6 +4,8 @@ import 'package:app_medi/core/data/repository/recipe_firebase.dart';
 import 'package:app_medi/core/data/repository/treatment_firestore.dart';
 import 'package:app_medi/core/errors/failure.dart';
 import 'package:app_medi/features/authentication/domain/interfaces/i_session.dart';
+import 'package:app_medi/features/background/DataBase/collectons/notification_collection.dart';
+import 'package:app_medi/features/background/services/service_Isar.dart';
 import 'package:app_medi/features/diary_treatment/domain/models/recipe_detail_models.dart';
 import 'package:app_medi/features/diary_treatment/domain/models/recipe_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -21,6 +23,7 @@ class UserRepository implements ITreatment {
   final MedicineFirestore medicineFirestore;
   final UserFirestore userFirestore;
   final RecipeFirestore recipeFirestore;
+  final ServiceIsar serviceIsar = ServiceIsar();
   UserRepository(this.treatmentFirestore, this.iSession, this.medicineFirestore,
       this.userFirestore, this.recipeFirestore);
   @override
@@ -48,6 +51,27 @@ class UserRepository implements ITreatment {
             .addField(TreatmentFields.toDate, model.toDate)
             .addField(TreatmentFields.hour, model.hour)
             .update(model.id);
+
+        final document = await treatmentFirestore.getDocument(model.id!).get();
+
+        final recipeRef =
+            (document.data() as Map<String, dynamic>)[TreatmentFields.recipeRef]
+                as DocumentReference;
+        final recipeDoc = await recipeFirestore.getDocument(recipeRef.id).get();
+        final medicineRef = (document.data()
+                as Map<String, dynamic>)[TreatmentFields.refMedicament]
+            as DocumentReference;
+        final medicineDoc =
+            await medicineFirestore.getDocument(medicineRef.id).get();
+        final modelMedicine = RecipeDetailModels.fromJson(
+          document.data() as Map<String, dynamic>,
+          id: document.id,
+          jsonMedicine: medicineDoc.data() as Map<String, dynamic>,
+          medicineId: medicineDoc.id,
+          jsonRecipe: recipeDoc.data() as Map<String, dynamic>,
+          recipeId: recipeDoc.id,
+        );
+        await serviceIsar.insertNotification(modelMedicine,user.user!.userName);
         return const Right("Medicamento actualizado en la receta médica");
       }
       final refRecipe = recipeFirestore.getDocument(model.recipeId!);
@@ -63,7 +87,31 @@ class UserRepository implements ITreatment {
         return const Left(ServerFailure("El medicamento ya existe"));
       }
 
-      await treatmentFirestore.collection.add(mapRecipeDetail(model));
+      final result =
+          await treatmentFirestore.collection.add(mapRecipeDetail(model));
+      if (result.id.isNotEmpty) {
+        final document = await result.get();
+
+        final recipeRef =
+            (document.data() as Map<String, dynamic>)[TreatmentFields.recipeRef]
+                as DocumentReference;
+        final recipeDoc = await recipeFirestore.getDocument(recipeRef.id).get();
+        final medicineRef = (document.data()
+                as Map<String, dynamic>)[TreatmentFields.refMedicament]
+            as DocumentReference;
+        final medicineDoc =
+            await medicineFirestore.getDocument(medicineRef.id).get();
+        final model = RecipeDetailModels.fromJson(
+          document.data() as Map<String, dynamic>,
+          id: document.id,
+          jsonMedicine: medicineDoc.data() as Map<String, dynamic>,
+          medicineId: medicineDoc.id,
+          jsonRecipe: recipeDoc.data() as Map<String, dynamic>,
+          recipeId: recipeDoc.id,
+        );
+
+        await serviceIsar.insertNotification(model, user.user!.userName);
+      }
 
       return const Right("Medicamento agregado a la receta médica");
     } catch (e) {
@@ -182,8 +230,20 @@ class UserRepository implements ITreatment {
   Future<Either<Failure, String>> deleteMedicamentByRecipe(String id) async {
     try {
       await treatmentFirestore.delete(id);
+      await serviceIsar.deteleNotification(id);
       return const Right("medicamento eliminado correctamente");
     } catch (e) {
+      return const Left(ServerFailure('Error al comunicarse con el servidor'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<NotificationCollection?>>> getNotifications()async  {
+   try{
+      final user = await iSession.getUserSesion();
+      final result=  await serviceIsar.getNotifications(user!.user!.userName);
+      return Right(result);
+   } catch (e) {
       return const Left(ServerFailure('Error al comunicarse con el servidor'));
     }
   }

@@ -1,4 +1,5 @@
 import 'package:app_medi/core/errors/failure.dart';
+import 'package:app_medi/features/background/DataBase/collectons/notification_collection.dart';
 import 'package:dartz/dartz.dart';
 
 import '../models/recipe_detail_models.dart';
@@ -11,4 +12,5 @@ abstract class ITreatment {
   Future<Either<Failure, List<RecipeDetailModels>>> getRecipeItems(String recipeId);
   Future<Either<Failure, String>> deleteRecipe(String id);
   Future<Either<Failure, String>> deleteMedicamentByRecipe(String id);
+  Future<Either<Failure, List<NotificationCollection?>>> getNotifications();
 }
