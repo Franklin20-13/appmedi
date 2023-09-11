@@ -24,7 +24,7 @@ Future<void> configureBackgroundMode() async {
 void onStart(ServiceInstance service) async {
   DartPluginRegistrant.ensureInitialized();
   BackgroundService backgroundService = BackgroundService();
-  Timer.periodic(const Duration(seconds: 50), (timer) async {
+  Timer.periodic(const Duration(seconds: 30), (timer) async {
     if (service is AndroidServiceInstance) {
       if (await service.isForegroundService()) {
         await backgroundService.sendAlarms();

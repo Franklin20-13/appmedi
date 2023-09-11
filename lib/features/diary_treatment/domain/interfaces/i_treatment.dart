@@ -13,4 +13,5 @@ abstract class ITreatment {
   Future<Either<Failure, String>> deleteRecipe(String id);
   Future<Either<Failure, String>> deleteMedicamentByRecipe(String id);
   Future<Either<Failure, List<NotificationCollection?>>> getNotifications();
+  Future<Either<Failure, String>> isThomeCompleted(NotificationCollection item);
 }

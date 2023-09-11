@@ -12,14 +12,14 @@ class QueryNotification extends IsarDataBaseHelper {
         () => isar.notificationCollections.putSync(notificationCollection));
   }
 
-  Future<NotificationCollection?> existByDocument(
+  Future<List<NotificationCollection?>> existByDocument(
       String documentId, String documentRecipeId) async {
     final isar = await db;
     final query = await isar.notificationCollections
         .filter()
         .keyDocumentEqualTo(documentId)
         .keyDocumentRecipeEqualTo(documentRecipeId)
-        .findFirst();
+        .findAll();
     return query;
   }
 

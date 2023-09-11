@@ -39,7 +39,7 @@ class ServiceIsar extends ParseCollections {
     if (list1.isNotEmpty) {
       list.addAll(list1);
     }
-    
+
     List<int> ids = [];
     for (var item in list) {
       if (item!.notifyCompleted == item.quantity) {
@@ -69,10 +69,15 @@ class ServiceIsar extends ParseCollections {
     await queryNotification.save(item);
   }
 
+  Future<void> updateNotification(NotificationCollection item) async {
+    await queryNotification.save(item);
+  }
+
   Future<void> insertNotification(
       RecipeDetailModels detail, String user) async {
     try {
-      for (final hour in getDates(detail.hour.split(";"))) {
+      final hours = getDates(detail.hour.split(";"));
+      for (final hour in hours) {
         var res = await queryNotification.existByDocumentAndHour(
             detail.id!, detail.recipeModel!.id!, hour);
         if (res != null) {
@@ -97,7 +102,18 @@ class ServiceIsar extends ParseCollections {
               "Tomar ${detail.medicamentModel!.name} para ${detail.recipeModel!.name}";
           model.hour = hour;
           model.quantity = 4;
-          model.notifyCompleted = 0;
+
+          //compruba si  hay tomas que debiron notificarse
+          // si  hay coloca como notificado
+          final hourNow =
+              FuntionsApp().parseTimeAlarm(DateTime.now(), DateTime.now());
+          if (hourNow.isAfter(DateTime.parse(hour))) {
+            model.notifyCompleted = 4;
+          } else {
+            model.notifyCompleted = 0;
+          }
+
+          //fin
           model.tomado = false;
           model.fromDate = detail.fromDate.toString();
           model.toDate = detail.toDate.toString();
@@ -106,6 +122,23 @@ class ServiceIsar extends ParseCollections {
           await queryNotification.save(model);
         }
       }
+
+      //elimina ntificaciones si  las horas de la medicina se borro
+      final validIsNotExist = await queryNotification.existByDocument(
+          detail.id!, detail.recipeModel!.id!);
+      List<int> idsDelete = [];
+      for (final item in validIsNotExist) {
+        final hour = hours.where((e) => e.compareTo(item!.hour) == 0).toList();
+        if (hour.isEmpty && !item!.tomado) {
+          idsDelete.add(item.id);
+        }
+      }
+
+      for (final item in idsDelete) {
+        await queryNotification.delete(item);
+      }
+      // fin
+
       return;
     } catch (e) {
       if (kDebugMode) {

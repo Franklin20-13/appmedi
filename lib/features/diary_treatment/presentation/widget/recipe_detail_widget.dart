@@ -184,21 +184,44 @@ class _RecipeDetailWidgetState extends State<RecipeDetailWidget> {
                                       );
                                     },
                                   ).paddingTop(size.height * .2 + 55),
-                              loadSuccess: (e) => Column(
-                                    children: List.generate(
-                                      e.items.length,
-                                      (index) => itemsMedicamentWidget(
-                                        size,
-                                        e.items[index],
-                                      ).paddingBottom(10),
-                                    ),
-                                  ).paddingTop(27),
+                              loadSuccess: (e) {
+                                return Column(
+                                  children: List.generate(
+                                    e.items.length,
+                                    (index) => itemsMedicamentWidget(
+                                      size,
+                                      e.items[index],
+                                    ).paddingBottom(10),
+                                  ),
+                                ).paddingTop(27);
+                              },
                               loadMessage: (_) => Container());
                         })
                       : newMedicamentWidget(context)
                 ],
               ),
             ),
+            isList
+                ? BlocBuilder<MedicamentDetailBloc, MedicamentDetailState>(
+                    builder: (context, state) {
+                    return state.map(
+                      initial: (_) => Container(),
+                      loadSuccess: (e) {
+                        if (e.items.isNotEmpty) {
+                          return buttonWidgetApp(
+                            label: 'Enviar recera Medica',
+                            height: 50,
+                            width: 250,
+                            fontSize: 20,
+                            onTap: () {},
+                          );
+                        }
+                        return Container();
+                      },
+                      loadMessage: (_) => Container(),
+                    );
+                  })
+                : Container(),
           ],
         ),
       ),
@@ -432,8 +455,14 @@ class _RecipeDetailWidgetState extends State<RecipeDetailWidget> {
   }
 
   InkWell itemHourWidget(DateTime date, int index) {
+    final state = isNotificationDetail(date.toString());
     return InkWell(
       onDoubleTap: () {
+        if (state) {
+          showInSnackBar(context, "No se puede eliminar esta hora",
+              color: Colors.red);
+          return;
+        }
         hours.removeAt(index);
         setState(() {});
       },
@@ -452,7 +481,7 @@ class _RecipeDetailWidgetState extends State<RecipeDetailWidget> {
             )
           ],
         ),
-        backgroundColor: AppColors.primaryColor,
+        backgroundColor: state ? Colors.green : AppColors.primaryColor,
       ),
     );
   }
@@ -531,6 +560,8 @@ class _RecipeDetailWidgetState extends State<RecipeDetailWidget> {
                       children:
                           List.generate(hoursList(item.hour).length, (index) {
                         final dat = hoursList(item.hour);
+                        final state =
+                            isNotification(item, dat[index].toString());
                         return SizedBox(
                           width: 100,
                           child: Chip(
@@ -541,7 +572,8 @@ class _RecipeDetailWidgetState extends State<RecipeDetailWidget> {
                                 color: Colors.white,
                               ),
                             ),
-                            backgroundColor: AppColors.primaryColor,
+                            backgroundColor:
+                                state ? Colors.green : AppColors.primaryColor,
                           ),
                         );
                       })),
@@ -667,12 +699,62 @@ class _RecipeDetailWidgetState extends State<RecipeDetailWidget> {
         userRef: null,
         recipeId: widget.recipe.id,
         hour: getHourString(),
+        completed: 0,
+        thomas: getThomasList().length,
+        hourCompleted:
+            selectMedicines == null ? '' : selectMedicines!.hourCompleted,
       );
       treatamentBloc.add(TreatamentEvent.saveRecipeDetail(model!));
     }
   }
 
-  getHourString() {
+  bool isNotification(RecipeDetailModels item, String hour) {
+    List<String> hours = [];
+    final list = item.hourCompleted.split(";");
+    int index = 0;
+    while (index < (list.length - 1)) {
+      hours.add(list[index]);
+      index++;
+    }
+    final exist = hours.where((p) => p.compareTo(hour) == 0).toList();
+    if (exist.isNotEmpty) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  bool isNotificationDetail(String hour) {
+    List<String> hours = [];
+    if (selectMedicines == null) {
+      return false;
+    }
+    final list = selectMedicines!.hourCompleted.split(";");
+    int index = 0;
+    while (index < (list.length - 1)) {
+      hours.add(list[index]);
+      index++;
+    }
+    final exist = hours.where((p) => p.compareTo(hour) == 0).toList();
+    if (exist.isNotEmpty) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  List<String> getThomasList() {
+    List<String> hours = [];
+    int index = 0;
+    final getHoursString = getHourString().split(";");
+    while (index < (getHoursString.length - 1)) {
+      hours.add(getHoursString[index]);
+      index++;
+    }
+    return hours;
+  }
+
+  String getHourString() {
     String hour = "";
     for (final item in hours) {
       hour = "$hour${item.toString()};";

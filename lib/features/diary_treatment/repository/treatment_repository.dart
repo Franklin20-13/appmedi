@@ -50,6 +50,7 @@ class UserRepository implements ITreatment {
             .addField(TreatmentFields.fromDate, model.fromDate)
             .addField(TreatmentFields.toDate, model.toDate)
             .addField(TreatmentFields.hour, model.hour)
+            .addField(TreatmentFields.thomas, model.thomas)
             .update(model.id);
 
         final document = await treatmentFirestore.getDocument(model.id!).get();
@@ -71,7 +72,8 @@ class UserRepository implements ITreatment {
           jsonRecipe: recipeDoc.data() as Map<String, dynamic>,
           recipeId: recipeDoc.id,
         );
-        await serviceIsar.insertNotification(modelMedicine,user.user!.userName);
+        await serviceIsar.insertNotification(
+            modelMedicine, user.user!.userName);
         return const Right("Medicamento actualizado en la receta médica");
       }
       final refRecipe = recipeFirestore.getDocument(model.recipeId!);
@@ -229,6 +231,16 @@ class UserRepository implements ITreatment {
   @override
   Future<Either<Failure, String>> deleteMedicamentByRecipe(String id) async {
     try {
+      final medicineItem = await treatmentFirestore.getDocument(id).get();
+      if (!medicineItem.exists) {
+        return const Left(ServerFailure("Medicamento no encontrado"));
+      }
+      var currentThoma = (medicineItem.data()
+          as Map<String, dynamic>)[TreatmentFields.completed] as int;
+      if (currentThoma > 0) {
+        return const Left(ServerFailure(
+            "No puedes eliminar este medicamento porque el  tratamiento  ya inicio"));
+      }
       await treatmentFirestore.delete(id);
       await serviceIsar.deteleNotification(id);
       return const Right("medicamento eliminado correctamente");
@@ -238,12 +250,51 @@ class UserRepository implements ITreatment {
   }
 
   @override
-  Future<Either<Failure, List<NotificationCollection?>>> getNotifications()async  {
-   try{
+  Future<Either<Failure, List<NotificationCollection?>>>
+      getNotifications() async {
+    try {
       final user = await iSession.getUserSesion();
-      final result=  await serviceIsar.getNotifications(user!.user!.userName);
+      final result = await serviceIsar.getNotifications(user!.user!.userName);
       return Right(result);
-   } catch (e) {
+    } catch (e) {
+      return const Left(ServerFailure('Error al comunicarse con el servidor'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> isThomeCompleted(
+      NotificationCollection item) async {
+    try {
+      final medicineItem =
+          await treatmentFirestore.getDocument(item.keyDocument).get();
+      if (!medicineItem.exists) {
+        return const Left(ServerFailure("Medicamento no encontrado"));
+      }
+      var currentThoma = (medicineItem.data()
+          as Map<String, dynamic>)[TreatmentFields.completed] as int;
+      var currentHourCompletd = (medicineItem.data()
+          as Map<String, dynamic>)[TreatmentFields.hourCompleted] as String;
+
+      currentHourCompletd = "$currentHourCompletd${item.hour};";
+      currentThoma++;
+      await treatmentFirestore
+          .addField(TreatmentFields.completed, currentThoma)
+          .addField(TreatmentFields.hourCompleted, currentHourCompletd)
+          .update(item.keyDocument);
+      item.tomado = true;
+      await serviceIsar.updateNotification(item);
+
+      var currentFinish = (medicineItem.data()
+          as Map<String, dynamic>)[TreatmentFields.thomas] as int;
+
+      if (currentThoma == currentFinish) {
+        await serviceIsar.deteleNotification(item.keyDocument);
+        return Right(
+            "Medicamento Tomado, eliminado ${currentFinish.toString()} notificaciones porque ya completaste las tomas dentro del  periodo.");
+      }
+
+      return const Right("Medicamento Tomado");
+    } catch (e) {
       return const Left(ServerFailure('Error al comunicarse con el servidor'));
     }
   }

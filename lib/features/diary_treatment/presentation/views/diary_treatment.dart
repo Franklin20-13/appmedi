@@ -69,37 +69,39 @@ class _DiaryTreatmentViewState extends State<DiaryTreatmentView> {
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(20),
                         topRight: Radius.circular(20))),
-                child: Column(children: [
-                  const SizedBox(
-                    width: double.infinity,
-                    height: 10,
-                  ),
-                  Expanded(
-                    child: isList
-                        ? RecipesWidget(
-                            onTap: () {
-                              selectRecipe = null;
-                              setState(() {
-                                isList = !isList;
-                              });
-                            },
-                            onChange: (RecipeModel value) {
-                              selectRecipe = value;
-                              setState(() {
-                                isList = !isList;
-                              });
-                            },
-                          )
-                        : RecipeWidget(
-                            onTap: () {
-                              setState(() {
-                                isList = !isList;
-                              });
-                            },
-                            selectRecipe: selectRecipe,
-                          ),
-                  )
-                ]).paddingOnly(left: 20, right: 20),
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      width: double.infinity,
+                      height: 10,
+                    ),
+                    Expanded(
+                      child: isList
+                          ? RecipesWidget(
+                              onTap: () {
+                                selectRecipe = null;
+                                setState(() {
+                                  isList = !isList;
+                                });
+                              },
+                              onChange: (RecipeModel value) {
+                                selectRecipe = value;
+                                setState(() {
+                                  isList = !isList;
+                                });
+                              },
+                            )
+                          : RecipeWidget(
+                              onTap: () {
+                                setState(() {
+                                  isList = !isList;
+                                });
+                              },
+                              selectRecipe: selectRecipe,
+                            ),
+                    ),
+                  ],
+                ).paddingOnly(left: 20, right: 20),
               ),
             ),
           ],

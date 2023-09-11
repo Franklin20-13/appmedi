@@ -17,6 +17,9 @@ class RecipeDetailModels {
       this.recipeId,
       this.medicamentModel,
       this.recipeModel,
+      required this.completed,
+      required this.thomas,
+      required this.hourCompleted,
       required this.hour});
   String? id;
   DocumentReference? medicRef;
@@ -31,6 +34,9 @@ class RecipeDetailModels {
   DocumentReference? userRef;
   MedicamentModel? medicamentModel;
   RecipeModel? recipeModel;
+  int completed;
+  int thomas;
+  String hourCompleted;
   factory RecipeDetailModels.fromJson(
     Map<String, dynamic> json, {
     String? id,
@@ -41,46 +47,55 @@ class RecipeDetailModels {
     String? recipeId,
   }) {
     return RecipeDetailModels(
-        id: json.containsKey(TreatmentFields.id)
-            ? json[TreatmentFields.id]
-            : id ?? '',
-        medicRef: json.containsKey(TreatmentFields.refMedicament)
-            ? json[TreatmentFields.refMedicament]
-            : null,
-        quantity: json.containsKey(TreatmentFields.quantity)
-            ? json[TreatmentFields.quantity]
-            : 0,
-        measure: json.containsKey(TreatmentFields.measure)
-            ? json[TreatmentFields.measure]
-            : '',
-        fromDate: json.containsKey(TreatmentFields.fromDate)
-            ? json[TreatmentFields.fromDate] == null
-                ? DateTime.now()
-                : DateTime.fromMillisecondsSinceEpoch(
-                    (json[TreatmentFields.fromDate] as Timestamp)
-                        .millisecondsSinceEpoch,
-                  )
-            : DateTime.now(),
-        toDate: json.containsKey(TreatmentFields.toDate)
-            ? json[TreatmentFields.toDate] == null
-                ? DateTime.now()
-                : DateTime.fromMillisecondsSinceEpoch(
-                    (json[TreatmentFields.toDate] as Timestamp)
-                        .millisecondsSinceEpoch,
-                  )
-            : DateTime.now(),
-        hour: json.containsKey(TreatmentFields.hour)
-            ? json[TreatmentFields.hour]
-            : "",
-        userRef: json.containsKey(TreatmentFields.userRef)
-            ? json[TreatmentFields.userRef]
-            : null,
-        recipeRef: json.containsKey(TreatmentFields.recipeRef)
-            ? json[TreatmentFields.recipeRef]
-            : null,
-        medicamentModel:
-            MedicamentModel.fromJson(jsonMedicine!, id: medicineId),
-        recipeModel: RecipeModel.fromJson(jsonRecipe!, id: recipeId));
+      id: json.containsKey(TreatmentFields.id)
+          ? json[TreatmentFields.id]
+          : id ?? '',
+      medicRef: json.containsKey(TreatmentFields.refMedicament)
+          ? json[TreatmentFields.refMedicament]
+          : null,
+      quantity: json.containsKey(TreatmentFields.quantity)
+          ? json[TreatmentFields.quantity]
+          : 0,
+      measure: json.containsKey(TreatmentFields.measure)
+          ? json[TreatmentFields.measure]
+          : '',
+      fromDate: json.containsKey(TreatmentFields.fromDate)
+          ? json[TreatmentFields.fromDate] == null
+              ? DateTime.now()
+              : DateTime.fromMillisecondsSinceEpoch(
+                  (json[TreatmentFields.fromDate] as Timestamp)
+                      .millisecondsSinceEpoch,
+                )
+          : DateTime.now(),
+      toDate: json.containsKey(TreatmentFields.toDate)
+          ? json[TreatmentFields.toDate] == null
+              ? DateTime.now()
+              : DateTime.fromMillisecondsSinceEpoch(
+                  (json[TreatmentFields.toDate] as Timestamp)
+                      .millisecondsSinceEpoch,
+                )
+          : DateTime.now(),
+      hour: json.containsKey(TreatmentFields.hour)
+          ? json[TreatmentFields.hour]
+          : "",
+      userRef: json.containsKey(TreatmentFields.userRef)
+          ? json[TreatmentFields.userRef]
+          : null,
+      recipeRef: json.containsKey(TreatmentFields.recipeRef)
+          ? json[TreatmentFields.recipeRef]
+          : null,
+      medicamentModel: MedicamentModel.fromJson(jsonMedicine!, id: medicineId),
+      recipeModel: RecipeModel.fromJson(jsonRecipe!, id: recipeId),
+      completed: json.containsKey(TreatmentFields.completed)
+          ? json[TreatmentFields.completed]
+          : 0,
+      thomas: json.containsKey(TreatmentFields.thomas)
+          ? json[TreatmentFields.thomas]
+          : 0,
+      hourCompleted: json.containsKey(TreatmentFields.hourCompleted)
+          ? json[TreatmentFields.hourCompleted]
+          : '',
+    );
   }
 }
 
@@ -94,4 +109,7 @@ Map<String, dynamic> mapRecipeDetail(RecipeDetailModels instance) =>
       TreatmentFields.hour: instance.hour,
       TreatmentFields.userRef: instance.userRef,
       TreatmentFields.recipeRef: instance.recipeRef,
+      TreatmentFields.completed: instance.completed,
+      TreatmentFields.thomas: instance.thomas,
+      TreatmentFields.hourCompleted: instance.hourCompleted,
     };

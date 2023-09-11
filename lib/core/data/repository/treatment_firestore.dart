@@ -59,6 +59,27 @@ class TreatmentFirestore extends AbstractFirestore {
           throw TypeError();
         }
         break;
+      case TreatmentFields.completed:
+        if (value is int) {
+          data[field] = value;
+        } else {
+          throw TypeError();
+        }
+        break;
+      case TreatmentFields.thomas:
+        if (value is int) {
+          data[field] = value;
+        } else {
+          throw TypeError();
+        }
+        break;
+      case TreatmentFields.hourCompleted:
+        if (value is String) {
+          data[field] = value;
+        } else {
+          throw TypeError();
+        }
+        break;
       default:
         throw ArgumentError();
     }

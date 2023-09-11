@@ -8,4 +8,7 @@ class TreatmentFields {
   static const hour = 'hour';
   static const userRef = 'userRef';
   static const recipeRef = 'recipeRef';
+  static const completed = "completed";
+  static const thomas = "thomas";
+  static const hourCompleted = "hourCompleted";
 }
