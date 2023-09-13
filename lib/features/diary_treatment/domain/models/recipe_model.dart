@@ -9,6 +9,7 @@ class RecipeModel {
       required this.date,
       this.doctorRef,
       required this.status,
+      this.patient,
       this.userRef});
   String? id;
   String name;
@@ -17,8 +18,9 @@ class RecipeModel {
   DocumentReference? userRef;
   DocumentReference? doctorRef;
   int status;
+  String? patient;
   factory RecipeModel.fromJson(Map<String, dynamic> json,
-      {String? id, DocumentReference? refUser}) {
+      {String? id, DocumentReference? refUser, String ? patient}) {
     return RecipeModel(
       id: json.containsKey(RecipeFields.id) ? json[RecipeFields.id] : id ?? '',
       name:
@@ -40,8 +42,8 @@ class RecipeModel {
           ? json[RecipeFields.refUser]
           : null,
       status:
-          json.containsKey(RecipeFields.status) ? json[RecipeFields.status] : 0,
-
+            json.containsKey(RecipeFields.status) ? json[RecipeFields.status] : 0,
+        patient: patient
     );
   }
 }

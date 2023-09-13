@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'medicament_detail_bloc.dart';
+part of 'recipes_bloc.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,25 +15,25 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$MedicamentDetailState {
+mixin _$RecipesState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<RecipeDetailModels> items) loadSuccess,
+    required TResult Function(List<RecipeModel> recipes) loadSuccess,
     required TResult Function(String message) loadMessage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(List<RecipeDetailModels> items)? loadSuccess,
+    TResult? Function(List<RecipeModel> recipes)? loadSuccess,
     TResult? Function(String message)? loadMessage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<RecipeDetailModels> items)? loadSuccess,
+    TResult Function(List<RecipeModel> recipes)? loadSuccess,
     TResult Function(String message)? loadMessage,
     required TResult orElse(),
   }) =>
@@ -63,17 +63,16 @@ mixin _$MedicamentDetailState {
 }
 
 /// @nodoc
-abstract class $MedicamentDetailStateCopyWith<$Res> {
-  factory $MedicamentDetailStateCopyWith(MedicamentDetailState value,
-          $Res Function(MedicamentDetailState) then) =
-      _$MedicamentDetailStateCopyWithImpl<$Res, MedicamentDetailState>;
+abstract class $RecipesStateCopyWith<$Res> {
+  factory $RecipesStateCopyWith(
+          RecipesState value, $Res Function(RecipesState) then) =
+      _$RecipesStateCopyWithImpl<$Res, RecipesState>;
 }
 
 /// @nodoc
-class _$MedicamentDetailStateCopyWithImpl<$Res,
-        $Val extends MedicamentDetailState>
-    implements $MedicamentDetailStateCopyWith<$Res> {
-  _$MedicamentDetailStateCopyWithImpl(this._value, this._then);
+class _$RecipesStateCopyWithImpl<$Res, $Val extends RecipesState>
+    implements $RecipesStateCopyWith<$Res> {
+  _$RecipesStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -90,7 +89,7 @@ abstract class _$$_InitialCopyWith<$Res> {
 
 /// @nodoc
 class __$$_InitialCopyWithImpl<$Res>
-    extends _$MedicamentDetailStateCopyWithImpl<$Res, _$_Initial>
+    extends _$RecipesStateCopyWithImpl<$Res, _$_Initial>
     implements _$$_InitialCopyWith<$Res> {
   __$$_InitialCopyWithImpl(_$_Initial _value, $Res Function(_$_Initial) _then)
       : super(_value, _then);
@@ -103,7 +102,7 @@ class _$_Initial implements _Initial {
 
   @override
   String toString() {
-    return 'MedicamentDetailState.initial()';
+    return 'RecipesState.initial()';
   }
 
   @override
@@ -119,7 +118,7 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<RecipeDetailModels> items) loadSuccess,
+    required TResult Function(List<RecipeModel> recipes) loadSuccess,
     required TResult Function(String message) loadMessage,
   }) {
     return initial();
@@ -129,7 +128,7 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(List<RecipeDetailModels> items)? loadSuccess,
+    TResult? Function(List<RecipeModel> recipes)? loadSuccess,
     TResult? Function(String message)? loadMessage,
   }) {
     return initial?.call();
@@ -139,7 +138,7 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<RecipeDetailModels> items)? loadSuccess,
+    TResult Function(List<RecipeModel> recipes)? loadSuccess,
     TResult Function(String message)? loadMessage,
     required TResult orElse(),
   }) {
@@ -184,7 +183,7 @@ class _$_Initial implements _Initial {
   }
 }
 
-abstract class _Initial implements MedicamentDetailState {
+abstract class _Initial implements RecipesState {
   const factory _Initial() = _$_Initial;
 }
 
@@ -194,12 +193,12 @@ abstract class _$$_LoadSuccessCopyWith<$Res> {
           _$_LoadSuccess value, $Res Function(_$_LoadSuccess) then) =
       __$$_LoadSuccessCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<RecipeDetailModels> items});
+  $Res call({List<RecipeModel> recipes});
 }
 
 /// @nodoc
 class __$$_LoadSuccessCopyWithImpl<$Res>
-    extends _$MedicamentDetailStateCopyWithImpl<$Res, _$_LoadSuccess>
+    extends _$RecipesStateCopyWithImpl<$Res, _$_LoadSuccess>
     implements _$$_LoadSuccessCopyWith<$Res> {
   __$$_LoadSuccessCopyWithImpl(
       _$_LoadSuccess _value, $Res Function(_$_LoadSuccess) _then)
@@ -208,13 +207,13 @@ class __$$_LoadSuccessCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? items = null,
+    Object? recipes = null,
   }) {
     return _then(_$_LoadSuccess(
-      items: null == items
-          ? _value._items
-          : items // ignore: cast_nullable_to_non_nullable
-              as List<RecipeDetailModels>,
+      recipes: null == recipes
+          ? _value._recipes
+          : recipes // ignore: cast_nullable_to_non_nullable
+              as List<RecipeModel>,
     ));
   }
 }
@@ -222,20 +221,20 @@ class __$$_LoadSuccessCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_LoadSuccess implements _LoadSuccess {
-  const _$_LoadSuccess({required final List<RecipeDetailModels> items})
-      : _items = items;
+  const _$_LoadSuccess({required final List<RecipeModel> recipes})
+      : _recipes = recipes;
 
-  final List<RecipeDetailModels> _items;
+  final List<RecipeModel> _recipes;
   @override
-  List<RecipeDetailModels> get items {
-    if (_items is EqualUnmodifiableListView) return _items;
+  List<RecipeModel> get recipes {
+    if (_recipes is EqualUnmodifiableListView) return _recipes;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_items);
+    return EqualUnmodifiableListView(_recipes);
   }
 
   @override
   String toString() {
-    return 'MedicamentDetailState.loadSuccess(items: $items)';
+    return 'RecipesState.loadSuccess(recipes: $recipes)';
   }
 
   @override
@@ -243,12 +242,12 @@ class _$_LoadSuccess implements _LoadSuccess {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_LoadSuccess &&
-            const DeepCollectionEquality().equals(other._items, _items));
+            const DeepCollectionEquality().equals(other._recipes, _recipes));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_items));
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_recipes));
 
   @JsonKey(ignore: true)
   @override
@@ -260,32 +259,32 @@ class _$_LoadSuccess implements _LoadSuccess {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<RecipeDetailModels> items) loadSuccess,
+    required TResult Function(List<RecipeModel> recipes) loadSuccess,
     required TResult Function(String message) loadMessage,
   }) {
-    return loadSuccess(items);
+    return loadSuccess(recipes);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(List<RecipeDetailModels> items)? loadSuccess,
+    TResult? Function(List<RecipeModel> recipes)? loadSuccess,
     TResult? Function(String message)? loadMessage,
   }) {
-    return loadSuccess?.call(items);
+    return loadSuccess?.call(recipes);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<RecipeDetailModels> items)? loadSuccess,
+    TResult Function(List<RecipeModel> recipes)? loadSuccess,
     TResult Function(String message)? loadMessage,
     required TResult orElse(),
   }) {
     if (loadSuccess != null) {
-      return loadSuccess(items);
+      return loadSuccess(recipes);
     }
     return orElse();
   }
@@ -325,11 +324,11 @@ class _$_LoadSuccess implements _LoadSuccess {
   }
 }
 
-abstract class _LoadSuccess implements MedicamentDetailState {
-  const factory _LoadSuccess({required final List<RecipeDetailModels> items}) =
+abstract class _LoadSuccess implements RecipesState {
+  const factory _LoadSuccess({required final List<RecipeModel> recipes}) =
       _$_LoadSuccess;
 
-  List<RecipeDetailModels> get items;
+  List<RecipeModel> get recipes;
   @JsonKey(ignore: true)
   _$$_LoadSuccessCopyWith<_$_LoadSuccess> get copyWith =>
       throw _privateConstructorUsedError;
@@ -346,7 +345,7 @@ abstract class _$$_LoadMessageCopyWith<$Res> {
 
 /// @nodoc
 class __$$_LoadMessageCopyWithImpl<$Res>
-    extends _$MedicamentDetailStateCopyWithImpl<$Res, _$_LoadMessage>
+    extends _$RecipesStateCopyWithImpl<$Res, _$_LoadMessage>
     implements _$$_LoadMessageCopyWith<$Res> {
   __$$_LoadMessageCopyWithImpl(
       _$_LoadMessage _value, $Res Function(_$_LoadMessage) _then)
@@ -376,7 +375,7 @@ class _$_LoadMessage implements _LoadMessage {
 
   @override
   String toString() {
-    return 'MedicamentDetailState.loadMessage(message: $message)';
+    return 'RecipesState.loadMessage(message: $message)';
   }
 
   @override
@@ -400,7 +399,7 @@ class _$_LoadMessage implements _LoadMessage {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<RecipeDetailModels> items) loadSuccess,
+    required TResult Function(List<RecipeModel> recipes) loadSuccess,
     required TResult Function(String message) loadMessage,
   }) {
     return loadMessage(message);
@@ -410,7 +409,7 @@ class _$_LoadMessage implements _LoadMessage {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(List<RecipeDetailModels> items)? loadSuccess,
+    TResult? Function(List<RecipeModel> recipes)? loadSuccess,
     TResult? Function(String message)? loadMessage,
   }) {
     return loadMessage?.call(message);
@@ -420,7 +419,7 @@ class _$_LoadMessage implements _LoadMessage {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<RecipeDetailModels> items)? loadSuccess,
+    TResult Function(List<RecipeModel> recipes)? loadSuccess,
     TResult Function(String message)? loadMessage,
     required TResult orElse(),
   }) {
@@ -465,7 +464,7 @@ class _$_LoadMessage implements _LoadMessage {
   }
 }
 
-abstract class _LoadMessage implements MedicamentDetailState {
+abstract class _LoadMessage implements RecipesState {
   const factory _LoadMessage({required final String message}) = _$_LoadMessage;
 
   String get message;
@@ -475,48 +474,47 @@ abstract class _LoadMessage implements MedicamentDetailState {
 }
 
 /// @nodoc
-mixin _$MedicamentDetailEvent {
+mixin _$RecipesEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String recipeId, bool isDoctor) getMedimanetItems,
-    required TResult Function(List<RecipeDetailModels> items)
-        pushMedicamentItemss,
+    required TResult Function(int state) getRecipes,
+    required TResult Function(List<RecipeModel> recipes) pushRecipes,
     required TResult Function(String message) pushMessage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String recipeId, bool isDoctor)? getMedimanetItems,
-    TResult? Function(List<RecipeDetailModels> items)? pushMedicamentItemss,
+    TResult? Function(int state)? getRecipes,
+    TResult? Function(List<RecipeModel> recipes)? pushRecipes,
     TResult? Function(String message)? pushMessage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String recipeId, bool isDoctor)? getMedimanetItems,
-    TResult Function(List<RecipeDetailModels> items)? pushMedicamentItemss,
+    TResult Function(int state)? getRecipes,
+    TResult Function(List<RecipeModel> recipes)? pushRecipes,
     TResult Function(String message)? pushMessage,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_MedicamentDetailEvent value) getMedimanetItems,
-    required TResult Function(_PushMedicamentDetail value) pushMedicamentItemss,
+    required TResult Function(_RecipesEvent value) getRecipes,
+    required TResult Function(_PushRecipe value) pushRecipes,
     required TResult Function(_PushMessage value) pushMessage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_MedicamentDetailEvent value)? getMedimanetItems,
-    TResult? Function(_PushMedicamentDetail value)? pushMedicamentItemss,
+    TResult? Function(_RecipesEvent value)? getRecipes,
+    TResult? Function(_PushRecipe value)? pushRecipes,
     TResult? Function(_PushMessage value)? pushMessage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_MedicamentDetailEvent value)? getMedimanetItems,
-    TResult Function(_PushMedicamentDetail value)? pushMedicamentItemss,
+    TResult Function(_RecipesEvent value)? getRecipes,
+    TResult Function(_PushRecipe value)? pushRecipes,
     TResult Function(_PushMessage value)? pushMessage,
     required TResult orElse(),
   }) =>
@@ -524,17 +522,16 @@ mixin _$MedicamentDetailEvent {
 }
 
 /// @nodoc
-abstract class $MedicamentDetailEventCopyWith<$Res> {
-  factory $MedicamentDetailEventCopyWith(MedicamentDetailEvent value,
-          $Res Function(MedicamentDetailEvent) then) =
-      _$MedicamentDetailEventCopyWithImpl<$Res, MedicamentDetailEvent>;
+abstract class $RecipesEventCopyWith<$Res> {
+  factory $RecipesEventCopyWith(
+          RecipesEvent value, $Res Function(RecipesEvent) then) =
+      _$RecipesEventCopyWithImpl<$Res, RecipesEvent>;
 }
 
 /// @nodoc
-class _$MedicamentDetailEventCopyWithImpl<$Res,
-        $Val extends MedicamentDetailEvent>
-    implements $MedicamentDetailEventCopyWith<$Res> {
-  _$MedicamentDetailEventCopyWithImpl(this._value, this._then);
+class _$RecipesEventCopyWithImpl<$Res, $Val extends RecipesEvent>
+    implements $RecipesEventCopyWith<$Res> {
+  _$RecipesEventCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -543,108 +540,96 @@ class _$MedicamentDetailEventCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_MedicamentDetailEventCopyWith<$Res> {
-  factory _$$_MedicamentDetailEventCopyWith(_$_MedicamentDetailEvent value,
-          $Res Function(_$_MedicamentDetailEvent) then) =
-      __$$_MedicamentDetailEventCopyWithImpl<$Res>;
+abstract class _$$_RecipesEventCopyWith<$Res> {
+  factory _$$_RecipesEventCopyWith(
+          _$_RecipesEvent value, $Res Function(_$_RecipesEvent) then) =
+      __$$_RecipesEventCopyWithImpl<$Res>;
   @useResult
-  $Res call({String recipeId, bool isDoctor});
+  $Res call({int state});
 }
 
 /// @nodoc
-class __$$_MedicamentDetailEventCopyWithImpl<$Res>
-    extends _$MedicamentDetailEventCopyWithImpl<$Res, _$_MedicamentDetailEvent>
-    implements _$$_MedicamentDetailEventCopyWith<$Res> {
-  __$$_MedicamentDetailEventCopyWithImpl(_$_MedicamentDetailEvent _value,
-      $Res Function(_$_MedicamentDetailEvent) _then)
+class __$$_RecipesEventCopyWithImpl<$Res>
+    extends _$RecipesEventCopyWithImpl<$Res, _$_RecipesEvent>
+    implements _$$_RecipesEventCopyWith<$Res> {
+  __$$_RecipesEventCopyWithImpl(
+      _$_RecipesEvent _value, $Res Function(_$_RecipesEvent) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? recipeId = null,
-    Object? isDoctor = null,
+    Object? state = null,
   }) {
-    return _then(_$_MedicamentDetailEvent(
-      null == recipeId
-          ? _value.recipeId
-          : recipeId // ignore: cast_nullable_to_non_nullable
-              as String,
-      null == isDoctor
-          ? _value.isDoctor
-          : isDoctor // ignore: cast_nullable_to_non_nullable
-              as bool,
+    return _then(_$_RecipesEvent(
+      null == state
+          ? _value.state
+          : state // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
 
 /// @nodoc
 
-class _$_MedicamentDetailEvent implements _MedicamentDetailEvent {
-  const _$_MedicamentDetailEvent(this.recipeId, this.isDoctor);
+class _$_RecipesEvent implements _RecipesEvent {
+  const _$_RecipesEvent(this.state);
 
   @override
-  final String recipeId;
-  @override
-  final bool isDoctor;
+  final int state;
 
   @override
   String toString() {
-    return 'MedicamentDetailEvent.getMedimanetItems(recipeId: $recipeId, isDoctor: $isDoctor)';
+    return 'RecipesEvent.getRecipes(state: $state)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_MedicamentDetailEvent &&
-            (identical(other.recipeId, recipeId) ||
-                other.recipeId == recipeId) &&
-            (identical(other.isDoctor, isDoctor) ||
-                other.isDoctor == isDoctor));
+            other is _$_RecipesEvent &&
+            (identical(other.state, state) || other.state == state));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, recipeId, isDoctor);
+  int get hashCode => Object.hash(runtimeType, state);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_MedicamentDetailEventCopyWith<_$_MedicamentDetailEvent> get copyWith =>
-      __$$_MedicamentDetailEventCopyWithImpl<_$_MedicamentDetailEvent>(
-          this, _$identity);
+  _$$_RecipesEventCopyWith<_$_RecipesEvent> get copyWith =>
+      __$$_RecipesEventCopyWithImpl<_$_RecipesEvent>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String recipeId, bool isDoctor) getMedimanetItems,
-    required TResult Function(List<RecipeDetailModels> items)
-        pushMedicamentItemss,
+    required TResult Function(int state) getRecipes,
+    required TResult Function(List<RecipeModel> recipes) pushRecipes,
     required TResult Function(String message) pushMessage,
   }) {
-    return getMedimanetItems(recipeId, isDoctor);
+    return getRecipes(state);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String recipeId, bool isDoctor)? getMedimanetItems,
-    TResult? Function(List<RecipeDetailModels> items)? pushMedicamentItemss,
+    TResult? Function(int state)? getRecipes,
+    TResult? Function(List<RecipeModel> recipes)? pushRecipes,
     TResult? Function(String message)? pushMessage,
   }) {
-    return getMedimanetItems?.call(recipeId, isDoctor);
+    return getRecipes?.call(state);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String recipeId, bool isDoctor)? getMedimanetItems,
-    TResult Function(List<RecipeDetailModels> items)? pushMedicamentItemss,
+    TResult Function(int state)? getRecipes,
+    TResult Function(List<RecipeModel> recipes)? pushRecipes,
     TResult Function(String message)? pushMessage,
     required TResult orElse(),
   }) {
-    if (getMedimanetItems != null) {
-      return getMedimanetItems(recipeId, isDoctor);
+    if (getRecipes != null) {
+      return getRecipes(state);
     }
     return orElse();
   }
@@ -652,149 +637,145 @@ class _$_MedicamentDetailEvent implements _MedicamentDetailEvent {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_MedicamentDetailEvent value) getMedimanetItems,
-    required TResult Function(_PushMedicamentDetail value) pushMedicamentItemss,
+    required TResult Function(_RecipesEvent value) getRecipes,
+    required TResult Function(_PushRecipe value) pushRecipes,
     required TResult Function(_PushMessage value) pushMessage,
   }) {
-    return getMedimanetItems(this);
+    return getRecipes(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_MedicamentDetailEvent value)? getMedimanetItems,
-    TResult? Function(_PushMedicamentDetail value)? pushMedicamentItemss,
+    TResult? Function(_RecipesEvent value)? getRecipes,
+    TResult? Function(_PushRecipe value)? pushRecipes,
     TResult? Function(_PushMessage value)? pushMessage,
   }) {
-    return getMedimanetItems?.call(this);
+    return getRecipes?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_MedicamentDetailEvent value)? getMedimanetItems,
-    TResult Function(_PushMedicamentDetail value)? pushMedicamentItemss,
+    TResult Function(_RecipesEvent value)? getRecipes,
+    TResult Function(_PushRecipe value)? pushRecipes,
     TResult Function(_PushMessage value)? pushMessage,
     required TResult orElse(),
   }) {
-    if (getMedimanetItems != null) {
-      return getMedimanetItems(this);
+    if (getRecipes != null) {
+      return getRecipes(this);
     }
     return orElse();
   }
 }
 
-abstract class _MedicamentDetailEvent implements MedicamentDetailEvent {
-  const factory _MedicamentDetailEvent(
-      final String recipeId, final bool isDoctor) = _$_MedicamentDetailEvent;
+abstract class _RecipesEvent implements RecipesEvent {
+  const factory _RecipesEvent(final int state) = _$_RecipesEvent;
 
-  String get recipeId;
-  bool get isDoctor;
+  int get state;
   @JsonKey(ignore: true)
-  _$$_MedicamentDetailEventCopyWith<_$_MedicamentDetailEvent> get copyWith =>
+  _$$_RecipesEventCopyWith<_$_RecipesEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_PushMedicamentDetailCopyWith<$Res> {
-  factory _$$_PushMedicamentDetailCopyWith(_$_PushMedicamentDetail value,
-          $Res Function(_$_PushMedicamentDetail) then) =
-      __$$_PushMedicamentDetailCopyWithImpl<$Res>;
+abstract class _$$_PushRecipeCopyWith<$Res> {
+  factory _$$_PushRecipeCopyWith(
+          _$_PushRecipe value, $Res Function(_$_PushRecipe) then) =
+      __$$_PushRecipeCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<RecipeDetailModels> items});
+  $Res call({List<RecipeModel> recipes});
 }
 
 /// @nodoc
-class __$$_PushMedicamentDetailCopyWithImpl<$Res>
-    extends _$MedicamentDetailEventCopyWithImpl<$Res, _$_PushMedicamentDetail>
-    implements _$$_PushMedicamentDetailCopyWith<$Res> {
-  __$$_PushMedicamentDetailCopyWithImpl(_$_PushMedicamentDetail _value,
-      $Res Function(_$_PushMedicamentDetail) _then)
+class __$$_PushRecipeCopyWithImpl<$Res>
+    extends _$RecipesEventCopyWithImpl<$Res, _$_PushRecipe>
+    implements _$$_PushRecipeCopyWith<$Res> {
+  __$$_PushRecipeCopyWithImpl(
+      _$_PushRecipe _value, $Res Function(_$_PushRecipe) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? items = null,
+    Object? recipes = null,
   }) {
-    return _then(_$_PushMedicamentDetail(
-      items: null == items
-          ? _value._items
-          : items // ignore: cast_nullable_to_non_nullable
-              as List<RecipeDetailModels>,
+    return _then(_$_PushRecipe(
+      recipes: null == recipes
+          ? _value._recipes
+          : recipes // ignore: cast_nullable_to_non_nullable
+              as List<RecipeModel>,
     ));
   }
 }
 
 /// @nodoc
 
-class _$_PushMedicamentDetail implements _PushMedicamentDetail {
-  const _$_PushMedicamentDetail({required final List<RecipeDetailModels> items})
-      : _items = items;
+class _$_PushRecipe implements _PushRecipe {
+  const _$_PushRecipe({required final List<RecipeModel> recipes})
+      : _recipes = recipes;
 
-  final List<RecipeDetailModels> _items;
+  final List<RecipeModel> _recipes;
   @override
-  List<RecipeDetailModels> get items {
-    if (_items is EqualUnmodifiableListView) return _items;
+  List<RecipeModel> get recipes {
+    if (_recipes is EqualUnmodifiableListView) return _recipes;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_items);
+    return EqualUnmodifiableListView(_recipes);
   }
 
   @override
   String toString() {
-    return 'MedicamentDetailEvent.pushMedicamentItemss(items: $items)';
+    return 'RecipesEvent.pushRecipes(recipes: $recipes)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PushMedicamentDetail &&
-            const DeepCollectionEquality().equals(other._items, _items));
+            other is _$_PushRecipe &&
+            const DeepCollectionEquality().equals(other._recipes, _recipes));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_items));
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_recipes));
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PushMedicamentDetailCopyWith<_$_PushMedicamentDetail> get copyWith =>
-      __$$_PushMedicamentDetailCopyWithImpl<_$_PushMedicamentDetail>(
-          this, _$identity);
+  _$$_PushRecipeCopyWith<_$_PushRecipe> get copyWith =>
+      __$$_PushRecipeCopyWithImpl<_$_PushRecipe>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String recipeId, bool isDoctor) getMedimanetItems,
-    required TResult Function(List<RecipeDetailModels> items)
-        pushMedicamentItemss,
+    required TResult Function(int state) getRecipes,
+    required TResult Function(List<RecipeModel> recipes) pushRecipes,
     required TResult Function(String message) pushMessage,
   }) {
-    return pushMedicamentItemss(items);
+    return pushRecipes(recipes);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String recipeId, bool isDoctor)? getMedimanetItems,
-    TResult? Function(List<RecipeDetailModels> items)? pushMedicamentItemss,
+    TResult? Function(int state)? getRecipes,
+    TResult? Function(List<RecipeModel> recipes)? pushRecipes,
     TResult? Function(String message)? pushMessage,
   }) {
-    return pushMedicamentItemss?.call(items);
+    return pushRecipes?.call(recipes);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String recipeId, bool isDoctor)? getMedimanetItems,
-    TResult Function(List<RecipeDetailModels> items)? pushMedicamentItemss,
+    TResult Function(int state)? getRecipes,
+    TResult Function(List<RecipeModel> recipes)? pushRecipes,
     TResult Function(String message)? pushMessage,
     required TResult orElse(),
   }) {
-    if (pushMedicamentItemss != null) {
-      return pushMedicamentItemss(items);
+    if (pushRecipes != null) {
+      return pushRecipes(recipes);
     }
     return orElse();
   }
@@ -802,46 +783,45 @@ class _$_PushMedicamentDetail implements _PushMedicamentDetail {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_MedicamentDetailEvent value) getMedimanetItems,
-    required TResult Function(_PushMedicamentDetail value) pushMedicamentItemss,
+    required TResult Function(_RecipesEvent value) getRecipes,
+    required TResult Function(_PushRecipe value) pushRecipes,
     required TResult Function(_PushMessage value) pushMessage,
   }) {
-    return pushMedicamentItemss(this);
+    return pushRecipes(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_MedicamentDetailEvent value)? getMedimanetItems,
-    TResult? Function(_PushMedicamentDetail value)? pushMedicamentItemss,
+    TResult? Function(_RecipesEvent value)? getRecipes,
+    TResult? Function(_PushRecipe value)? pushRecipes,
     TResult? Function(_PushMessage value)? pushMessage,
   }) {
-    return pushMedicamentItemss?.call(this);
+    return pushRecipes?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_MedicamentDetailEvent value)? getMedimanetItems,
-    TResult Function(_PushMedicamentDetail value)? pushMedicamentItemss,
+    TResult Function(_RecipesEvent value)? getRecipes,
+    TResult Function(_PushRecipe value)? pushRecipes,
     TResult Function(_PushMessage value)? pushMessage,
     required TResult orElse(),
   }) {
-    if (pushMedicamentItemss != null) {
-      return pushMedicamentItemss(this);
+    if (pushRecipes != null) {
+      return pushRecipes(this);
     }
     return orElse();
   }
 }
 
-abstract class _PushMedicamentDetail implements MedicamentDetailEvent {
-  const factory _PushMedicamentDetail(
-          {required final List<RecipeDetailModels> items}) =
-      _$_PushMedicamentDetail;
+abstract class _PushRecipe implements RecipesEvent {
+  const factory _PushRecipe({required final List<RecipeModel> recipes}) =
+      _$_PushRecipe;
 
-  List<RecipeDetailModels> get items;
+  List<RecipeModel> get recipes;
   @JsonKey(ignore: true)
-  _$$_PushMedicamentDetailCopyWith<_$_PushMedicamentDetail> get copyWith =>
+  _$$_PushRecipeCopyWith<_$_PushRecipe> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -856,7 +836,7 @@ abstract class _$$_PushMessageCopyWith<$Res> {
 
 /// @nodoc
 class __$$_PushMessageCopyWithImpl<$Res>
-    extends _$MedicamentDetailEventCopyWithImpl<$Res, _$_PushMessage>
+    extends _$RecipesEventCopyWithImpl<$Res, _$_PushMessage>
     implements _$$_PushMessageCopyWith<$Res> {
   __$$_PushMessageCopyWithImpl(
       _$_PushMessage _value, $Res Function(_$_PushMessage) _then)
@@ -886,7 +866,7 @@ class _$_PushMessage implements _PushMessage {
 
   @override
   String toString() {
-    return 'MedicamentDetailEvent.pushMessage(message: $message)';
+    return 'RecipesEvent.pushMessage(message: $message)';
   }
 
   @override
@@ -909,9 +889,8 @@ class _$_PushMessage implements _PushMessage {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String recipeId, bool isDoctor) getMedimanetItems,
-    required TResult Function(List<RecipeDetailModels> items)
-        pushMedicamentItemss,
+    required TResult Function(int state) getRecipes,
+    required TResult Function(List<RecipeModel> recipes) pushRecipes,
     required TResult Function(String message) pushMessage,
   }) {
     return pushMessage(message);
@@ -920,8 +899,8 @@ class _$_PushMessage implements _PushMessage {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String recipeId, bool isDoctor)? getMedimanetItems,
-    TResult? Function(List<RecipeDetailModels> items)? pushMedicamentItemss,
+    TResult? Function(int state)? getRecipes,
+    TResult? Function(List<RecipeModel> recipes)? pushRecipes,
     TResult? Function(String message)? pushMessage,
   }) {
     return pushMessage?.call(message);
@@ -930,8 +909,8 @@ class _$_PushMessage implements _PushMessage {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String recipeId, bool isDoctor)? getMedimanetItems,
-    TResult Function(List<RecipeDetailModels> items)? pushMedicamentItemss,
+    TResult Function(int state)? getRecipes,
+    TResult Function(List<RecipeModel> recipes)? pushRecipes,
     TResult Function(String message)? pushMessage,
     required TResult orElse(),
   }) {
@@ -944,8 +923,8 @@ class _$_PushMessage implements _PushMessage {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_MedicamentDetailEvent value) getMedimanetItems,
-    required TResult Function(_PushMedicamentDetail value) pushMedicamentItemss,
+    required TResult Function(_RecipesEvent value) getRecipes,
+    required TResult Function(_PushRecipe value) pushRecipes,
     required TResult Function(_PushMessage value) pushMessage,
   }) {
     return pushMessage(this);
@@ -954,8 +933,8 @@ class _$_PushMessage implements _PushMessage {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_MedicamentDetailEvent value)? getMedimanetItems,
-    TResult? Function(_PushMedicamentDetail value)? pushMedicamentItemss,
+    TResult? Function(_RecipesEvent value)? getRecipes,
+    TResult? Function(_PushRecipe value)? pushRecipes,
     TResult? Function(_PushMessage value)? pushMessage,
   }) {
     return pushMessage?.call(this);
@@ -964,8 +943,8 @@ class _$_PushMessage implements _PushMessage {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_MedicamentDetailEvent value)? getMedimanetItems,
-    TResult Function(_PushMedicamentDetail value)? pushMedicamentItemss,
+    TResult Function(_RecipesEvent value)? getRecipes,
+    TResult Function(_PushRecipe value)? pushRecipes,
     TResult Function(_PushMessage value)? pushMessage,
     required TResult orElse(),
   }) {
@@ -976,7 +955,7 @@ class _$_PushMessage implements _PushMessage {
   }
 }
 
-abstract class _PushMessage implements MedicamentDetailEvent {
+abstract class _PushMessage implements RecipesEvent {
   const factory _PushMessage({required final String message}) = _$_PushMessage;
 
   String get message;

@@ -491,6 +491,7 @@ mixin _$TreatamentEvent {
     required TResult Function(String id) deleteById,
     required TResult Function(String id) deleteMedicamentById,
     required TResult Function(RecipeModel item, String id) finishRecipe,
+    required TResult Function(String id) changeRecipe,
     required TResult Function(String message, bool isFinishRecipe)
         pushTreatment,
     required TResult Function(String message) pushMessage,
@@ -504,6 +505,7 @@ mixin _$TreatamentEvent {
     TResult? Function(String id)? deleteById,
     TResult? Function(String id)? deleteMedicamentById,
     TResult? Function(RecipeModel item, String id)? finishRecipe,
+    TResult? Function(String id)? changeRecipe,
     TResult? Function(String message, bool isFinishRecipe)? pushTreatment,
     TResult? Function(String message)? pushMessage,
   }) =>
@@ -516,6 +518,7 @@ mixin _$TreatamentEvent {
     TResult Function(String id)? deleteById,
     TResult Function(String id)? deleteMedicamentById,
     TResult Function(RecipeModel item, String id)? finishRecipe,
+    TResult Function(String id)? changeRecipe,
     TResult Function(String message, bool isFinishRecipe)? pushTreatment,
     TResult Function(String message)? pushMessage,
     required TResult orElse(),
@@ -530,6 +533,7 @@ mixin _$TreatamentEvent {
     required TResult Function(_DeleteMecicamentByIdEvent value)
         deleteMedicamentById,
     required TResult Function(_FinishRecipeEvent value) finishRecipe,
+    required TResult Function(_ChangeRecipeEvent value) changeRecipe,
     required TResult Function(_PushMedicine value) pushTreatment,
     required TResult Function(_PushMedicineMessage value) pushMessage,
   }) =>
@@ -542,6 +546,7 @@ mixin _$TreatamentEvent {
     TResult? Function(_DeleteByIdEvent value)? deleteById,
     TResult? Function(_DeleteMecicamentByIdEvent value)? deleteMedicamentById,
     TResult? Function(_FinishRecipeEvent value)? finishRecipe,
+    TResult? Function(_ChangeRecipeEvent value)? changeRecipe,
     TResult? Function(_PushMedicine value)? pushTreatment,
     TResult? Function(_PushMedicineMessage value)? pushMessage,
   }) =>
@@ -554,6 +559,7 @@ mixin _$TreatamentEvent {
     TResult Function(_DeleteByIdEvent value)? deleteById,
     TResult Function(_DeleteMecicamentByIdEvent value)? deleteMedicamentById,
     TResult Function(_FinishRecipeEvent value)? finishRecipe,
+    TResult Function(_ChangeRecipeEvent value)? changeRecipe,
     TResult Function(_PushMedicine value)? pushTreatment,
     TResult Function(_PushMedicineMessage value)? pushMessage,
     required TResult orElse(),
@@ -650,6 +656,7 @@ class _$_RecipeDetailEvent implements _RecipeDetailEvent {
     required TResult Function(String id) deleteById,
     required TResult Function(String id) deleteMedicamentById,
     required TResult Function(RecipeModel item, String id) finishRecipe,
+    required TResult Function(String id) changeRecipe,
     required TResult Function(String message, bool isFinishRecipe)
         pushTreatment,
     required TResult Function(String message) pushMessage,
@@ -666,6 +673,7 @@ class _$_RecipeDetailEvent implements _RecipeDetailEvent {
     TResult? Function(String id)? deleteById,
     TResult? Function(String id)? deleteMedicamentById,
     TResult? Function(RecipeModel item, String id)? finishRecipe,
+    TResult? Function(String id)? changeRecipe,
     TResult? Function(String message, bool isFinishRecipe)? pushTreatment,
     TResult? Function(String message)? pushMessage,
   }) {
@@ -681,6 +689,7 @@ class _$_RecipeDetailEvent implements _RecipeDetailEvent {
     TResult Function(String id)? deleteById,
     TResult Function(String id)? deleteMedicamentById,
     TResult Function(RecipeModel item, String id)? finishRecipe,
+    TResult Function(String id)? changeRecipe,
     TResult Function(String message, bool isFinishRecipe)? pushTreatment,
     TResult Function(String message)? pushMessage,
     required TResult orElse(),
@@ -701,6 +710,7 @@ class _$_RecipeDetailEvent implements _RecipeDetailEvent {
     required TResult Function(_DeleteMecicamentByIdEvent value)
         deleteMedicamentById,
     required TResult Function(_FinishRecipeEvent value) finishRecipe,
+    required TResult Function(_ChangeRecipeEvent value) changeRecipe,
     required TResult Function(_PushMedicine value) pushTreatment,
     required TResult Function(_PushMedicineMessage value) pushMessage,
   }) {
@@ -716,6 +726,7 @@ class _$_RecipeDetailEvent implements _RecipeDetailEvent {
     TResult? Function(_DeleteByIdEvent value)? deleteById,
     TResult? Function(_DeleteMecicamentByIdEvent value)? deleteMedicamentById,
     TResult? Function(_FinishRecipeEvent value)? finishRecipe,
+    TResult? Function(_ChangeRecipeEvent value)? changeRecipe,
     TResult? Function(_PushMedicine value)? pushTreatment,
     TResult? Function(_PushMedicineMessage value)? pushMessage,
   }) {
@@ -731,6 +742,7 @@ class _$_RecipeDetailEvent implements _RecipeDetailEvent {
     TResult Function(_DeleteByIdEvent value)? deleteById,
     TResult Function(_DeleteMecicamentByIdEvent value)? deleteMedicamentById,
     TResult Function(_FinishRecipeEvent value)? finishRecipe,
+    TResult Function(_ChangeRecipeEvent value)? changeRecipe,
     TResult Function(_PushMedicine value)? pushTreatment,
     TResult Function(_PushMedicineMessage value)? pushMessage,
     required TResult orElse(),
@@ -822,6 +834,7 @@ class _$_RecipeEvent implements _RecipeEvent {
     required TResult Function(String id) deleteById,
     required TResult Function(String id) deleteMedicamentById,
     required TResult Function(RecipeModel item, String id) finishRecipe,
+    required TResult Function(String id) changeRecipe,
     required TResult Function(String message, bool isFinishRecipe)
         pushTreatment,
     required TResult Function(String message) pushMessage,
@@ -838,6 +851,7 @@ class _$_RecipeEvent implements _RecipeEvent {
     TResult? Function(String id)? deleteById,
     TResult? Function(String id)? deleteMedicamentById,
     TResult? Function(RecipeModel item, String id)? finishRecipe,
+    TResult? Function(String id)? changeRecipe,
     TResult? Function(String message, bool isFinishRecipe)? pushTreatment,
     TResult? Function(String message)? pushMessage,
   }) {
@@ -853,6 +867,7 @@ class _$_RecipeEvent implements _RecipeEvent {
     TResult Function(String id)? deleteById,
     TResult Function(String id)? deleteMedicamentById,
     TResult Function(RecipeModel item, String id)? finishRecipe,
+    TResult Function(String id)? changeRecipe,
     TResult Function(String message, bool isFinishRecipe)? pushTreatment,
     TResult Function(String message)? pushMessage,
     required TResult orElse(),
@@ -873,6 +888,7 @@ class _$_RecipeEvent implements _RecipeEvent {
     required TResult Function(_DeleteMecicamentByIdEvent value)
         deleteMedicamentById,
     required TResult Function(_FinishRecipeEvent value) finishRecipe,
+    required TResult Function(_ChangeRecipeEvent value) changeRecipe,
     required TResult Function(_PushMedicine value) pushTreatment,
     required TResult Function(_PushMedicineMessage value) pushMessage,
   }) {
@@ -888,6 +904,7 @@ class _$_RecipeEvent implements _RecipeEvent {
     TResult? Function(_DeleteByIdEvent value)? deleteById,
     TResult? Function(_DeleteMecicamentByIdEvent value)? deleteMedicamentById,
     TResult? Function(_FinishRecipeEvent value)? finishRecipe,
+    TResult? Function(_ChangeRecipeEvent value)? changeRecipe,
     TResult? Function(_PushMedicine value)? pushTreatment,
     TResult? Function(_PushMedicineMessage value)? pushMessage,
   }) {
@@ -903,6 +920,7 @@ class _$_RecipeEvent implements _RecipeEvent {
     TResult Function(_DeleteByIdEvent value)? deleteById,
     TResult Function(_DeleteMecicamentByIdEvent value)? deleteMedicamentById,
     TResult Function(_FinishRecipeEvent value)? finishRecipe,
+    TResult Function(_ChangeRecipeEvent value)? changeRecipe,
     TResult Function(_PushMedicine value)? pushTreatment,
     TResult Function(_PushMedicineMessage value)? pushMessage,
     required TResult orElse(),
@@ -993,6 +1011,7 @@ class _$_AddThomaEvent implements _AddThomaEvent {
     required TResult Function(String id) deleteById,
     required TResult Function(String id) deleteMedicamentById,
     required TResult Function(RecipeModel item, String id) finishRecipe,
+    required TResult Function(String id) changeRecipe,
     required TResult Function(String message, bool isFinishRecipe)
         pushTreatment,
     required TResult Function(String message) pushMessage,
@@ -1009,6 +1028,7 @@ class _$_AddThomaEvent implements _AddThomaEvent {
     TResult? Function(String id)? deleteById,
     TResult? Function(String id)? deleteMedicamentById,
     TResult? Function(RecipeModel item, String id)? finishRecipe,
+    TResult? Function(String id)? changeRecipe,
     TResult? Function(String message, bool isFinishRecipe)? pushTreatment,
     TResult? Function(String message)? pushMessage,
   }) {
@@ -1024,6 +1044,7 @@ class _$_AddThomaEvent implements _AddThomaEvent {
     TResult Function(String id)? deleteById,
     TResult Function(String id)? deleteMedicamentById,
     TResult Function(RecipeModel item, String id)? finishRecipe,
+    TResult Function(String id)? changeRecipe,
     TResult Function(String message, bool isFinishRecipe)? pushTreatment,
     TResult Function(String message)? pushMessage,
     required TResult orElse(),
@@ -1044,6 +1065,7 @@ class _$_AddThomaEvent implements _AddThomaEvent {
     required TResult Function(_DeleteMecicamentByIdEvent value)
         deleteMedicamentById,
     required TResult Function(_FinishRecipeEvent value) finishRecipe,
+    required TResult Function(_ChangeRecipeEvent value) changeRecipe,
     required TResult Function(_PushMedicine value) pushTreatment,
     required TResult Function(_PushMedicineMessage value) pushMessage,
   }) {
@@ -1059,6 +1081,7 @@ class _$_AddThomaEvent implements _AddThomaEvent {
     TResult? Function(_DeleteByIdEvent value)? deleteById,
     TResult? Function(_DeleteMecicamentByIdEvent value)? deleteMedicamentById,
     TResult? Function(_FinishRecipeEvent value)? finishRecipe,
+    TResult? Function(_ChangeRecipeEvent value)? changeRecipe,
     TResult? Function(_PushMedicine value)? pushTreatment,
     TResult? Function(_PushMedicineMessage value)? pushMessage,
   }) {
@@ -1074,6 +1097,7 @@ class _$_AddThomaEvent implements _AddThomaEvent {
     TResult Function(_DeleteByIdEvent value)? deleteById,
     TResult Function(_DeleteMecicamentByIdEvent value)? deleteMedicamentById,
     TResult Function(_FinishRecipeEvent value)? finishRecipe,
+    TResult Function(_ChangeRecipeEvent value)? changeRecipe,
     TResult Function(_PushMedicine value)? pushTreatment,
     TResult Function(_PushMedicineMessage value)? pushMessage,
     required TResult orElse(),
@@ -1165,6 +1189,7 @@ class _$_DeleteByIdEvent implements _DeleteByIdEvent {
     required TResult Function(String id) deleteById,
     required TResult Function(String id) deleteMedicamentById,
     required TResult Function(RecipeModel item, String id) finishRecipe,
+    required TResult Function(String id) changeRecipe,
     required TResult Function(String message, bool isFinishRecipe)
         pushTreatment,
     required TResult Function(String message) pushMessage,
@@ -1181,6 +1206,7 @@ class _$_DeleteByIdEvent implements _DeleteByIdEvent {
     TResult? Function(String id)? deleteById,
     TResult? Function(String id)? deleteMedicamentById,
     TResult? Function(RecipeModel item, String id)? finishRecipe,
+    TResult? Function(String id)? changeRecipe,
     TResult? Function(String message, bool isFinishRecipe)? pushTreatment,
     TResult? Function(String message)? pushMessage,
   }) {
@@ -1196,6 +1222,7 @@ class _$_DeleteByIdEvent implements _DeleteByIdEvent {
     TResult Function(String id)? deleteById,
     TResult Function(String id)? deleteMedicamentById,
     TResult Function(RecipeModel item, String id)? finishRecipe,
+    TResult Function(String id)? changeRecipe,
     TResult Function(String message, bool isFinishRecipe)? pushTreatment,
     TResult Function(String message)? pushMessage,
     required TResult orElse(),
@@ -1216,6 +1243,7 @@ class _$_DeleteByIdEvent implements _DeleteByIdEvent {
     required TResult Function(_DeleteMecicamentByIdEvent value)
         deleteMedicamentById,
     required TResult Function(_FinishRecipeEvent value) finishRecipe,
+    required TResult Function(_ChangeRecipeEvent value) changeRecipe,
     required TResult Function(_PushMedicine value) pushTreatment,
     required TResult Function(_PushMedicineMessage value) pushMessage,
   }) {
@@ -1231,6 +1259,7 @@ class _$_DeleteByIdEvent implements _DeleteByIdEvent {
     TResult? Function(_DeleteByIdEvent value)? deleteById,
     TResult? Function(_DeleteMecicamentByIdEvent value)? deleteMedicamentById,
     TResult? Function(_FinishRecipeEvent value)? finishRecipe,
+    TResult? Function(_ChangeRecipeEvent value)? changeRecipe,
     TResult? Function(_PushMedicine value)? pushTreatment,
     TResult? Function(_PushMedicineMessage value)? pushMessage,
   }) {
@@ -1246,6 +1275,7 @@ class _$_DeleteByIdEvent implements _DeleteByIdEvent {
     TResult Function(_DeleteByIdEvent value)? deleteById,
     TResult Function(_DeleteMecicamentByIdEvent value)? deleteMedicamentById,
     TResult Function(_FinishRecipeEvent value)? finishRecipe,
+    TResult Function(_ChangeRecipeEvent value)? changeRecipe,
     TResult Function(_PushMedicine value)? pushTreatment,
     TResult Function(_PushMedicineMessage value)? pushMessage,
     required TResult orElse(),
@@ -1339,6 +1369,7 @@ class _$_DeleteMecicamentByIdEvent implements _DeleteMecicamentByIdEvent {
     required TResult Function(String id) deleteById,
     required TResult Function(String id) deleteMedicamentById,
     required TResult Function(RecipeModel item, String id) finishRecipe,
+    required TResult Function(String id) changeRecipe,
     required TResult Function(String message, bool isFinishRecipe)
         pushTreatment,
     required TResult Function(String message) pushMessage,
@@ -1355,6 +1386,7 @@ class _$_DeleteMecicamentByIdEvent implements _DeleteMecicamentByIdEvent {
     TResult? Function(String id)? deleteById,
     TResult? Function(String id)? deleteMedicamentById,
     TResult? Function(RecipeModel item, String id)? finishRecipe,
+    TResult? Function(String id)? changeRecipe,
     TResult? Function(String message, bool isFinishRecipe)? pushTreatment,
     TResult? Function(String message)? pushMessage,
   }) {
@@ -1370,6 +1402,7 @@ class _$_DeleteMecicamentByIdEvent implements _DeleteMecicamentByIdEvent {
     TResult Function(String id)? deleteById,
     TResult Function(String id)? deleteMedicamentById,
     TResult Function(RecipeModel item, String id)? finishRecipe,
+    TResult Function(String id)? changeRecipe,
     TResult Function(String message, bool isFinishRecipe)? pushTreatment,
     TResult Function(String message)? pushMessage,
     required TResult orElse(),
@@ -1390,6 +1423,7 @@ class _$_DeleteMecicamentByIdEvent implements _DeleteMecicamentByIdEvent {
     required TResult Function(_DeleteMecicamentByIdEvent value)
         deleteMedicamentById,
     required TResult Function(_FinishRecipeEvent value) finishRecipe,
+    required TResult Function(_ChangeRecipeEvent value) changeRecipe,
     required TResult Function(_PushMedicine value) pushTreatment,
     required TResult Function(_PushMedicineMessage value) pushMessage,
   }) {
@@ -1405,6 +1439,7 @@ class _$_DeleteMecicamentByIdEvent implements _DeleteMecicamentByIdEvent {
     TResult? Function(_DeleteByIdEvent value)? deleteById,
     TResult? Function(_DeleteMecicamentByIdEvent value)? deleteMedicamentById,
     TResult? Function(_FinishRecipeEvent value)? finishRecipe,
+    TResult? Function(_ChangeRecipeEvent value)? changeRecipe,
     TResult? Function(_PushMedicine value)? pushTreatment,
     TResult? Function(_PushMedicineMessage value)? pushMessage,
   }) {
@@ -1420,6 +1455,7 @@ class _$_DeleteMecicamentByIdEvent implements _DeleteMecicamentByIdEvent {
     TResult Function(_DeleteByIdEvent value)? deleteById,
     TResult Function(_DeleteMecicamentByIdEvent value)? deleteMedicamentById,
     TResult Function(_FinishRecipeEvent value)? finishRecipe,
+    TResult Function(_ChangeRecipeEvent value)? changeRecipe,
     TResult Function(_PushMedicine value)? pushTreatment,
     TResult Function(_PushMedicineMessage value)? pushMessage,
     required TResult orElse(),
@@ -1520,6 +1556,7 @@ class _$_FinishRecipeEvent implements _FinishRecipeEvent {
     required TResult Function(String id) deleteById,
     required TResult Function(String id) deleteMedicamentById,
     required TResult Function(RecipeModel item, String id) finishRecipe,
+    required TResult Function(String id) changeRecipe,
     required TResult Function(String message, bool isFinishRecipe)
         pushTreatment,
     required TResult Function(String message) pushMessage,
@@ -1536,6 +1573,7 @@ class _$_FinishRecipeEvent implements _FinishRecipeEvent {
     TResult? Function(String id)? deleteById,
     TResult? Function(String id)? deleteMedicamentById,
     TResult? Function(RecipeModel item, String id)? finishRecipe,
+    TResult? Function(String id)? changeRecipe,
     TResult? Function(String message, bool isFinishRecipe)? pushTreatment,
     TResult? Function(String message)? pushMessage,
   }) {
@@ -1551,6 +1589,7 @@ class _$_FinishRecipeEvent implements _FinishRecipeEvent {
     TResult Function(String id)? deleteById,
     TResult Function(String id)? deleteMedicamentById,
     TResult Function(RecipeModel item, String id)? finishRecipe,
+    TResult Function(String id)? changeRecipe,
     TResult Function(String message, bool isFinishRecipe)? pushTreatment,
     TResult Function(String message)? pushMessage,
     required TResult orElse(),
@@ -1571,6 +1610,7 @@ class _$_FinishRecipeEvent implements _FinishRecipeEvent {
     required TResult Function(_DeleteMecicamentByIdEvent value)
         deleteMedicamentById,
     required TResult Function(_FinishRecipeEvent value) finishRecipe,
+    required TResult Function(_ChangeRecipeEvent value) changeRecipe,
     required TResult Function(_PushMedicine value) pushTreatment,
     required TResult Function(_PushMedicineMessage value) pushMessage,
   }) {
@@ -1586,6 +1626,7 @@ class _$_FinishRecipeEvent implements _FinishRecipeEvent {
     TResult? Function(_DeleteByIdEvent value)? deleteById,
     TResult? Function(_DeleteMecicamentByIdEvent value)? deleteMedicamentById,
     TResult? Function(_FinishRecipeEvent value)? finishRecipe,
+    TResult? Function(_ChangeRecipeEvent value)? changeRecipe,
     TResult? Function(_PushMedicine value)? pushTreatment,
     TResult? Function(_PushMedicineMessage value)? pushMessage,
   }) {
@@ -1601,6 +1642,7 @@ class _$_FinishRecipeEvent implements _FinishRecipeEvent {
     TResult Function(_DeleteByIdEvent value)? deleteById,
     TResult Function(_DeleteMecicamentByIdEvent value)? deleteMedicamentById,
     TResult Function(_FinishRecipeEvent value)? finishRecipe,
+    TResult Function(_ChangeRecipeEvent value)? changeRecipe,
     TResult Function(_PushMedicine value)? pushTreatment,
     TResult Function(_PushMedicineMessage value)? pushMessage,
     required TResult orElse(),
@@ -1620,6 +1662,184 @@ abstract class _FinishRecipeEvent implements TreatamentEvent {
   String get id;
   @JsonKey(ignore: true)
   _$$_FinishRecipeEventCopyWith<_$_FinishRecipeEvent> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_ChangeRecipeEventCopyWith<$Res> {
+  factory _$$_ChangeRecipeEventCopyWith(_$_ChangeRecipeEvent value,
+          $Res Function(_$_ChangeRecipeEvent) then) =
+      __$$_ChangeRecipeEventCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String id});
+}
+
+/// @nodoc
+class __$$_ChangeRecipeEventCopyWithImpl<$Res>
+    extends _$TreatamentEventCopyWithImpl<$Res, _$_ChangeRecipeEvent>
+    implements _$$_ChangeRecipeEventCopyWith<$Res> {
+  __$$_ChangeRecipeEventCopyWithImpl(
+      _$_ChangeRecipeEvent _value, $Res Function(_$_ChangeRecipeEvent) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+  }) {
+    return _then(_$_ChangeRecipeEvent(
+      null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_ChangeRecipeEvent implements _ChangeRecipeEvent {
+  const _$_ChangeRecipeEvent(this.id);
+
+  @override
+  final String id;
+
+  @override
+  String toString() {
+    return 'TreatamentEvent.changeRecipe(id: $id)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_ChangeRecipeEvent &&
+            (identical(other.id, id) || other.id == id));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, id);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_ChangeRecipeEventCopyWith<_$_ChangeRecipeEvent> get copyWith =>
+      __$$_ChangeRecipeEventCopyWithImpl<_$_ChangeRecipeEvent>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(RecipeDetailModels model) saveRecipeDetail,
+    required TResult Function(RecipeModel model) saveRecipe,
+    required TResult Function(NotificationCollection item) addThoma,
+    required TResult Function(String id) deleteById,
+    required TResult Function(String id) deleteMedicamentById,
+    required TResult Function(RecipeModel item, String id) finishRecipe,
+    required TResult Function(String id) changeRecipe,
+    required TResult Function(String message, bool isFinishRecipe)
+        pushTreatment,
+    required TResult Function(String message) pushMessage,
+  }) {
+    return changeRecipe(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(RecipeDetailModels model)? saveRecipeDetail,
+    TResult? Function(RecipeModel model)? saveRecipe,
+    TResult? Function(NotificationCollection item)? addThoma,
+    TResult? Function(String id)? deleteById,
+    TResult? Function(String id)? deleteMedicamentById,
+    TResult? Function(RecipeModel item, String id)? finishRecipe,
+    TResult? Function(String id)? changeRecipe,
+    TResult? Function(String message, bool isFinishRecipe)? pushTreatment,
+    TResult? Function(String message)? pushMessage,
+  }) {
+    return changeRecipe?.call(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(RecipeDetailModels model)? saveRecipeDetail,
+    TResult Function(RecipeModel model)? saveRecipe,
+    TResult Function(NotificationCollection item)? addThoma,
+    TResult Function(String id)? deleteById,
+    TResult Function(String id)? deleteMedicamentById,
+    TResult Function(RecipeModel item, String id)? finishRecipe,
+    TResult Function(String id)? changeRecipe,
+    TResult Function(String message, bool isFinishRecipe)? pushTreatment,
+    TResult Function(String message)? pushMessage,
+    required TResult orElse(),
+  }) {
+    if (changeRecipe != null) {
+      return changeRecipe(id);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_RecipeDetailEvent value) saveRecipeDetail,
+    required TResult Function(_RecipeEvent value) saveRecipe,
+    required TResult Function(_AddThomaEvent value) addThoma,
+    required TResult Function(_DeleteByIdEvent value) deleteById,
+    required TResult Function(_DeleteMecicamentByIdEvent value)
+        deleteMedicamentById,
+    required TResult Function(_FinishRecipeEvent value) finishRecipe,
+    required TResult Function(_ChangeRecipeEvent value) changeRecipe,
+    required TResult Function(_PushMedicine value) pushTreatment,
+    required TResult Function(_PushMedicineMessage value) pushMessage,
+  }) {
+    return changeRecipe(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_RecipeDetailEvent value)? saveRecipeDetail,
+    TResult? Function(_RecipeEvent value)? saveRecipe,
+    TResult? Function(_AddThomaEvent value)? addThoma,
+    TResult? Function(_DeleteByIdEvent value)? deleteById,
+    TResult? Function(_DeleteMecicamentByIdEvent value)? deleteMedicamentById,
+    TResult? Function(_FinishRecipeEvent value)? finishRecipe,
+    TResult? Function(_ChangeRecipeEvent value)? changeRecipe,
+    TResult? Function(_PushMedicine value)? pushTreatment,
+    TResult? Function(_PushMedicineMessage value)? pushMessage,
+  }) {
+    return changeRecipe?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_RecipeDetailEvent value)? saveRecipeDetail,
+    TResult Function(_RecipeEvent value)? saveRecipe,
+    TResult Function(_AddThomaEvent value)? addThoma,
+    TResult Function(_DeleteByIdEvent value)? deleteById,
+    TResult Function(_DeleteMecicamentByIdEvent value)? deleteMedicamentById,
+    TResult Function(_FinishRecipeEvent value)? finishRecipe,
+    TResult Function(_ChangeRecipeEvent value)? changeRecipe,
+    TResult Function(_PushMedicine value)? pushTreatment,
+    TResult Function(_PushMedicineMessage value)? pushMessage,
+    required TResult orElse(),
+  }) {
+    if (changeRecipe != null) {
+      return changeRecipe(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ChangeRecipeEvent implements TreatamentEvent {
+  const factory _ChangeRecipeEvent(final String id) = _$_ChangeRecipeEvent;
+
+  String get id;
+  @JsonKey(ignore: true)
+  _$$_ChangeRecipeEventCopyWith<_$_ChangeRecipeEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1702,6 +1922,7 @@ class _$_PushMedicine implements _PushMedicine {
     required TResult Function(String id) deleteById,
     required TResult Function(String id) deleteMedicamentById,
     required TResult Function(RecipeModel item, String id) finishRecipe,
+    required TResult Function(String id) changeRecipe,
     required TResult Function(String message, bool isFinishRecipe)
         pushTreatment,
     required TResult Function(String message) pushMessage,
@@ -1718,6 +1939,7 @@ class _$_PushMedicine implements _PushMedicine {
     TResult? Function(String id)? deleteById,
     TResult? Function(String id)? deleteMedicamentById,
     TResult? Function(RecipeModel item, String id)? finishRecipe,
+    TResult? Function(String id)? changeRecipe,
     TResult? Function(String message, bool isFinishRecipe)? pushTreatment,
     TResult? Function(String message)? pushMessage,
   }) {
@@ -1733,6 +1955,7 @@ class _$_PushMedicine implements _PushMedicine {
     TResult Function(String id)? deleteById,
     TResult Function(String id)? deleteMedicamentById,
     TResult Function(RecipeModel item, String id)? finishRecipe,
+    TResult Function(String id)? changeRecipe,
     TResult Function(String message, bool isFinishRecipe)? pushTreatment,
     TResult Function(String message)? pushMessage,
     required TResult orElse(),
@@ -1753,6 +1976,7 @@ class _$_PushMedicine implements _PushMedicine {
     required TResult Function(_DeleteMecicamentByIdEvent value)
         deleteMedicamentById,
     required TResult Function(_FinishRecipeEvent value) finishRecipe,
+    required TResult Function(_ChangeRecipeEvent value) changeRecipe,
     required TResult Function(_PushMedicine value) pushTreatment,
     required TResult Function(_PushMedicineMessage value) pushMessage,
   }) {
@@ -1768,6 +1992,7 @@ class _$_PushMedicine implements _PushMedicine {
     TResult? Function(_DeleteByIdEvent value)? deleteById,
     TResult? Function(_DeleteMecicamentByIdEvent value)? deleteMedicamentById,
     TResult? Function(_FinishRecipeEvent value)? finishRecipe,
+    TResult? Function(_ChangeRecipeEvent value)? changeRecipe,
     TResult? Function(_PushMedicine value)? pushTreatment,
     TResult? Function(_PushMedicineMessage value)? pushMessage,
   }) {
@@ -1783,6 +2008,7 @@ class _$_PushMedicine implements _PushMedicine {
     TResult Function(_DeleteByIdEvent value)? deleteById,
     TResult Function(_DeleteMecicamentByIdEvent value)? deleteMedicamentById,
     TResult Function(_FinishRecipeEvent value)? finishRecipe,
+    TResult Function(_ChangeRecipeEvent value)? changeRecipe,
     TResult Function(_PushMedicine value)? pushTreatment,
     TResult Function(_PushMedicineMessage value)? pushMessage,
     required TResult orElse(),
@@ -1877,6 +2103,7 @@ class _$_PushMedicineMessage implements _PushMedicineMessage {
     required TResult Function(String id) deleteById,
     required TResult Function(String id) deleteMedicamentById,
     required TResult Function(RecipeModel item, String id) finishRecipe,
+    required TResult Function(String id) changeRecipe,
     required TResult Function(String message, bool isFinishRecipe)
         pushTreatment,
     required TResult Function(String message) pushMessage,
@@ -1893,6 +2120,7 @@ class _$_PushMedicineMessage implements _PushMedicineMessage {
     TResult? Function(String id)? deleteById,
     TResult? Function(String id)? deleteMedicamentById,
     TResult? Function(RecipeModel item, String id)? finishRecipe,
+    TResult? Function(String id)? changeRecipe,
     TResult? Function(String message, bool isFinishRecipe)? pushTreatment,
     TResult? Function(String message)? pushMessage,
   }) {
@@ -1908,6 +2136,7 @@ class _$_PushMedicineMessage implements _PushMedicineMessage {
     TResult Function(String id)? deleteById,
     TResult Function(String id)? deleteMedicamentById,
     TResult Function(RecipeModel item, String id)? finishRecipe,
+    TResult Function(String id)? changeRecipe,
     TResult Function(String message, bool isFinishRecipe)? pushTreatment,
     TResult Function(String message)? pushMessage,
     required TResult orElse(),
@@ -1928,6 +2157,7 @@ class _$_PushMedicineMessage implements _PushMedicineMessage {
     required TResult Function(_DeleteMecicamentByIdEvent value)
         deleteMedicamentById,
     required TResult Function(_FinishRecipeEvent value) finishRecipe,
+    required TResult Function(_ChangeRecipeEvent value) changeRecipe,
     required TResult Function(_PushMedicine value) pushTreatment,
     required TResult Function(_PushMedicineMessage value) pushMessage,
   }) {
@@ -1943,6 +2173,7 @@ class _$_PushMedicineMessage implements _PushMedicineMessage {
     TResult? Function(_DeleteByIdEvent value)? deleteById,
     TResult? Function(_DeleteMecicamentByIdEvent value)? deleteMedicamentById,
     TResult? Function(_FinishRecipeEvent value)? finishRecipe,
+    TResult? Function(_ChangeRecipeEvent value)? changeRecipe,
     TResult? Function(_PushMedicine value)? pushTreatment,
     TResult? Function(_PushMedicineMessage value)? pushMessage,
   }) {
@@ -1958,6 +2189,7 @@ class _$_PushMedicineMessage implements _PushMedicineMessage {
     TResult Function(_DeleteByIdEvent value)? deleteById,
     TResult Function(_DeleteMecicamentByIdEvent value)? deleteMedicamentById,
     TResult Function(_FinishRecipeEvent value)? finishRecipe,
+    TResult Function(_ChangeRecipeEvent value)? changeRecipe,
     TResult Function(_PushMedicine value)? pushTreatment,
     TResult Function(_PushMedicineMessage value)? pushMessage,
     required TResult orElse(),

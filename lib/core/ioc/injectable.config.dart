@@ -40,16 +40,20 @@ import '../../features/diary_treatment/presentation/bloc/treatament/treatament_b
     as _i31;
 import '../../features/diary_treatment/repository/treatment_repository.dart'
     as _i22;
+import '../../features/doctor/domain/interfaces/i_doctor.dart' as _i34;
+import '../../features/doctor/presentation/bloc/recipes/recipes_bloc.dart'
+    as _i39;
+import '../../features/doctor/repository/doctor_repository.dart' as _i35;
 import '../../features/home/domain/interfaces/i_people.dart' as _i15;
 import '../../features/home/presentation/bloc/people/people_bloc.dart' as _i28;
 import '../../features/home/presentation/cubit/home_cubit.dart' as _i5;
 import '../../features/home/repository/people_repository.dart' as _i16;
-import '../../features/medicines/domain/interfaces/i_medicines.dart' as _i34;
+import '../../features/medicines/domain/interfaces/i_medicines.dart' as _i36;
 import '../../features/medicines/presentation/bloc/get_medicines/get_medicines_bloc.dart'
-    as _i37;
+    as _i40;
 import '../../features/medicines/presentation/bloc/medicine/medicine_bloc.dart'
-    as _i36;
-import '../../features/medicines/repository/mecicines_repository.dart' as _i35;
+    as _i38;
+import '../../features/medicines/repository/mecicines_repository.dart' as _i37;
 import '../data/repository/medicines_firestore.dart' as _i6;
 import '../data/repository/people_firebase.dart' as _i7;
 import '../data/repository/person_firebase.dart' as _i8;
@@ -57,7 +61,7 @@ import '../data/repository/recipe_firebase.dart' as _i10;
 import '../data/repository/treatment_firestore.dart' as _i13;
 import '../data/repository/user_firebase.dart' as _i14;
 import '../helpers/firestore_helper.dart' as _i4;
-import 'external_module.dart' as _i38; // ignore_for_file: unnecessary_lambdas
+import 'external_module.dart' as _i41; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
@@ -129,15 +133,24 @@ Future<_i1.GetIt> $initGetIt(
       () => _i32.GetDoctorsBloc(get<_i21.ITreatment>()));
   gh.factory<_i33.GetRecipesBloc>(
       () => _i33.GetRecipesBloc(get<_i21.ITreatment>()));
-  gh.lazySingleton<_i34.IMedicine>(() => _i35.UserRepository(
+  gh.lazySingleton<_i34.IDoctor>(() => _i35.DoctorRepository(
+        get<_i13.TreatmentFirestore>(),
+        get<_i19.ISession>(),
+        get<_i6.MedicineFirestore>(),
+        get<_i14.UserFirestore>(),
+        get<_i10.RecipeFirestore>(),
+        get<_i8.PersonFirestore>(),
+      ));
+  gh.lazySingleton<_i36.IMedicine>(() => _i37.UserRepository(
         get<_i6.MedicineFirestore>(),
         get<_i19.ISession>(),
         get<_i14.UserFirestore>(),
       ));
-  gh.factory<_i36.MedicineBloc>(() => _i36.MedicineBloc(get<_i34.IMedicine>()));
-  gh.factory<_i37.GetMedicinesBloc>(
-      () => _i37.GetMedicinesBloc(get<_i34.IMedicine>()));
+  gh.factory<_i38.MedicineBloc>(() => _i38.MedicineBloc(get<_i36.IMedicine>()));
+  gh.factory<_i39.RecipesBloc>(() => _i39.RecipesBloc(get<_i34.IDoctor>()));
+  gh.factory<_i40.GetMedicinesBloc>(
+      () => _i40.GetMedicinesBloc(get<_i36.IMedicine>()));
   return get;
 }
 
-class _$ExternalModule extends _i38.ExternalModule {}
+class _$ExternalModule extends _i41.ExternalModule {}

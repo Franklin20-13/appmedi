@@ -36,4 +36,6 @@ List<OptionHome> listUser = [
   ),
 ];
 
-final List<OptionHome> listDoctor = [];
+final List<OptionHome> listDoctor = [
+  OptionHome(icon: Icons.abc, title: 'doctor', child:  Container())
+];

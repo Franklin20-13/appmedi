@@ -1,3 +1,4 @@
+import 'package:app_medi/features/doctor/presentation/views/home_doctor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -31,11 +32,17 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocBuilder<HomeCubit, int>(builder: (context, state) {
-        return options[state].child;
-      }),
-      bottomNavigationBar: ButtonNavigatorBarWidget(options: options),
-    );
+    if (widget.user.user!.role == 1) {
+      return HomeDoctor(
+        user: widget.user,
+      );
+    } else {
+      return Scaffold(
+        body: BlocBuilder<HomeCubit, int>(builder: (context, state) {
+          return options[state].child;
+        }),
+        bottomNavigationBar: ButtonNavigatorBarWidget(options: options),
+      );
+    }
   }
 }

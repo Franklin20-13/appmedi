@@ -69,4 +69,8 @@ class RecipeFirestore extends AbstractFirestore {
       .where(RecipeFields.refUser, isEqualTo: userRef);
   Query whereMedicamentsForUser(DocumentReference documentReference) =>
       collection.where(RecipeFields.refUser, isEqualTo: documentReference);
+  Query whereRecipeStatus(int state, DocumentReference documentReference) =>
+      collection
+          .where(RecipeFields.status, isEqualTo: state)
+          .where(RecipeFields.refDoctor, isEqualTo: documentReference);
 }

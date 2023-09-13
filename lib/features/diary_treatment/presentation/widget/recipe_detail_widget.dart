@@ -61,7 +61,7 @@ class _RecipeDetailWidgetState extends State<RecipeDetailWidget> {
     getMedicinesBloc.add(const GetMedicinesEvent.getMedicines());
     medicamentDetailBloc = context.read<MedicamentDetailBloc>();
     medicamentDetailBloc
-        .add(MedicamentDetailEvent.getMedimanetItems(widget.recipe.id!));
+        .add(MedicamentDetailEvent.getMedimanetItems(widget.recipe.id!, false));
     super.initState();
   }
 
@@ -94,7 +94,7 @@ class _RecipeDetailWidgetState extends State<RecipeDetailWidget> {
               selectMedicines = null;
             }
             medicamentDetailBloc.add(
-                MedicamentDetailEvent.getMedimanetItems(widget.recipe.id!));
+                MedicamentDetailEvent.getMedimanetItems(widget.recipe.id!,false));
           }
         })
       ],

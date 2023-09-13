@@ -11,9 +11,11 @@ part 'medicament_detail_event.dart';
 part 'medicament_detail_bloc.freezed.dart';
 
 @injectable
-class MedicamentDetailBloc extends Bloc<MedicamentDetailEvent,MedicamentDetailState>{
+class MedicamentDetailBloc
+    extends Bloc<MedicamentDetailEvent, MedicamentDetailState> {
   final ITreatment iTreatment;
-  MedicamentDetailBloc(this.iTreatment) : super(const MedicamentDetailState.initial());
+  MedicamentDetailBloc(this.iTreatment)
+      : super(const MedicamentDetailState.initial());
 
   @override
   Stream<MedicamentDetailState> mapEventToState(
@@ -21,7 +23,10 @@ class MedicamentDetailBloc extends Bloc<MedicamentDetailEvent,MedicamentDetailSt
   ) async* {
     yield* event.map(
       getMedimanetItems: (e) async* {
-        iTreatment.getRecipeItems(e.recipeId).then((failureOrSlider) {
+         yield const MedicamentDetailState.initial();
+        iTreatment
+            .getRecipeItems(e.recipeId, e.isDoctor)
+            .then((failureOrSlider) {
           failureOrSlider.fold(
             (l) {
               if (l is ServerFailure) {

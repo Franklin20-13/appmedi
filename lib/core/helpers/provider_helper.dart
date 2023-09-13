@@ -2,6 +2,7 @@ import 'package:app_medi/features/authentication/presentation/bloc/person/person
 import 'package:app_medi/features/diary_treatment/presentation/bloc/getDoctors/getDoctors_bloc.dart';
 import 'package:app_medi/features/diary_treatment/presentation/bloc/medicament_detail/medicament_detail_bloc.dart';
 import 'package:app_medi/features/diary_treatment/presentation/bloc/notifications/notifications_bloc.dart';
+import 'package:app_medi/features/doctor/presentation/bloc/recipes/recipes_bloc.dart';
 import 'package:app_medi/features/medicines/presentation/bloc/get_medicines/get_medicines_bloc.dart';
 import 'package:app_medi/features/medicines/presentation/bloc/medicine/medicine_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -51,6 +52,9 @@ class BlocProviderHelper {
     ),
     BlocProvider<GetDoctorsBloc>(
       create: (_) => getIt<GetDoctorsBloc>(),
+    ),
+    BlocProvider<RecipesBloc>(
+      create: (_) => getIt<RecipesBloc>(),
     ),
   ];
 }

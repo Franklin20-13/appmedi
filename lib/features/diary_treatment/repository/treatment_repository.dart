@@ -171,15 +171,20 @@ class UserRepository implements ITreatment {
 
   @override
   Future<Either<Failure, List<RecipeDetailModels>>> getRecipeItems(
-      String recipeId) async {
+      String recipeId, bool isDoctor) async {
     try {
+      QuerySnapshot<Object?> result;
       final gerUserSesion = await iSession.getUserSesion();
-      final getDocumentRef =
-          userFirestore.getDocument(gerUserSesion!.user!.id!);
       final getRecipeRef = recipeFirestore.getDocument(recipeId);
-      final result = await treatmentFirestore
-          .whereRecipeItems(getDocumentRef, getRecipeRef)
-          .get();
+      if (isDoctor) {
+        result = await treatmentFirestore.whereRecipes(getRecipeRef).get();
+      } else {
+        final getDocumentRef =
+            userFirestore.getDocument(gerUserSesion!.user!.id!);
+        result = await treatmentFirestore
+            .whereRecipeItems(getDocumentRef, getRecipeRef)
+            .get();
+      }
       List<RecipeDetailModels> recipeDetails = [];
       for (final item in result.docs) {
         final recipeRef =
@@ -202,7 +207,7 @@ class UserRepository implements ITreatment {
 
         if (model.completed < model.thomas) {
           await serviceIsar.insertNotification(
-              model, gerUserSesion.user!.userName,
+              model, gerUserSesion!.user!.userName,
               isUpdate: true);
         }
 
@@ -370,6 +375,16 @@ class UserRepository implements ITreatment {
         doctors.add(model);
       }
       return Right(doctors);
+    } catch (e) {
+      return const Left(ServerFailure('Error al comunicarse con el servidor'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> changeStatusRecipe(String id) async {
+    try {
+      await recipeFirestore.addField(RecipeFields.status, 1).update(id);
+      return const  Right("Receta medica verificada");
     } catch (e) {
       return const Left(ServerFailure('Error al comunicarse con el servidor'));
     }

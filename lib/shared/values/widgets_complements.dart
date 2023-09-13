@@ -9,6 +9,21 @@ Row row(
   );
 }
 
+void showBottomShet(context, Widget child,
+    {double? height, bool isScrollControlled = false}) {
+  showBottomSheet(
+    context: context,
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
+    ),
+    elevation: 500,
+    builder: (context) => ResponsiveShowBottomShet(
+      height: height,
+      child: child,
+    ),
+  );
+}
+
 Color getColor(Set<MaterialState> states) {
   const Set<MaterialState> interactiveStates = <MaterialState>{
     MaterialState.pressed,
@@ -171,7 +186,7 @@ Widget textInput(
           return null;
         }
         if (inputType == TextInputType.number) {
-          if (value == null || value.isEmpty){
+          if (value == null || value.isEmpty) {
             return 'Campo requerido';
           }
         } else {
