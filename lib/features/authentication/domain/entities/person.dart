@@ -22,7 +22,9 @@ class PersonEntity {
       lastName: json.containsKey(PersonFields.lastName)
           ? json[PersonFields.lastName]
           : '',
-      userRef: refUser,
+      userRef: json.containsKey(PersonFields.refUser)
+          ? json[PersonFields.refUser]
+          : null,
       user: user ??
           (json.containsKey("user") ? UserEntity.fromJson(json['user']) : null),
     );

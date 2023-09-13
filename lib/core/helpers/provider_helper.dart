@@ -1,4 +1,5 @@
 import 'package:app_medi/features/authentication/presentation/bloc/person/person_bloc.dart';
+import 'package:app_medi/features/diary_treatment/presentation/bloc/getDoctors/getDoctors_bloc.dart';
 import 'package:app_medi/features/diary_treatment/presentation/bloc/medicament_detail/medicament_detail_bloc.dart';
 import 'package:app_medi/features/diary_treatment/presentation/bloc/notifications/notifications_bloc.dart';
 import 'package:app_medi/features/medicines/presentation/bloc/get_medicines/get_medicines_bloc.dart';
@@ -47,6 +48,9 @@ class BlocProviderHelper {
     ),
     BlocProvider<NotificationsBloc>(
       create: (_) => getIt<NotificationsBloc>(),
+    ),
+    BlocProvider<GetDoctorsBloc>(
+      create: (_) => getIt<GetDoctorsBloc>(),
     ),
   ];
 }

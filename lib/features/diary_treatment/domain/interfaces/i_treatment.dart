@@ -1,4 +1,5 @@
 import 'package:app_medi/core/errors/failure.dart';
+import 'package:app_medi/features/authentication/domain/entities/person.dart';
 import 'package:app_medi/features/background/DataBase/collectons/notification_collection.dart';
 import 'package:dartz/dartz.dart';
 
@@ -14,4 +15,6 @@ abstract class ITreatment {
   Future<Either<Failure, String>> deleteMedicamentByRecipe(String id);
   Future<Either<Failure, List<NotificationCollection?>>> getNotifications();
   Future<Either<Failure, String>> isThomeCompleted(NotificationCollection item);
+  Future<Either<Failure, String>> finishTreatament(RecipeModel item,String id);
+  Future<Either<Failure, List<PersonEntity>>> getDoctos();
 }

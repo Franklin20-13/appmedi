@@ -1,5 +1,7 @@
 import 'package:app_medi/features/diary_treatment/domain/models/recipe_model.dart';
+import 'package:app_medi/features/diary_treatment/presentation/bloc/getDoctors/getDoctors_bloc.dart';
 import 'package:app_medi/features/diary_treatment/presentation/bloc/medicament_detail/medicament_detail_bloc.dart';
+import 'package:app_medi/shared/my_assets.dart';
 import 'package:app_medi/shared/values/functions.dart';
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:datetime_picker_formfield_new/datetime_picker_formfield.dart';
@@ -42,6 +44,7 @@ class _RecipeDetailWidgetState extends State<RecipeDetailWidget> {
   RecipeDetailModels? model;
   late GetMedicinesBloc getMedicinesBloc;
   late MedicamentDetailBloc medicamentDetailBloc;
+  late GetDoctorsBloc doctorsBloc;
   RecipeDetailModels? selectMedicines;
   bool isList = true;
   String title = "Mis Médicamentos";
@@ -50,6 +53,7 @@ class _RecipeDetailWidgetState extends State<RecipeDetailWidget> {
   void initState() {
     treatamentBloc = context.read<TreatamentBloc>();
     //_quantityController = TextEditingController(text: '');
+    doctorsBloc = context.read<GetDoctorsBloc>();
     _measureController = TextEditingController(text: '');
     _timeController = TextEditingController(text: '');
     _dateController = TextEditingController(text: '');
@@ -81,6 +85,9 @@ class _RecipeDetailWidgetState extends State<RecipeDetailWidget> {
         BlocListener<TreatamentBloc, TreatamentState>(
             listener: (context, state) {
           if (state is LoadSuccessTreatment) {
+            if (state.isFinishRecipe!) {
+              widget.onTap();
+            }
             if (selectMedicines == null) {
               clearForm();
             } else {
@@ -125,48 +132,78 @@ class _RecipeDetailWidgetState extends State<RecipeDetailWidget> {
             Expanded(
               child: ListView(
                 children: [
-                  SizedBox(
-                    width: double.infinity,
-                    height: 40,
-                    child: ListTile(
-                      leading: const Icon(
-                        Icons.note,
-                        size: 36,
-                        color: AppColors.primaryColor,
-                      ),
-                      trailing: InkWell(
-                        onTap: () {
-                          clearForm();
-                          setState(() {
-                            title = !isList
-                                ? "Mis Médicamentos"
-                                : "Nuevo Medicamento";
-                            isList = !isList;
-                          });
-                        },
-                        child: Icon(
-                          isList ? Icons.add_circle : Icons.close,
+                  if (widget.recipe.doctorRef == null)
+                    SizedBox(
+                      width: double.infinity,
+                      height: 40,
+                      child: ListTile(
+                        leading: const Icon(
+                          Icons.note,
                           size: 36,
                           color: AppColors.primaryColor,
                         ),
-                      ),
-                      title: Text(
-                        FuntionsApp().primeraLetraMayuscula(widget.recipe.name),
-                        style: GoogleFonts.montserrat(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
+                        trailing: InkWell(
+                          onTap: () {
+                            clearForm();
+                            setState(() {
+                              title = !isList
+                                  ? "Mis Médicamentos"
+                                  : "Nuevo Medicamento";
+                              isList = !isList;
+                            });
+                          },
+                          child: Icon(
+                            isList ? Icons.add_circle : Icons.close,
+                            size: 36,
+                            color: AppColors.primaryColor,
+                          ),
+                        ),
+                        title: Text(
+                          FuntionsApp()
+                              .primeraLetraMayuscula(widget.recipe.name),
+                          style: GoogleFonts.montserrat(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        subtitle: Text(
+                          FuntionsApp()
+                              .primeraLetraMayuscula(widget.recipe.description),
+                          style: GoogleFonts.montserrat(
+                              fontSize: 13,
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.primaryColor.withOpacity(0.7)),
                         ),
                       ),
-                      subtitle: Text(
-                        FuntionsApp()
-                            .primeraLetraMayuscula(widget.recipe.description),
-                        style: GoogleFonts.montserrat(
-                            fontSize: 13,
+                    ).paddingBottom(10)
+                  else
+                    SizedBox(
+                      width: double.infinity,
+                      height: 40,
+                      child: ListTile(
+                        leading: const Icon(
+                          Icons.note,
+                          size: 36,
+                          color: AppColors.primaryColor,
+                        ),
+                        title: Text(
+                          FuntionsApp()
+                              .primeraLetraMayuscula(widget.recipe.name),
+                          style: GoogleFonts.montserrat(
+                            fontSize: 15,
                             fontWeight: FontWeight.bold,
-                            color: AppColors.primaryColor.withOpacity(0.7)),
+                          ),
+                        ),
+                        subtitle: Text(
+                          FuntionsApp()
+                              .primeraLetraMayuscula(widget.recipe.description),
+                          style: GoogleFonts.montserrat(
+                              fontSize: 13,
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.primaryColor.withOpacity(0.7)),
+                        ),
                       ),
-                    ),
-                  ).paddingBottom(10),
+                    ).paddingBottom(10),
                   isList
                       ? BlocBuilder<MedicamentDetailBloc,
                           MedicamentDetailState>(builder: (context, state) {
@@ -208,13 +245,19 @@ class _RecipeDetailWidgetState extends State<RecipeDetailWidget> {
                       initial: (_) => Container(),
                       loadSuccess: (e) {
                         if (e.items.isNotEmpty) {
-                          return buttonWidgetApp(
-                            label: 'Enviar recera Medica',
-                            height: 50,
-                            width: 250,
-                            fontSize: 20,
-                            onTap: () {},
-                          );
+                          return widget.recipe.doctorRef == null
+                              ? buttonWidgetApp(
+                                  label: 'Enviar recera Medica',
+                                  height: 50,
+                                  width: 250,
+                                  fontSize: 20,
+                                  onTap: () async {
+                                    doctorsBloc.add(
+                                        const GetDoctorsEvent.getDoctors());
+                                    await alartDoctors();
+                                  },
+                                )
+                              : Container();
                         }
                         return Container();
                       },
@@ -581,7 +624,7 @@ class _RecipeDetailWidgetState extends State<RecipeDetailWidget> {
               ],
             ).paddingLeft(10),
           ),
-          if (!isDeleteMedicament)
+          if (!isDeleteMedicament && widget.recipe.doctorRef == null)
             InkWell(
               onDoubleTap: () {
                 setState(() {
@@ -612,7 +655,7 @@ class _RecipeDetailWidgetState extends State<RecipeDetailWidget> {
                 ),
               ),
             )
-          else
+          else if (widget.recipe.doctorRef == null)
             InkWell(
               onDoubleTap: () {
                 setState(() {
@@ -760,5 +803,108 @@ class _RecipeDetailWidgetState extends State<RecipeDetailWidget> {
       hour = "$hour${item.toString()};";
     }
     return hour;
+  }
+
+  Future<void> alartDoctors() {
+    return showDialog<void>(
+      context: context,
+      useSafeArea: true,
+      barrierDismissible: true, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          scrollable: true,
+          title: const Center(
+              child: Text(
+            "Doctores disponibles",
+            style: TextStyle(color: AppColors.primaryColor),
+          )).paddingTop(10),
+          content: SizedBox(
+            height: 350,
+            child: BlocBuilder<GetDoctorsBloc, GetDoctorsState>(
+              builder: (context, state) {
+                return state.map(
+                  initial: (_) => SpinKitThreeBounce(
+                    size: 30,
+                    itemBuilder: (BuildContext context, int index) {
+                      return DecoratedBox(
+                        decoration: BoxDecoration(
+                          color: index.isEven
+                              ? AppColors.primaryColor
+                              : AppColors.mainColor,
+                        ),
+                      );
+                    },
+                  ),
+                  loadSuccess: (e) {
+                    return Column(
+                      children: List.generate(e.doctors.length, (index) {
+                        final item = e.doctors[index];
+                        return InkWell(
+                          onDoubleTap: () {
+                            treatamentBloc.add(
+                              TreatamentEvent.finishRecipe(
+                                  widget.recipe, item.id!),
+                            );
+                            Navigator.pop(context);
+                          },
+                          child: Container(
+                            width: double.infinity,
+                            height: 80,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.black,
+                                width: 1.0,
+                              ),
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(20),
+                              ),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const CircleAvatar(
+                                  backgroundImage:
+                                      AssetImage(MyAsstes.doctorAvatar),
+                                  radius: 35,
+                                ).paddingLeft(10),
+                                Expanded(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        item.name,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        item.lastName,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ],
+                                  ).paddingLeft(10),
+                                )
+                              ],
+                            ),
+                          ),
+                        ).paddingAll(10);
+                      }),
+                    );
+                  },
+                  loadMessage: (_) => Container(),
+                );
+              },
+            ),
+          ),
+          contentPadding: EdgeInsets.zero,
+          titlePadding: const EdgeInsets.symmetric(horizontal: 0),
+          actionsAlignment: MainAxisAlignment.center,
+          actionsPadding: const EdgeInsets.only(bottom: 15),
+          actions: <Widget>[],
+        );
+      },
+    );
   }
 }

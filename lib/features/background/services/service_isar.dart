@@ -73,14 +73,14 @@ class ServiceIsar extends ParseCollections {
     await queryNotification.save(item);
   }
 
-  Future<void> insertNotification(
-      RecipeDetailModels detail, String user) async {
+  Future<void> insertNotification(RecipeDetailModels detail, String user,
+      {bool isUpdate = true}) async {
     try {
       final hours = getDates(detail.hour.split(";"));
       for (final hour in hours) {
         var res = await queryNotification.existByDocumentAndHour(
             detail.id!, detail.recipeModel!.id!, hour);
-        if (res != null) {
+        if (res != null && isUpdate) {
           res.keyDocument = detail.id!;
           res.titleNotification = "Tomar ${detail.medicamentModel!.name}";
           res.description =
@@ -114,7 +114,13 @@ class ServiceIsar extends ParseCollections {
           }
 
           //fin
-          model.tomado = false;
+          final date = getDates(detail.hourCompleted.split(";"));
+          final exist = date.where((p) => p.compareTo(hour) == 0).toList();
+          if (exist.isNotEmpty) {
+            model.tomado = true;
+          } else {
+            model.tomado = false;
+          }
           model.fromDate = detail.fromDate.toString();
           model.toDate = detail.toDate.toString();
           model.keyDocumentRecipe = detail.recipeModel!.id!;

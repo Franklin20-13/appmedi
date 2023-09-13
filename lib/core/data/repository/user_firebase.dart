@@ -48,6 +48,8 @@ class UserFirestore extends AbstractFirestore {
       .where(UserFields.userName, isEqualTo: userName)
       .where(UserFields.pass, isEqualTo: pass);
 
-  Query whereUserExist(String userName) => collection
-      .where(UserFields.userName, isEqualTo: userName);
+  Query whereUserExist(String userName) =>
+      collection.where(UserFields.userName, isEqualTo: userName);
+
+  Query getDoctors() => collection.where(UserFields.role, isEqualTo: 1);
 }

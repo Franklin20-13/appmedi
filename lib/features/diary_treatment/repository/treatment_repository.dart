@@ -1,8 +1,10 @@
 import 'package:app_medi/core/data/fields/recipe_fields.dart';
 import 'package:app_medi/core/data/repository/medicines_firestore.dart';
+import 'package:app_medi/core/data/repository/person_firebase.dart';
 import 'package:app_medi/core/data/repository/recipe_firebase.dart';
 import 'package:app_medi/core/data/repository/treatment_firestore.dart';
 import 'package:app_medi/core/errors/failure.dart';
+import 'package:app_medi/features/authentication/domain/entities/person.dart';
 import 'package:app_medi/features/authentication/domain/interfaces/i_session.dart';
 import 'package:app_medi/features/background/DataBase/collectons/notification_collection.dart';
 import 'package:app_medi/features/background/services/service_Isar.dart';
@@ -24,8 +26,9 @@ class UserRepository implements ITreatment {
   final UserFirestore userFirestore;
   final RecipeFirestore recipeFirestore;
   final ServiceIsar serviceIsar = ServiceIsar();
+  final PersonFirestore personFirestore;
   UserRepository(this.treatmentFirestore, this.iSession, this.medicineFirestore,
-      this.userFirestore, this.recipeFirestore);
+      this.userFirestore, this.recipeFirestore, this.personFirestore);
   @override
   Future<Either<Failure, String>> register(RecipeDetailModels model) async {
     try {
@@ -196,6 +199,13 @@ class UserRepository implements ITreatment {
           jsonRecipe: recipeDoc.data() as Map<String, dynamic>,
           recipeId: recipeDoc.id,
         );
+
+        if (model.completed < model.thomas) {
+          await serviceIsar.insertNotification(
+              model, gerUserSesion.user!.userName,
+              isUpdate: true);
+        }
+
         recipeDetails.add(model);
       }
       return right(recipeDetails);
@@ -294,6 +304,72 @@ class UserRepository implements ITreatment {
       }
 
       return const Right("Medicamento Tomado");
+    } catch (e) {
+      return const Left(ServerFailure('Error al comunicarse con el servidor'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> finishTreatament(
+      RecipeModel item, String id) async {
+    try {
+      final user = await iSession.getUserSesion();
+      final recipe = await recipeFirestore.getDocument(item.id!).get();
+      if (!recipe.exists) {
+        return const Left(ServerFailure("Error al encontar receta medica"));
+      }
+      final getRefUser = userFirestore.getDocument(user!.user!.id!);
+      final recipeRef = recipeFirestore.getDocument(item.id!);
+      final medicaments = await treatmentFirestore
+          .whereRecipeItems(getRefUser, recipeRef)
+          .get();
+
+      int notFinished = 0;
+      for (final item in medicaments.docs) {
+        var currentFinish = (item.data()
+            as Map<String, dynamic>)[TreatmentFields.thomas] as int;
+        var currentThoma = (item.data()
+            as Map<String, dynamic>)[TreatmentFields.completed] as int;
+        if (!(currentThoma == currentFinish)) {
+          notFinished++;
+        }
+      }
+
+      if (notFinished > 0) {
+        return const Left(ServerFailure(
+            "No puedes cerrar receta médica, hay medicinas pendientes  por tomar"));
+      }
+
+      final doctorRes = personFirestore.getDocument(id);
+
+      await recipeFirestore
+          .addField(RecipeFields.refDoctor, doctorRes)
+          .update(item.id);
+
+      return const Right("Cita médica completada");
+    } catch (e) {
+      return const Left(ServerFailure('Error al comunicarse con el servidor'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<PersonEntity>>> getDoctos() async {
+    try {
+      List<PersonEntity> doctors = [];
+      final getDoctors = await userFirestore.getDoctors().get();
+      for (final item in getDoctors.docs) {
+        final refUser = userFirestore.getDocument(item.id);
+        final getDoctors = await personFirestore.whereUser(refUser).get();
+        if (getDoctors.docs.isEmpty) {
+          continue;
+        }
+        final model = PersonEntity.fromJson(
+          getDoctors.docs.first.data() as Map<String, dynamic>,
+          id: getDoctors.docs.first.id,
+        );
+        doctors.add(model);
+      }
+      return Right(doctors);
     } catch (e) {
       return const Left(ServerFailure('Error al comunicarse con el servidor'));
     }

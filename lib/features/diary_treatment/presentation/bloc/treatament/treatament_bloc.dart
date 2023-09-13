@@ -34,12 +34,12 @@ class TreatamentBloc extends Bloc<TreatamentEvent, TreatamentState> {
             }
           },
           (message) => add(
-            TreatamentEvent.pushTreatment(message: message),
+            TreatamentEvent.pushTreatment(message: message, isFinishRecipe: false),
           ),
         );
       },
       pushTreatment: (value) async* {
-        yield TreatamentState.loadSuccess(message: value.message);
+        yield TreatamentState.loadSuccess(message: value.message, isFinishRecipe: value.isFinishRecipe);
       },
       pushMessage: (value) async* {
         yield TreatamentState.loadMessage(message: value.message);
@@ -56,7 +56,7 @@ class TreatamentBloc extends Bloc<TreatamentEvent, TreatamentState> {
             }
           },
           (message) => add(
-            TreatamentEvent.pushTreatment(message: message),
+            TreatamentEvent.pushTreatment(message: message, isFinishRecipe: false),
           ),
         );
       },
@@ -72,7 +72,7 @@ class TreatamentBloc extends Bloc<TreatamentEvent, TreatamentState> {
             }
           },
           (message) => add(
-            TreatamentEvent.pushTreatment(message: message),
+            TreatamentEvent.pushTreatment(message: message, isFinishRecipe: false),
           ),
         );
       },
@@ -88,7 +88,7 @@ class TreatamentBloc extends Bloc<TreatamentEvent, TreatamentState> {
             }
           },
           (message) => add(
-            TreatamentEvent.pushTreatment(message: message),
+            TreatamentEvent.pushTreatment(message: message, isFinishRecipe: false),
           ),
         );
       },
@@ -104,7 +104,23 @@ class TreatamentBloc extends Bloc<TreatamentEvent, TreatamentState> {
             }
           },
           (message) => add(
-            TreatamentEvent.pushTreatment(message: message),
+            TreatamentEvent.pushTreatment(message: message, isFinishRecipe: false),
+          ),
+        );
+      },
+      finishRecipe: (e) async* {
+        yield const TreatamentState.initial();
+        final response = await iTreatment.finishTreatament(e.item, e.id);
+        response.fold(
+          (l) {
+            if (l is ServerFailure) {
+              add(
+                TreatamentEvent.pushMessage(message: l.message),
+              );
+            }
+          },
+          (message) => add(
+            TreatamentEvent.pushTreatment(message: message, isFinishRecipe: true),
           ),
         );
       },

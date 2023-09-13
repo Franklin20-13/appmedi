@@ -1,3 +1,4 @@
+import 'package:app_medi/config/custom_icons.dart';
 import 'package:app_medi/features/diary_treatment/domain/models/recipe_model.dart';
 import 'package:app_medi/features/diary_treatment/presentation/bloc/treatament/treatament_bloc.dart';
 import 'package:app_medi/shared/values/functions.dart';
@@ -115,7 +116,7 @@ class _RecipesWidgetState extends State<RecipesWidget> {
       ),
       child: Row(
         children: [
-          if (!isDelete)
+          if (!isDelete && item.doctorRef == null)
             InkWell(
               onDoubleTap: () {
                 setState(() {
@@ -143,7 +144,7 @@ class _RecipesWidgetState extends State<RecipesWidget> {
                 ),
               ),
             )
-          else
+          else if (item.doctorRef == null)
             InkWell(
               onDoubleTap: () {
                 setState(() {
@@ -175,6 +176,23 @@ class _RecipesWidgetState extends State<RecipesWidget> {
                   size: 35,
                   color: Colors.white,
                 ),
+              ),
+            )
+          else
+            Container(
+              width: size.width * .2,
+              height: double.infinity,
+              decoration: const BoxDecoration(
+                color: Colors.black,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  bottomLeft: Radius.circular(20),
+                ),
+              ),
+              child: const Icon(
+                MediIcons.user_md,
+                size: 35,
+                color: Colors.white,
               ),
             ),
           Expanded(

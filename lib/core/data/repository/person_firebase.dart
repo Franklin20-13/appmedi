@@ -42,6 +42,7 @@ class PersonFirestore extends AbstractFirestore {
         throw ArgumentError();
     }
   }
-    Query whereUser(DocumentReference userRef) => collection
-      .where(PersonFields.refUser, isEqualTo: userRef);
+
+  Query whereUser(DocumentReference userRef) =>
+      collection.where(PersonFields.refUser, isEqualTo: userRef);
 }
