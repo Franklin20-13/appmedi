@@ -196,42 +196,46 @@ class _RecipesWidgetState extends State<RecipesWidget> {
               ),
             ),
           Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    const Text(
-                      'Nombre:',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      const Text(
+                        'Nombre:',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                    Expanded(
-                      child:
-                          Text(FuntionsApp().primeraLetraMayuscula(item.name))
-                              .paddingLeft(10),
-                    ),
-                  ],
-                ).paddingBottom(5),
-                Row(
-                  children: [
-                    const Text(
-                      'Descripción:',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
+                      Expanded(
+                        child:
+                            Text(FuntionsApp().primeraLetraMayuscula(item.name))
+                                .paddingLeft(10),
                       ),
-                    ),
-                    Expanded(
-                      child: Text(FuntionsApp()
-                              .primeraLetraMayuscula(item.description))
-                          .paddingLeft(10),
-                    ),
-                  ],
-                ),
-              ],
-            ).paddingLeft(10),
+                    ],
+                  ).paddingBottom(5),
+                  Row(
+                    children: [
+                      const Text(
+                        'Descripción:',
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          FuntionsApp().primeraLetraMayuscula(item.description),
+                          overflow: TextOverflow.ellipsis,
+                        ).paddingLeft(10),
+                      ),
+                    ],
+                  ),
+                ],
+              ).paddingLeft(10),
+            ),
           ),
           InkWell(
             onTap: () {

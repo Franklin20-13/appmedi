@@ -380,6 +380,7 @@ class _MedicinesViewState extends State<MedicinesView> {
     model = null;
     _nameController = TextEditingController(text: '');
     typeMedicine = null;
+    setState(() {});
   }
 
   saveMedicine() {
