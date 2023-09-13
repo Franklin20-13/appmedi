@@ -22,7 +22,7 @@ class _NotificationViewState extends State<NotificationView> {
   @override
   void initState() {
     notificationsBloc = context.read<NotificationsBloc>();
-    notificationsBloc.add(const NotificationsEvent.getNotifications());
+    notificationsBloc.add(const NotificationsEvent.getNotifications(false));
     treatamentBloc = context.read<TreatamentBloc>();
     super.initState();
   }
@@ -45,7 +45,7 @@ class _NotificationViewState extends State<NotificationView> {
           if (state is LoadSuccessTreatment) {
             progressDialog.dismiss();
             showInSnackBar(context, state.message);
-            notificationsBloc.add(const NotificationsEvent.getNotifications());
+            notificationsBloc.add(const NotificationsEvent.getNotifications(false));
           }
         })
       ],

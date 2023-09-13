@@ -21,7 +21,7 @@ class NotificationsBloc extends Bloc<NotificationsEvent,NotificationsState>{
   ) async* {
     yield* event.map(
       getNotifications: (e) async* {
-        iTreatment.getNotifications().then((failureOrSlider) {
+        iTreatment.getNotifications(e.isNow).then((failureOrSlider) {
           failureOrSlider.fold(
             (l) {
               if (l is ServerFailure) {

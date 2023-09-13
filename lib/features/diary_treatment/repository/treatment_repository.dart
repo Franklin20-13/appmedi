@@ -8,6 +8,7 @@ import 'package:app_medi/features/authentication/domain/entities/person.dart';
 import 'package:app_medi/features/authentication/domain/interfaces/i_session.dart';
 import 'package:app_medi/features/background/DataBase/collectons/notification_collection.dart';
 import 'package:app_medi/features/background/services/service_Isar.dart';
+import 'package:app_medi/features/diary_treatment/domain/models/dashboard.dart';
 import 'package:app_medi/features/diary_treatment/domain/models/recipe_detail_models.dart';
 import 'package:app_medi/features/diary_treatment/domain/models/recipe_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -265,12 +266,16 @@ class UserRepository implements ITreatment {
   }
 
   @override
-  Future<Either<Failure, List<NotificationCollection?>>>
-      getNotifications() async {
+  Future<Either<Failure, List<NotificationCollection?>>> getNotifications(
+      bool isNow) async {
     try {
       final user = await iSession.getUserSesion();
-      final result = await serviceIsar.getNotifications(user!.user!.userName);
-      return Right(result);
+      if (isNow) {
+        return right(
+            await serviceIsar.getNotificationsNow(user!.user!.userName));
+      } else {
+        return right(await serviceIsar.getNotifications(user!.user!.userName));
+      }
     } catch (e) {
       return const Left(ServerFailure('Error al comunicarse con el servidor'));
     }
@@ -384,7 +389,42 @@ class UserRepository implements ITreatment {
   Future<Either<Failure, String>> changeStatusRecipe(String id) async {
     try {
       await recipeFirestore.addField(RecipeFields.status, 1).update(id);
-      return const  Right("Receta medica verificada");
+      return const Right("Receta medica verificada");
+    } catch (e) {
+      return const Left(ServerFailure('Error al comunicarse con el servidor'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Dashboard>> getDashboard() async {
+    try {
+      final user = await iSession.getUserSesion();
+      final getRefUser = userFirestore.getDocument(user!.user!.id!);
+      final getRecipe =
+          await recipeFirestore.whereMedicamentsForUser(getRefUser).get();
+      int countTree = 0;
+      int countOne = 0;
+      int countTwo = 0;
+      for (final item in getRecipe.docs) {
+        var status =
+            (item.data() as Map<String, dynamic>)[RecipeFields.status] as int;
+        if (status > 0) {
+          countTree++;
+        }
+
+        var refDoc = (item.data() as Map<String, dynamic>);
+        if (!refDoc.containsKey(RecipeFields.refDoctor)) {
+          countTwo++;
+        }
+        if (status == 0 && refDoc.containsKey(RecipeFields.refDoctor)) {
+          countOne++;
+        }
+      }
+      return Right(Dashboard(
+        treatmentC: countOne,
+        treatmentP: countTwo,
+        treatmentS: countTree,
+      ));
     } catch (e) {
       return const Left(ServerFailure('Error al comunicarse con el servidor'));
     }

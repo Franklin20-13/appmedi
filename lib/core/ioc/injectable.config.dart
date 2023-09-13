@@ -123,8 +123,7 @@ Future<_i1.GetIt> $initGetIt(
       () => _i26.MedicamentDetailBloc(get<_i21.ITreatment>()));
   gh.factory<_i27.NotificationsBloc>(
       () => _i27.NotificationsBloc(get<_i21.ITreatment>()));
-  gh.factory<_i28.PeopleBloc>(
-      () => _i28.PeopleBloc(get<_i15.IPeopleRepository>()));
+  gh.factory<_i28.PeopleBloc>(() => _i28.PeopleBloc(get<_i21.ITreatment>()));
   gh.factory<_i29.PersonBloc>(() => _i29.PersonBloc(get<_i17.IPerson>()));
   gh.factory<_i30.SessionBloc>(() => _i30.SessionBloc(get<_i19.ISession>()));
   gh.factory<_i31.TreatamentBloc>(

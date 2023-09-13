@@ -21,7 +21,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
     peopleBloc = context.read<PeopleBloc>();
-    //peopleBloc.add(const PeopleEvent.getPeople());
+    //peopleBloc.add(const PeopleEvent.getDashboard());
     if (widget.user.user!.role == 0) {
       options.addAll(listUser);
     } else {

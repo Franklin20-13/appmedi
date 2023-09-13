@@ -477,7 +477,7 @@ abstract class _LoadMessage implements NotificationsState {
 mixin _$NotificationsEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getNotifications,
+    required TResult Function(bool isNow) getNotifications,
     required TResult Function(List<NotificationCollection?> items)
         pushMedicamentItemss,
     required TResult Function(String message) pushMessage,
@@ -485,7 +485,7 @@ mixin _$NotificationsEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getNotifications,
+    TResult? Function(bool isNow)? getNotifications,
     TResult? Function(List<NotificationCollection?> items)?
         pushMedicamentItemss,
     TResult? Function(String message)? pushMessage,
@@ -493,7 +493,7 @@ mixin _$NotificationsEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getNotifications,
+    TResult Function(bool isNow)? getNotifications,
     TResult Function(List<NotificationCollection?> items)? pushMedicamentItemss,
     TResult Function(String message)? pushMessage,
     required TResult orElse(),
@@ -546,6 +546,8 @@ abstract class _$$_NotificationsEventCopyWith<$Res> {
   factory _$$_NotificationsEventCopyWith(_$_NotificationsEvent value,
           $Res Function(_$_NotificationsEvent) then) =
       __$$_NotificationsEventCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool isNow});
 }
 
 /// @nodoc
@@ -555,59 +557,84 @@ class __$$_NotificationsEventCopyWithImpl<$Res>
   __$$_NotificationsEventCopyWithImpl(
       _$_NotificationsEvent _value, $Res Function(_$_NotificationsEvent) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? isNow = null,
+  }) {
+    return _then(_$_NotificationsEvent(
+      null == isNow
+          ? _value.isNow
+          : isNow // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$_NotificationsEvent implements _NotificationsEvent {
-  const _$_NotificationsEvent();
+  const _$_NotificationsEvent(this.isNow);
+
+  @override
+  final bool isNow;
 
   @override
   String toString() {
-    return 'NotificationsEvent.getNotifications()';
+    return 'NotificationsEvent.getNotifications(isNow: $isNow)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_NotificationsEvent);
+        (other.runtimeType == runtimeType &&
+            other is _$_NotificationsEvent &&
+            (identical(other.isNow, isNow) || other.isNow == isNow));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, isNow);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_NotificationsEventCopyWith<_$_NotificationsEvent> get copyWith =>
+      __$$_NotificationsEventCopyWithImpl<_$_NotificationsEvent>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getNotifications,
+    required TResult Function(bool isNow) getNotifications,
     required TResult Function(List<NotificationCollection?> items)
         pushMedicamentItemss,
     required TResult Function(String message) pushMessage,
   }) {
-    return getNotifications();
+    return getNotifications(isNow);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getNotifications,
+    TResult? Function(bool isNow)? getNotifications,
     TResult? Function(List<NotificationCollection?> items)?
         pushMedicamentItemss,
     TResult? Function(String message)? pushMessage,
   }) {
-    return getNotifications?.call();
+    return getNotifications?.call(isNow);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getNotifications,
+    TResult Function(bool isNow)? getNotifications,
     TResult Function(List<NotificationCollection?> items)? pushMedicamentItemss,
     TResult Function(String message)? pushMessage,
     required TResult orElse(),
   }) {
     if (getNotifications != null) {
-      return getNotifications();
+      return getNotifications(isNow);
     }
     return orElse();
   }
@@ -648,7 +675,12 @@ class _$_NotificationsEvent implements _NotificationsEvent {
 }
 
 abstract class _NotificationsEvent implements NotificationsEvent {
-  const factory _NotificationsEvent() = _$_NotificationsEvent;
+  const factory _NotificationsEvent(final bool isNow) = _$_NotificationsEvent;
+
+  bool get isNow;
+  @JsonKey(ignore: true)
+  _$$_NotificationsEventCopyWith<_$_NotificationsEvent> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -724,7 +756,7 @@ class _$_PushNotifications implements _PushNotifications {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getNotifications,
+    required TResult Function(bool isNow) getNotifications,
     required TResult Function(List<NotificationCollection?> items)
         pushMedicamentItemss,
     required TResult Function(String message) pushMessage,
@@ -735,7 +767,7 @@ class _$_PushNotifications implements _PushNotifications {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getNotifications,
+    TResult? Function(bool isNow)? getNotifications,
     TResult? Function(List<NotificationCollection?> items)?
         pushMedicamentItemss,
     TResult? Function(String message)? pushMessage,
@@ -746,7 +778,7 @@ class _$_PushNotifications implements _PushNotifications {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getNotifications,
+    TResult Function(bool isNow)? getNotifications,
     TResult Function(List<NotificationCollection?> items)? pushMedicamentItemss,
     TResult Function(String message)? pushMessage,
     required TResult orElse(),
@@ -867,7 +899,7 @@ class _$_PushMessage implements _PushMessage {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getNotifications,
+    required TResult Function(bool isNow) getNotifications,
     required TResult Function(List<NotificationCollection?> items)
         pushMedicamentItemss,
     required TResult Function(String message) pushMessage,
@@ -878,7 +910,7 @@ class _$_PushMessage implements _PushMessage {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getNotifications,
+    TResult? Function(bool isNow)? getNotifications,
     TResult? Function(List<NotificationCollection?> items)?
         pushMedicamentItemss,
     TResult? Function(String message)? pushMessage,
@@ -889,7 +921,7 @@ class _$_PushMessage implements _PushMessage {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getNotifications,
+    TResult Function(bool isNow)? getNotifications,
     TResult Function(List<NotificationCollection?> items)? pushMedicamentItemss,
     TResult Function(String message)? pushMessage,
     required TResult orElse(),

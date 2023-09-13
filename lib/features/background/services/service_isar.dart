@@ -15,6 +15,19 @@ class ServiceIsar extends ParseCollections {
     return queryNotification.getNotifications(user);
   }
 
+  Future<List<NotificationCollection?>> getNotificationsNow(String user) async {
+    final dat = await queryNotification.getNotifications(user);
+    List<NotificationCollection?> list = [];
+    for (final item in dat) {
+      final nowLocale = FuntionsApp().parseData(DateTime.now());
+      final now = FuntionsApp().parseData(DateTime.parse(item!.hour));
+      if (nowLocale.compareTo(now) == 0) {
+        list.add(item);
+      }
+    }
+    return list;
+  }
+
   Future<List<NotificationCollection?>> getNotificationsAlarms(
       String user) async {
     List<NotificationCollection?> list = [];

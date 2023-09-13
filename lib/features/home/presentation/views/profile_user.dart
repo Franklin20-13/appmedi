@@ -1,11 +1,14 @@
+import 'package:app_medi/features/diary_treatment/presentation/bloc/notifications/notifications_bloc.dart';
+import 'package:app_medi/features/home/presentation/bloc/people/people_bloc.dart';
 import 'package:app_medi/shared/my_assets.dart';
 import 'package:app_medi/shared/values/values.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../../config/custom_icons.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:intl/intl.dart';
 import '../../../../shared/values/functions.dart';
 import '../../../authentication/presentation/bloc/session/session_bloc.dart';
+import '../../../background/DataBase/collectons/notification_collection.dart';
 
 class ProfileHomeView extends StatefulWidget {
   const ProfileHomeView({super.key});
@@ -15,6 +18,17 @@ class ProfileHomeView extends StatefulWidget {
 }
 
 class _ProfileHomeViewState extends State<ProfileHomeView> {
+  late NotificationsBloc notificationsBloc;
+  late PeopleBloc peopleBloc;
+  @override
+  void initState() {
+    peopleBloc = context.read<PeopleBloc>();
+    peopleBloc.add(const PeopleEvent.getDashboard());
+    notificationsBloc = context.read<NotificationsBloc>();
+    notificationsBloc.add(const NotificationsEvent.getNotifications(true));
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -70,35 +84,58 @@ class _ProfileHomeViewState extends State<ProfileHomeView> {
                           ),
                         ),
                       ),
-                       Center(
+                      Center(
                         child: Text(
                           '${FuntionsApp().primeraLetraMayuscula(state.user.name)} ${state.user.lastName}',
                           textAlign: TextAlign.center,
                           style: const TextStyle(
-                            fontSize: 23,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.primaryColor
-                          ),
+                              fontSize: 23,
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.primaryColor),
                         ),
                       ).paddingTop(10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          cardTratamientoWidget('Tratamientos Culminados', '2'),
-                          cardTratamientoWidget('Tratamientos En Proceso', '0'),
-                          cardTratamientoWidget(
-                              'Tratamiendos Supervisados', '3'),
-                        ],
-                      ).paddingTop(15),
+                      BlocBuilder<PeopleBloc, PeopleState>(
+                        builder: (context, state) {
+                          return state.map(
+                              initial: (_) => SpinKitThreeBounce(
+                                    size: 30,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      return DecoratedBox(
+                                        decoration: BoxDecoration(
+                                          color: index.isEven
+                                              ? AppColors.primaryColor
+                                              : AppColors.mainColor,
+                                        ),
+                                      );
+                                    },
+                                  ).paddingTop(10),
+                              loadSuccess: (e) => Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      cardTratamientoWidget(
+                                          'Tratamientos pedientes de revición',
+                                          e.dashboard.treatmentC.toString()),
+                                      cardTratamientoWidget(
+                                          'Tratamientos En Proceso',
+                                          e.dashboard.treatmentP.toString()),
+                                      cardTratamientoWidget(
+                                          'Tratamiendos Supervisados',
+                                          e.dashboard.treatmentS.toString()),
+                                    ],
+                                  ).paddingTop(15),
+                              loadMessage: (_) => Container());
+                        },
+                      ),
                       const Center(
                         child: Text(
                           'Mis Tratamiendos de hoy',
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontSize: 23,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.primaryColor
-                          ),
+                              fontSize: 23,
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.primaryColor),
                         ),
                       ).paddingTop(10),
                       Container(
@@ -141,26 +178,37 @@ class _ProfileHomeViewState extends State<ProfileHomeView> {
                             ),
                             Expanded(
                               child: SingleChildScrollView(
-                                child: Column(
-                                  children: [
-                                    tratamientoItemWidget().paddingOnly(
-                                      left: 15,
-                                      bottom: 10,
-                                    ),
-                                    tratamientoItemWidget().paddingOnly(
-                                      left: 15,
-                                      bottom: 10,
-                                    ),
-                                    tratamientoItemWidget().paddingOnly(
-                                      left: 15,
-                                      bottom: 10,
-                                    ),
-                                    tratamientoItemWidget().paddingOnly(
-                                      left: 15,
-                                      bottom: 10,
-                                    )
-                                  ],
-                                ).paddingTop(5),
+                                child: BlocBuilder<NotificationsBloc,
+                                    NotificationsState>(
+                                  builder: (context, state) {
+                                    return state.map(
+                                        initial: (_) => SpinKitThreeBounce(
+                                              size: 30,
+                                              itemBuilder:
+                                                  (BuildContext context,
+                                                      int index) {
+                                                return DecoratedBox(
+                                                  decoration: BoxDecoration(
+                                                    color: index.isEven
+                                                        ? AppColors.primaryColor
+                                                        : AppColors.mainColor,
+                                                  ),
+                                                );
+                                              },
+                                            ).paddingTop(10),
+                                        loadSuccess: (e) => Column(
+                                              children: List.generate(
+                                                e.items.length,
+                                                (index) =>
+                                                    tratamientoItemWidget(
+                                                  size,
+                                                  e.items[index]!,
+                                                ).paddingBottom(10),
+                                              ),
+                                            ).paddingOnly(top: 2, left: 8),
+                                        loadMessage: (_) => Container());
+                                  },
+                                ),
                               ),
                             ),
                           ],
@@ -188,21 +236,22 @@ class _ProfileHomeViewState extends State<ProfileHomeView> {
     });
   }
 
-  Row tratamientoItemWidget() {
+  Row tratamientoItemWidget(Size size, NotificationCollection item) {
     return Row(
       children: [
         const Icon(
-          MediIcons.user_md,
+          Icons.notifications_active,
           size: 30,
         ),
-        const Column(
+        Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Tratamiento para  gripe',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+              item.titleNotification,
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
             ),
-            Text('12:30 PM')
+            Text(DateFormat('HH:mm a')
+                .format(FuntionsApp().parseTime(DateTime.parse(item.hour))))
           ],
         ).paddingLeft(10)
       ],
@@ -228,7 +277,7 @@ class _ProfileHomeViewState extends State<ProfileHomeView> {
           Text(
             name,
             textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
           ),
           Text(
             value,

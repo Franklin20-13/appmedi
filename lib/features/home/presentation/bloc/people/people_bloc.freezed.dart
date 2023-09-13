@@ -19,21 +19,21 @@ mixin _$PeopleState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<PeopleEntity> people) loadSuccess,
+    required TResult Function(Dashboard dashboard) loadSuccess,
     required TResult Function(String message) loadMessage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(List<PeopleEntity> people)? loadSuccess,
+    TResult? Function(Dashboard dashboard)? loadSuccess,
     TResult? Function(String message)? loadMessage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<PeopleEntity> people)? loadSuccess,
+    TResult Function(Dashboard dashboard)? loadSuccess,
     TResult Function(String message)? loadMessage,
     required TResult orElse(),
   }) =>
@@ -118,7 +118,7 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<PeopleEntity> people) loadSuccess,
+    required TResult Function(Dashboard dashboard) loadSuccess,
     required TResult Function(String message) loadMessage,
   }) {
     return initial();
@@ -128,7 +128,7 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(List<PeopleEntity> people)? loadSuccess,
+    TResult? Function(Dashboard dashboard)? loadSuccess,
     TResult? Function(String message)? loadMessage,
   }) {
     return initial?.call();
@@ -138,7 +138,7 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<PeopleEntity> people)? loadSuccess,
+    TResult Function(Dashboard dashboard)? loadSuccess,
     TResult Function(String message)? loadMessage,
     required TResult orElse(),
   }) {
@@ -193,7 +193,7 @@ abstract class _$$_LoadSuccessCopyWith<$Res> {
           _$_LoadSuccess value, $Res Function(_$_LoadSuccess) then) =
       __$$_LoadSuccessCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<PeopleEntity> people});
+  $Res call({Dashboard dashboard});
 }
 
 /// @nodoc
@@ -207,13 +207,13 @@ class __$$_LoadSuccessCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? people = null,
+    Object? dashboard = null,
   }) {
     return _then(_$_LoadSuccess(
-      people: null == people
-          ? _value._people
-          : people // ignore: cast_nullable_to_non_nullable
-              as List<PeopleEntity>,
+      dashboard: null == dashboard
+          ? _value.dashboard
+          : dashboard // ignore: cast_nullable_to_non_nullable
+              as Dashboard,
     ));
   }
 }
@@ -221,20 +221,14 @@ class __$$_LoadSuccessCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_LoadSuccess implements _LoadSuccess {
-  const _$_LoadSuccess({required final List<PeopleEntity> people})
-      : _people = people;
+  const _$_LoadSuccess({required this.dashboard});
 
-  final List<PeopleEntity> _people;
   @override
-  List<PeopleEntity> get people {
-    if (_people is EqualUnmodifiableListView) return _people;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_people);
-  }
+  final Dashboard dashboard;
 
   @override
   String toString() {
-    return 'PeopleState.loadSuccess(people: $people)';
+    return 'PeopleState.loadSuccess(dashboard: $dashboard)';
   }
 
   @override
@@ -242,12 +236,12 @@ class _$_LoadSuccess implements _LoadSuccess {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_LoadSuccess &&
-            const DeepCollectionEquality().equals(other._people, _people));
+            (identical(other.dashboard, dashboard) ||
+                other.dashboard == dashboard));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_people));
+  int get hashCode => Object.hash(runtimeType, dashboard);
 
   @JsonKey(ignore: true)
   @override
@@ -259,32 +253,32 @@ class _$_LoadSuccess implements _LoadSuccess {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<PeopleEntity> people) loadSuccess,
+    required TResult Function(Dashboard dashboard) loadSuccess,
     required TResult Function(String message) loadMessage,
   }) {
-    return loadSuccess(people);
+    return loadSuccess(dashboard);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(List<PeopleEntity> people)? loadSuccess,
+    TResult? Function(Dashboard dashboard)? loadSuccess,
     TResult? Function(String message)? loadMessage,
   }) {
-    return loadSuccess?.call(people);
+    return loadSuccess?.call(dashboard);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<PeopleEntity> people)? loadSuccess,
+    TResult Function(Dashboard dashboard)? loadSuccess,
     TResult Function(String message)? loadMessage,
     required TResult orElse(),
   }) {
     if (loadSuccess != null) {
-      return loadSuccess(people);
+      return loadSuccess(dashboard);
     }
     return orElse();
   }
@@ -325,10 +319,10 @@ class _$_LoadSuccess implements _LoadSuccess {
 }
 
 abstract class _LoadSuccess implements PeopleState {
-  const factory _LoadSuccess({required final List<PeopleEntity> people}) =
+  const factory _LoadSuccess({required final Dashboard dashboard}) =
       _$_LoadSuccess;
 
-  List<PeopleEntity> get people;
+  Dashboard get dashboard;
   @JsonKey(ignore: true)
   _$$_LoadSuccessCopyWith<_$_LoadSuccess> get copyWith =>
       throw _privateConstructorUsedError;
@@ -399,7 +393,7 @@ class _$_LoadMessage implements _LoadMessage {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<PeopleEntity> people) loadSuccess,
+    required TResult Function(Dashboard dashboard) loadSuccess,
     required TResult Function(String message) loadMessage,
   }) {
     return loadMessage(message);
@@ -409,7 +403,7 @@ class _$_LoadMessage implements _LoadMessage {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(List<PeopleEntity> people)? loadSuccess,
+    TResult? Function(Dashboard dashboard)? loadSuccess,
     TResult? Function(String message)? loadMessage,
   }) {
     return loadMessage?.call(message);
@@ -419,7 +413,7 @@ class _$_LoadMessage implements _LoadMessage {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<PeopleEntity> people)? loadSuccess,
+    TResult Function(Dashboard dashboard)? loadSuccess,
     TResult Function(String message)? loadMessage,
     required TResult orElse(),
   }) {
@@ -477,43 +471,43 @@ abstract class _LoadMessage implements PeopleState {
 mixin _$PeopleEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getPeople,
-    required TResult Function(List<PeopleEntity> people) pushPeople,
+    required TResult Function() getDashboard,
+    required TResult Function(Dashboard dashboard) pushPeople,
     required TResult Function(String message) pushMessage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getPeople,
-    TResult? Function(List<PeopleEntity> people)? pushPeople,
+    TResult? Function()? getDashboard,
+    TResult? Function(Dashboard dashboard)? pushPeople,
     TResult? Function(String message)? pushMessage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getPeople,
-    TResult Function(List<PeopleEntity> people)? pushPeople,
+    TResult Function()? getDashboard,
+    TResult Function(Dashboard dashboard)? pushPeople,
     TResult Function(String message)? pushMessage,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_PeopleEvent value) getPeople,
+    required TResult Function(_PeopleEvent value) getDashboard,
     required TResult Function(_PushPeople value) pushPeople,
     required TResult Function(_PushMessage value) pushMessage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_PeopleEvent value)? getPeople,
+    TResult? Function(_PeopleEvent value)? getDashboard,
     TResult? Function(_PushPeople value)? pushPeople,
     TResult? Function(_PushMessage value)? pushMessage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_PeopleEvent value)? getPeople,
+    TResult Function(_PeopleEvent value)? getDashboard,
     TResult Function(_PushPeople value)? pushPeople,
     TResult Function(_PushMessage value)? pushMessage,
     required TResult orElse(),
@@ -562,7 +556,7 @@ class _$_PeopleEvent implements _PeopleEvent {
 
   @override
   String toString() {
-    return 'PeopleEvent.getPeople()';
+    return 'PeopleEvent.getDashboard()';
   }
 
   @override
@@ -577,33 +571,33 @@ class _$_PeopleEvent implements _PeopleEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getPeople,
-    required TResult Function(List<PeopleEntity> people) pushPeople,
+    required TResult Function() getDashboard,
+    required TResult Function(Dashboard dashboard) pushPeople,
     required TResult Function(String message) pushMessage,
   }) {
-    return getPeople();
+    return getDashboard();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getPeople,
-    TResult? Function(List<PeopleEntity> people)? pushPeople,
+    TResult? Function()? getDashboard,
+    TResult? Function(Dashboard dashboard)? pushPeople,
     TResult? Function(String message)? pushMessage,
   }) {
-    return getPeople?.call();
+    return getDashboard?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getPeople,
-    TResult Function(List<PeopleEntity> people)? pushPeople,
+    TResult Function()? getDashboard,
+    TResult Function(Dashboard dashboard)? pushPeople,
     TResult Function(String message)? pushMessage,
     required TResult orElse(),
   }) {
-    if (getPeople != null) {
-      return getPeople();
+    if (getDashboard != null) {
+      return getDashboard();
     }
     return orElse();
   }
@@ -611,33 +605,33 @@ class _$_PeopleEvent implements _PeopleEvent {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_PeopleEvent value) getPeople,
+    required TResult Function(_PeopleEvent value) getDashboard,
     required TResult Function(_PushPeople value) pushPeople,
     required TResult Function(_PushMessage value) pushMessage,
   }) {
-    return getPeople(this);
+    return getDashboard(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_PeopleEvent value)? getPeople,
+    TResult? Function(_PeopleEvent value)? getDashboard,
     TResult? Function(_PushPeople value)? pushPeople,
     TResult? Function(_PushMessage value)? pushMessage,
   }) {
-    return getPeople?.call(this);
+    return getDashboard?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_PeopleEvent value)? getPeople,
+    TResult Function(_PeopleEvent value)? getDashboard,
     TResult Function(_PushPeople value)? pushPeople,
     TResult Function(_PushMessage value)? pushMessage,
     required TResult orElse(),
   }) {
-    if (getPeople != null) {
-      return getPeople(this);
+    if (getDashboard != null) {
+      return getDashboard(this);
     }
     return orElse();
   }
@@ -653,7 +647,7 @@ abstract class _$$_PushPeopleCopyWith<$Res> {
           _$_PushPeople value, $Res Function(_$_PushPeople) then) =
       __$$_PushPeopleCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<PeopleEntity> people});
+  $Res call({Dashboard dashboard});
 }
 
 /// @nodoc
@@ -667,13 +661,13 @@ class __$$_PushPeopleCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? people = null,
+    Object? dashboard = null,
   }) {
     return _then(_$_PushPeople(
-      people: null == people
-          ? _value._people
-          : people // ignore: cast_nullable_to_non_nullable
-              as List<PeopleEntity>,
+      dashboard: null == dashboard
+          ? _value.dashboard
+          : dashboard // ignore: cast_nullable_to_non_nullable
+              as Dashboard,
     ));
   }
 }
@@ -681,20 +675,14 @@ class __$$_PushPeopleCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_PushPeople implements _PushPeople {
-  const _$_PushPeople({required final List<PeopleEntity> people})
-      : _people = people;
+  const _$_PushPeople({required this.dashboard});
 
-  final List<PeopleEntity> _people;
   @override
-  List<PeopleEntity> get people {
-    if (_people is EqualUnmodifiableListView) return _people;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_people);
-  }
+  final Dashboard dashboard;
 
   @override
   String toString() {
-    return 'PeopleEvent.pushPeople(people: $people)';
+    return 'PeopleEvent.pushPeople(dashboard: $dashboard)';
   }
 
   @override
@@ -702,12 +690,12 @@ class _$_PushPeople implements _PushPeople {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_PushPeople &&
-            const DeepCollectionEquality().equals(other._people, _people));
+            (identical(other.dashboard, dashboard) ||
+                other.dashboard == dashboard));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_people));
+  int get hashCode => Object.hash(runtimeType, dashboard);
 
   @JsonKey(ignore: true)
   @override
@@ -718,33 +706,33 @@ class _$_PushPeople implements _PushPeople {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getPeople,
-    required TResult Function(List<PeopleEntity> people) pushPeople,
+    required TResult Function() getDashboard,
+    required TResult Function(Dashboard dashboard) pushPeople,
     required TResult Function(String message) pushMessage,
   }) {
-    return pushPeople(people);
+    return pushPeople(dashboard);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getPeople,
-    TResult? Function(List<PeopleEntity> people)? pushPeople,
+    TResult? Function()? getDashboard,
+    TResult? Function(Dashboard dashboard)? pushPeople,
     TResult? Function(String message)? pushMessage,
   }) {
-    return pushPeople?.call(people);
+    return pushPeople?.call(dashboard);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getPeople,
-    TResult Function(List<PeopleEntity> people)? pushPeople,
+    TResult Function()? getDashboard,
+    TResult Function(Dashboard dashboard)? pushPeople,
     TResult Function(String message)? pushMessage,
     required TResult orElse(),
   }) {
     if (pushPeople != null) {
-      return pushPeople(people);
+      return pushPeople(dashboard);
     }
     return orElse();
   }
@@ -752,7 +740,7 @@ class _$_PushPeople implements _PushPeople {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_PeopleEvent value) getPeople,
+    required TResult Function(_PeopleEvent value) getDashboard,
     required TResult Function(_PushPeople value) pushPeople,
     required TResult Function(_PushMessage value) pushMessage,
   }) {
@@ -762,7 +750,7 @@ class _$_PushPeople implements _PushPeople {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_PeopleEvent value)? getPeople,
+    TResult? Function(_PeopleEvent value)? getDashboard,
     TResult? Function(_PushPeople value)? pushPeople,
     TResult? Function(_PushMessage value)? pushMessage,
   }) {
@@ -772,7 +760,7 @@ class _$_PushPeople implements _PushPeople {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_PeopleEvent value)? getPeople,
+    TResult Function(_PeopleEvent value)? getDashboard,
     TResult Function(_PushPeople value)? pushPeople,
     TResult Function(_PushMessage value)? pushMessage,
     required TResult orElse(),
@@ -785,10 +773,10 @@ class _$_PushPeople implements _PushPeople {
 }
 
 abstract class _PushPeople implements PeopleEvent {
-  const factory _PushPeople({required final List<PeopleEntity> people}) =
+  const factory _PushPeople({required final Dashboard dashboard}) =
       _$_PushPeople;
 
-  List<PeopleEntity> get people;
+  Dashboard get dashboard;
   @JsonKey(ignore: true)
   _$$_PushPeopleCopyWith<_$_PushPeople> get copyWith =>
       throw _privateConstructorUsedError;
@@ -858,8 +846,8 @@ class _$_PushMessage implements _PushMessage {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getPeople,
-    required TResult Function(List<PeopleEntity> people) pushPeople,
+    required TResult Function() getDashboard,
+    required TResult Function(Dashboard dashboard) pushPeople,
     required TResult Function(String message) pushMessage,
   }) {
     return pushMessage(message);
@@ -868,8 +856,8 @@ class _$_PushMessage implements _PushMessage {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getPeople,
-    TResult? Function(List<PeopleEntity> people)? pushPeople,
+    TResult? Function()? getDashboard,
+    TResult? Function(Dashboard dashboard)? pushPeople,
     TResult? Function(String message)? pushMessage,
   }) {
     return pushMessage?.call(message);
@@ -878,8 +866,8 @@ class _$_PushMessage implements _PushMessage {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getPeople,
-    TResult Function(List<PeopleEntity> people)? pushPeople,
+    TResult Function()? getDashboard,
+    TResult Function(Dashboard dashboard)? pushPeople,
     TResult Function(String message)? pushMessage,
     required TResult orElse(),
   }) {
@@ -892,7 +880,7 @@ class _$_PushMessage implements _PushMessage {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_PeopleEvent value) getPeople,
+    required TResult Function(_PeopleEvent value) getDashboard,
     required TResult Function(_PushPeople value) pushPeople,
     required TResult Function(_PushMessage value) pushMessage,
   }) {
@@ -902,7 +890,7 @@ class _$_PushMessage implements _PushMessage {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_PeopleEvent value)? getPeople,
+    TResult? Function(_PeopleEvent value)? getDashboard,
     TResult? Function(_PushPeople value)? pushPeople,
     TResult? Function(_PushMessage value)? pushMessage,
   }) {
@@ -912,7 +900,7 @@ class _$_PushMessage implements _PushMessage {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_PeopleEvent value)? getPeople,
+    TResult Function(_PeopleEvent value)? getDashboard,
     TResult Function(_PushPeople value)? pushPeople,
     TResult Function(_PushMessage value)? pushMessage,
     required TResult orElse(),
