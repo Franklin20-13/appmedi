@@ -30,6 +30,12 @@ class _LoginViewState extends State<LoginView> {
     super.initState();
   }
 
+  clearForm() {
+    _userController = TextEditingController(text: '');
+    _passwordController = TextEditingController(text: '');
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -42,13 +48,14 @@ class _LoginViewState extends State<LoginView> {
           }
           if (state is Successfully) {
             BlocProvider.of<SessionBloc>(context).add(LoggedIn(state.user));
+            clearForm();
           }
         })
       ],
       child: BlocBuilder<SessionBloc, SessionState>(
         builder: (context, state) {
           if (state is Authenticated) {
-            return  HomeView(user:state.user);
+            return HomeView(user: state.user);
           }
           if (state is Unauthenticated) {
             return loginViewWidget(size, context);

@@ -293,8 +293,8 @@ class UserRepository implements ITreatment {
       var currentThoma = (medicineItem.data()
           as Map<String, dynamic>)[TreatmentFields.completed] as int;
       var currentHourCompletd = (medicineItem.data()
-          as Map<String, dynamic>)[TreatmentFields.hourCompleted] as String;
-
+          as Map<String, dynamic>)[TreatmentFields.hourCompleted] as String?;
+      currentHourCompletd=currentHourCompletd??"";
       currentHourCompletd = "$currentHourCompletd${item.hour};";
       currentThoma++;
       await treatmentFirestore

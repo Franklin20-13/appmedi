@@ -239,8 +239,10 @@ class _ProfileHomeViewState extends State<ProfileHomeView> {
   Row tratamientoItemWidget(Size size, NotificationCollection item) {
     return Row(
       children: [
-        const Icon(
-          Icons.notifications_active,
+        Icon(
+          item.notifyCompleted > 0
+              ? Icons.notifications_off
+              : Icons.notifications_active,
           size: 30,
         ),
         Column(
@@ -253,7 +255,12 @@ class _ProfileHomeViewState extends State<ProfileHomeView> {
             Text(DateFormat('HH:mm a')
                 .format(FuntionsApp().parseTime(DateTime.parse(item.hour))))
           ],
-        ).paddingLeft(10)
+        ).paddingLeft(10),
+        if (item.tomado)
+          const Icon(
+            Icons.check,
+            size: 30,
+          ).paddingLeft(10),
       ],
     );
   }
