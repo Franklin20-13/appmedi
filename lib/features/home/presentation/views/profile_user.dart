@@ -77,7 +77,7 @@ class _ProfileHomeViewState extends State<ProfileHomeView> {
                     children: [
                       const Center(
                         child: Text(
-                          'Mi Pefil',
+                          'Mi Perfil',
                           style: TextStyle(
                             fontSize: 28,
                             fontWeight: FontWeight.bold,
@@ -118,7 +118,7 @@ class _ProfileHomeViewState extends State<ProfileHomeView> {
                                     scrollDirection: Axis.horizontal,
                                     children: [
                                       cardTratamientoWidget(
-                                              'Tratamientos pedientes de revición',
+                                              'Tratamientos pendientes de revisión',
                                               e.dashboard.treatmentC.toString())
                                           .paddingRight(10),
                                       cardTratamientoWidget(
@@ -126,7 +126,7 @@ class _ProfileHomeViewState extends State<ProfileHomeView> {
                                               e.dashboard.treatmentP.toString())
                                           .paddingRight(10),
                                       cardTratamientoWidget(
-                                          'Tratamiendos Supervisados',
+                                          'Tratamientos Supervisados',
                                           e.dashboard.treatmentS.toString()),
                                     ],
                                   );

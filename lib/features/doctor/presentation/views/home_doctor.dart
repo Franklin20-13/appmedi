@@ -24,7 +24,7 @@ class _HomeDoctorState extends State<HomeDoctor>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   static List<OptionTabs> myTabs = <OptionTabs>[
-    OptionTabs(title: 'Recetas Pedientes', data: 0),
+    OptionTabs(title: 'Recetas Pendientes', data: 0),
     OptionTabs(title: 'Recetas Revisadas', data: 1),
   ];
   late RecipesBloc recipesBloc;

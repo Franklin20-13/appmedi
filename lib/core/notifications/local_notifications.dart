@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -32,7 +34,20 @@ class LocalNotifications {
         .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin>()
         ?.createNotificationChannel(channel);
-    await requestPermissions();
+    await _requestPermissions();
+  }
+
+  @pragma('vm:entry-point')
+  Future<void> notificationTapBackground(NotificationResponse? notificationResponse)async {
+    // ignore: avoid_print
+    print('notification(${notificationResponse!.id}) action tapped: '
+        '${notificationResponse.actionId} with'
+        ' payload: ${notificationResponse.payload}');
+    if (notificationResponse.input?.isNotEmpty ?? false) {
+      // ignore: avoid_print
+      print(
+          'notification action tapped with input: ${notificationResponse.input}');
+    }
   }
 
   Future onDidReceiveLocalNotification(
@@ -40,13 +55,17 @@ class LocalNotifications {
     // display a dialog with the notification details, tap ok to go to another page
   }
 
-  Future onSelectNotification(NotificationResponse? payload) async {}
-  Future<void> requestPermissions() async {
-    final permissions = await Permission.notification.request();
-    if (permissions.isGranted) {
-      // Permiso concedido, puedes utilizar notificaciones locales.
-    } else {
-      // Permiso no concedido, debes manejarlo adecuadamente.
+  Future onSelectNotification(NotificationResponse? payload) async {
+    print(payload!.id);
+  }
+
+  Future<void> _requestPermissions() async {
+    if (Platform.isAndroid) {
+      final AndroidFlutterLocalNotificationsPlugin? androidImplementation =
+          flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<
+              AndroidFlutterLocalNotificationsPlugin>();
+
+      await androidImplementation?.requestPermission();
     }
   }
 
@@ -57,14 +76,26 @@ class LocalNotifications {
       String payload = ''}) async {
     AndroidNotificationDetails androidNotificationDetails =
         AndroidNotificationDetails(channel.id, channel.name,
+            enableVibration: false,
             channelDescription: channel.description,
-            importance: Importance.max,
+            importance: Importance.high,
             priority: Priority.high,
-            ticker: 'ticker');
+            ticker: 'Nuevo mensaje',
+            fullScreenIntent: true,
+            actions: [
+          const AndroidNotificationAction(
+            'custom_button',
+            'Tomado',
+          ),
+        ]);
     NotificationDetails notificationDetails =
         NotificationDetails(android: androidNotificationDetails);
     await flutterLocalNotificationsPlugin.show(
-        idNotification, title, body, notificationDetails,
-        payload: payload);
+      idNotification,
+      title,
+      body,
+      notificationDetails,
+      payload: payload,
+    );
   }
 }

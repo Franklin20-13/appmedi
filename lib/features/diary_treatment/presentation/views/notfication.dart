@@ -176,33 +176,35 @@ class _NotificationViewState extends State<NotificationView> {
                   ),
           ),
           Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  FuntionsApp().primeraLetraMayuscula(item.titleNotification),
-                  style: GoogleFonts.montserrat(
-                      fontSize: 19, fontWeight: FontWeight.bold),
-                ).paddingOnly(right: 5),
-                Text(FuntionsApp().primeraLetraMayuscula(item.description))
-                    .paddingOnly(right: 5),
-                SizedBox(
-                  width: 100,
-                  child: Chip(
-                    label: Text(
-                      DateFormat('HH:mm a').format(
-                          FuntionsApp().parseTime(DateTime.parse(item.hour))),
-                      style: const TextStyle(
-                        color: Colors.white,
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    FuntionsApp().primeraLetraMayuscula(item.titleNotification),
+                    style: GoogleFonts.montserrat(
+                        fontSize: 19, fontWeight: FontWeight.bold),
+                  ).paddingOnly(right: 5),
+                  Text(FuntionsApp().primeraLetraMayuscula(item.description))
+                      .paddingOnly(right: 5),
+                  SizedBox(
+                    width: 100,
+                    child: Chip(
+                      label: Text(
+                        DateFormat('HH:mm a').format(
+                            FuntionsApp().parseTime(DateTime.parse(item.hour))),
+                        style: const TextStyle(
+                          color: Colors.white,
+                        ),
                       ),
+                      backgroundColor:
+                          item.tomado ? Colors.green : AppColors.primaryColor,
                     ),
-                    backgroundColor:
-                        item.tomado ? Colors.green : AppColors.primaryColor,
-                  ),
-                )
-              ],
-            ).paddingLeft(10),
+                  )
+                ],
+              ).paddingLeft(10),
+            ),
           ),
           if (item.notifyCompleted == item.quantity && !item.tomado)
             InkWell(

@@ -247,7 +247,7 @@ class _RecipeDetailWidgetState extends State<RecipeDetailWidget> {
                         if (e.items.isNotEmpty) {
                           return widget.recipe.doctorRef == null
                               ? buttonWidgetApp(
-                                  label: 'Enviar recera Medica',
+                                  label: 'Enviar reporte',
                                   height: 50,
                                   width: 250,
                                   fontSize: 20,

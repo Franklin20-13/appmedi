@@ -138,7 +138,7 @@ class _LoginViewState extends State<LoginView> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Text(
-                          "¿Aun no estas registrado?",
+                          "¿Aún no estás registrado?",
                           style: TextStyle(
                             fontSize: 17,
                             fontWeight: FontWeight.bold,
@@ -150,7 +150,7 @@ class _LoginViewState extends State<LoginView> {
                               context.router.push(const RegisterView());
                             },
                             child: const Text(
-                              "Registrate",
+                              "Regístrate",
                               style: TextStyle(
                                 fontSize: 17,
                                 fontWeight: FontWeight.bold,
