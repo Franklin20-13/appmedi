@@ -11,7 +11,7 @@ List<Month> months = [
   Month(id: 4, name: 'Abril'),
   Month(id: 5, name: 'Mayo'),
   Month(id: 6, name: 'Junio'),
-  Month(id: 7, name: 'Jilio'),
+  Month(id: 7, name: 'Julio'),
   Month(id: 8, name: 'Agosto'),
   Month(id: 9, name: 'Septiembre'),
   Month(id: 10, name: 'Octubre'),

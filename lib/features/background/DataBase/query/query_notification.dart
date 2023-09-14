@@ -6,6 +6,7 @@ import '../helpers/isar_database_helper.dart';
 
 @injectable
 class QueryNotification extends IsarDataBaseHelper {
+  
   Future<void> save(NotificationCollection notificationCollection) async {
     final isar = await db;
     isar.writeTxnSync<int>(

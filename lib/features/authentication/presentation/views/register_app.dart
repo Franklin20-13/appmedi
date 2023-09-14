@@ -86,7 +86,7 @@ class _RegisterViewState extends State<RegisterView> {
                     ).paddingLeft(25),
                   ),
                   const Text(
-                    'Registrate',
+                    'Regístrate',
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 45,
@@ -138,7 +138,7 @@ class _RegisterViewState extends State<RegisterView> {
                                     label: 'Apellidos',
                                     icon: Icons.keyboard,
                                     controller: _lastNameController,
-                                    hintText: 'Ingrese Appllidos',
+                                    hintText: 'Ingrese Apellidos',
                                     isRequired: true)
                                 .paddingTop(7),
                             inputWidgetCard(
@@ -160,12 +160,12 @@ class _RegisterViewState extends State<RegisterView> {
                                     label: 'Confirmar Contraseña',
                                     icon: Icons.key_rounded,
                                     controller: _comfirmPasswordController,
-                                    hintText: 'Repita la contraseña',
+                                    hintText: 'Repetir Contraseña',
                                     obscureText: true,
                                     isRequired: true)
                                 .paddingTop(7),
                             buttonWidgetApp(
-                              label: 'Guardar',
+                              label: 'Registrar',
                               height: 50,
                               fontSize: 20,
                               onTap: registerUser,

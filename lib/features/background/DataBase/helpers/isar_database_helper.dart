@@ -1,6 +1,7 @@
 
 
 import 'package:app_medi/features/background/DataBase/collectons/notification_collection.dart';
+import 'package:app_medi/features/background/DataBase/collectons/user_collection.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -16,7 +17,8 @@ class IsarDataBaseHelper {
     if (Isar.instanceNames.isEmpty) {
       return await Isar.open(
         [
-          NotificationCollectionSchema
+          NotificationCollectionSchema,
+          UserCollectionSchema
         ],
         inspector: true,
         directory: dir.path,

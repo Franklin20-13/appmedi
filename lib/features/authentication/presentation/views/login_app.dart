@@ -41,12 +41,15 @@ class _LoginViewState extends State<LoginView> {
     final size = MediaQuery.of(context).size;
     return MultiBlocListener(
       listeners: [
-        BlocListener<LoginBloc, LoginState>(listener: (context, state) {
-          if (state is LoggedIn) {}
+        BlocListener<LoginBloc, LoginState>(listener: (context, state) async {
+          if (state is LoggedOut) {
+          }
           if (state is LoginFail) {
+            // ignore: use_build_context_synchronously
             showInSnackBar(context, state.error, color: Colors.red);
           }
           if (state is Successfully) {
+            // ignore: use_build_context_synchronously
             BlocProvider.of<SessionBloc>(context).add(LoggedIn(state.user));
             clearForm();
           }

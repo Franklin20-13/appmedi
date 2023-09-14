@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:app_medi/core/errors/failure.dart';
 import 'package:app_medi/features/authentication/domain/entities/person.dart';
 import 'package:app_medi/features/authentication/domain/interfaces/i_session.dart';
+import 'package:app_medi/features/background/services/service_isar.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -11,11 +12,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SessionRepositoryImpl implements ISession {
   static const firstLoad = "SESSION_APP";
   final SharedPreferences _preferences;
+  final ServiceIsar _serviceIsar = ServiceIsar();
   SessionRepositoryImpl(this._preferences);
   @override
   Future<Either<Failure, PersonEntity?>> logginIn(PersonEntity user) async {
     try {
       final dat = json.encode(mapPersonLocale(user));
+      await _serviceIsar.saveUser(dat);
       _preferences.setString(firstLoad, dat);
       final userEntity = _preferences.get(firstLoad) as String;
       final userEntityModel = parseUser(userEntity);

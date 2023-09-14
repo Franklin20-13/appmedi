@@ -1,15 +1,28 @@
+import 'package:app_medi/features/background/DataBase/collectons/user_collection.dart';
 import 'package:app_medi/features/background/DataBase/query/query_notification.dart';
 import 'package:app_medi/features/background/services/parse_collections.dart';
 import 'package:app_medi/shared/values/functions.dart';
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
-
 import '../../diary_treatment/domain/models/recipe_detail_models.dart';
 import '../DataBase/collectons/notification_collection.dart';
 
 @lazySingleton
 class ServiceIsar extends ParseCollections {
   final QueryNotification queryNotification = QueryNotification();
+
+  Future<void> saveUser(String jsonString) async {
+    final exist = await userQuery.getUser('SESSION_APP');
+    if (exist != null) {
+      exist.value = jsonString;
+      await userQuery.save(exist);
+      return;
+    }
+    var model = UserCollection();
+    model.key = "SESSION_APP";
+    model.value = jsonString;
+    await userQuery.save(model);
+  }
 
   Future<List<NotificationCollection?>> getNotifications(String user) {
     return queryNotification.getNotifications(user);
@@ -28,10 +41,14 @@ class ServiceIsar extends ParseCollections {
     return list;
   }
 
-  Future<List<NotificationCollection?>> getNotificationsAlarms(
-      String user) async {
+  Future<List<NotificationCollection?>> getNotificationsAlarms() async {
     List<NotificationCollection?> list = [];
-    final results = await queryNotification.getNotifications(user);
+    final user = await getUserSesion();
+    if (user == null) {
+      return list;
+    }
+    final results =
+        await queryNotification.getNotifications(user.user!.userName);
     final now = FuntionsApp().parseTimeAlarm(DateTime.now(), DateTime.now());
     final list1 = results
         .where((p) => DateTime.parse(p!.hour).compareTo(now) == 0)
@@ -42,10 +59,14 @@ class ServiceIsar extends ParseCollections {
     return list;
   }
 
-  Future<List<NotificationCollection?>> getNotificationsAlarmsTwo(
-      String user) async {
+  Future<List<NotificationCollection?>> getNotificationsAlarmsTwo() async {
     List<NotificationCollection?> list = [];
-    final results = await queryNotification.getNotifications(user);
+    final user = await getUserSesion();
+    if (user == null) {
+      return list;
+    }
+    final results =
+        await queryNotification.getNotifications(user.user!.userName);
     final now = FuntionsApp().parseTimeAlarm(DateTime.now(), DateTime.now());
     final list1 =
         results.where((p) => now.isAfter(DateTime.parse(p!.hour))).toList();

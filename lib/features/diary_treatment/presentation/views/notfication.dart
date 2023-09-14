@@ -1,6 +1,7 @@
 import 'package:app_medi/features/background/DataBase/collectons/notification_collection.dart';
 import 'package:app_medi/features/diary_treatment/presentation/bloc/notifications/notifications_bloc.dart';
 import 'package:app_medi/features/diary_treatment/presentation/bloc/treatament/treatament_bloc.dart';
+import 'package:app_medi/shared/models/calendar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -45,7 +46,8 @@ class _NotificationViewState extends State<NotificationView> {
           if (state is LoadSuccessTreatment) {
             progressDialog.dismiss();
             showInSnackBar(context, state.message);
-            notificationsBloc.add(const NotificationsEvent.getNotifications(false));
+            notificationsBloc
+                .add(const NotificationsEvent.getNotifications(false));
           }
         })
       ],
@@ -142,7 +144,7 @@ class _NotificationViewState extends State<NotificationView> {
 
   Widget itemsNotification(Size size, NotificationCollection item) {
     return Container(
-      height: 120,
+      height: 150,
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(20)),
@@ -201,7 +203,10 @@ class _NotificationViewState extends State<NotificationView> {
                       backgroundColor:
                           item.tomado ? Colors.green : AppColors.primaryColor,
                     ),
-                  )
+                  ),
+                  Text("${FuntionsApp().primeraLetraMayuscula(DateFormat.EEEE("es").format(DateTime.parse(item.hour)))}, ${DateTime.parse(item.hour).day} de ${getMonth(DateTime.parse(item.hour).month).name} de ${DateTime.parse(item.hour).year}")
+                      .paddingOnly(right: 5),
+                  
                 ],
               ).paddingLeft(10),
             ),
@@ -248,5 +253,9 @@ class _NotificationViewState extends State<NotificationView> {
         ],
       ),
     );
+  }
+
+  Month getMonth(int month) {
+    return months.where((e) => e.id == month).first;
   }
 }
