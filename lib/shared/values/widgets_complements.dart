@@ -190,7 +190,7 @@ Widget textInput(
             return 'Campo requerido';
           }
         } else {
-          if (value != null && value.trim().length < 3) {
+          if (value != null && value.trim().length < 2) {
             return 'Campo requerido';
           }
         }

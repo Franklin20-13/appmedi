@@ -94,39 +94,46 @@ class _ProfileHomeViewState extends State<ProfileHomeView> {
                               color: AppColors.primaryColor),
                         ),
                       ).paddingTop(10),
-                      BlocBuilder<PeopleBloc, PeopleState>(
-                        builder: (context, state) {
-                          return state.map(
-                              initial: (_) => SpinKitThreeBounce(
-                                    size: 30,
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
-                                      return DecoratedBox(
-                                        decoration: BoxDecoration(
-                                          color: index.isEven
-                                              ? AppColors.primaryColor
-                                              : AppColors.mainColor,
-                                        ),
-                                      );
-                                    },
-                                  ).paddingTop(10),
-                              loadSuccess: (e) => Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                      SizedBox(
+                        width: double.infinity,
+                        height: 300,
+                        child: BlocBuilder<PeopleBloc, PeopleState>(
+                          builder: (context, state) {
+                            return state.map(
+                                initial: (_) => SpinKitThreeBounce(
+                                      size: 30,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        return DecoratedBox(
+                                          decoration: BoxDecoration(
+                                            color: index.isEven
+                                                ? AppColors.primaryColor
+                                                : AppColors.mainColor,
+                                          ),
+                                        );
+                                      },
+                                    ).paddingTop(10),
+                                loadSuccess: (e) {
+                                  return ListView(
+                                    scrollDirection: Axis.horizontal,
                                     children: [
                                       cardTratamientoWidget(
-                                          'Tratamientos pedientes de revición',
-                                          e.dashboard.treatmentC.toString()),
+                                              'Tratamientos pedientes de revición',
+                                              e.dashboard.treatmentC.toString())
+                                          .paddingRight(10),
                                       cardTratamientoWidget(
-                                          'Tratamientos En Proceso',
-                                          e.dashboard.treatmentP.toString()),
+                                              'Tratamientos En Proceso',
+                                              e.dashboard.treatmentP.toString())
+                                          .paddingRight(10),
                                       cardTratamientoWidget(
                                           'Tratamiendos Supervisados',
                                           e.dashboard.treatmentS.toString()),
                                     ],
-                                  ).paddingTop(15),
-                              loadMessage: (_) => Container());
-                        },
+                                  );
+                                },
+                                loadMessage: (_) => Container());
+                          },
+                        ),
                       ),
                       const Center(
                         child: Text(
@@ -267,8 +274,8 @@ class _ProfileHomeViewState extends State<ProfileHomeView> {
 
   Container cardTratamientoWidget(String name, String value) {
     return Container(
-      width: 120,
-      height: 170,
+      width: 130,
+      height: 140,
       decoration: BoxDecoration(
         border: Border.all(
           color: Colors.black,
